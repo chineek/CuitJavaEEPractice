@@ -7,4 +7,4 @@
 
 ## 启动方法
   为项目配置tomcat后，运行项目。  
-  在浏览器中输入：http://localhost:8080/CuitJavaEEPractice 访问项目首页。
+  在浏览器中输入：http://localhost:8080/CuitJEE 访问项目首页。
