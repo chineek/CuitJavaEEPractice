@@ -49,7 +49,7 @@
 
 ### 3、Dao层编写指南  
 **3.1、Mapper文件不需要手动编写**  
-&emsp;&emsp;mapper.xml、mapper、entity都已经通过Maven工具Mybatis Generator自动生成， 如果无特殊需要，无需再手动编写。
+&emsp;&emsp;mapper.xml、mapper、entity都已经通过Maven工具Mybatis Generator自动生成， 如果无特殊需要，无须再手动编写。
 
 
 ### 4、VO层编写指南
