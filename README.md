@@ -1,5 +1,5 @@
-# JavaEEPractice
-JAVAEE实训课程项目工程文件
+# CuitJavaEEPractice
+**JAVAEE实训课程项目工程文件**
 
 ## 技术选型
 **开发技术**：JSP, Servlet, JDBC  
