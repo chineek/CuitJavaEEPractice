@@ -20,8 +20,8 @@
   
 &emsp;&emsp;项目使用Example类进行数据库交互，在Service层直接调用Example类即可，具体查询数据的样例代码如下：
   
-> @Service  
 > // 这是一个Demo样例的服务层实现  
+> @Service  
 > public class DemoServiceImpl implements DemoService {  
 > 　//自动注入userMapper
 > 　@Autowired  
