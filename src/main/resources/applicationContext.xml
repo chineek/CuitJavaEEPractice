@@ -82,8 +82,8 @@
         <bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor" />
     </mvc:interceptors>
     <!-- 定义无Controller的path<->view直接映射 -->
-     <mvc:view-controller path="/" view-name="redirect:/" />
-     配置会话工厂SqlSessionFactory
+    <!-- <mvc:view-controller path="/" view-name="redirect:/" /> -->
+    <!-- 配置会话工厂SqlSessionFactory -->
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <!-- 数据源 -->
         <property name="dataSource" ref="dataSource"/>
