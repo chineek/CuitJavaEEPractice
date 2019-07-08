@@ -12,15 +12,10 @@
 
 ## 使用指南
 
-### 1、Controller层编写指南
+### 1、Controller层编写指南  
 
-### 2、Service层编写指南
-
-### 3、Dao层编写指南
-**3.1、Mapper文件不需要手动编写**  
-&emsp;&emsp;mapper.xml、mapper、entity都已经通过Maven工具Mybatis Generator自动生成， 如果无特殊需要，无需再手动编写。
-
-**3.2、使用Example进行数据库存取操作（比SQL语句好用）**  
+### 2、Service层编写指南  
+**2.1、使用Example进行数据库存取操作**  
 &emsp;&emsp;项目使用Example类进行数据库交互，在Service层直接调用Example类即可，具体查询数据的样例代码如下：
 > @Service  
 > // 这是一个Demo样例的服务层实现  
@@ -42,11 +37,16 @@
 > 　　criteria.andUsernameLike("%a%");   
 > 　　// 这句话等同于 ORDER BY username ASC   
 > 　　example.setOrderByClause("username asc");  
-> 　　// 这句话等同于 ORDER BY username ASC  
+> 　　// 执行select查询，参数就是example  
 > 　　users = userMapper.selectByExample(example);  
+> 　　// 返回查询结果给controller  
 > 　　return users;  
 > 　}  
 > }  
+
+### 3、Dao层编写指南  
+**3.1、Mapper文件不需要手动编写**  
+&emsp;&emsp;mapper.xml、mapper、entity都已经通过Maven工具Mybatis Generator自动生成， 如果无特殊需要，无需再手动编写。
 
 
 ### 4、VO层编写指南
