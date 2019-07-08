@@ -18,8 +18,35 @@
 
 ### 3、Dao层编写指南
 **3.1、Mapper文件不需要手动编写**  
-mapper.xml、mapper、entity都已经通过Mybatis Maven工具自动生成，**不需要再手动编写**。
+&emsp;&emsp;mapper.xml、mapper、entity都已经通过Maven工具Mybatis Generator自动生成， 如果无特殊需要，无需再手动编写。
 
-**3.2、使用Example进行数据库存取操作**  
+**3.2、使用Example进行数据库存取操作（比SQL语句好用）**  
+&emsp;&emsp;项目使用Example类进行数据库交互，在Service层直接调用Example类即可，具体查询数据的样例代码如下：
+> @Service  
+> // 这是一个Demo样例的服务层实现  
+> public class DemoServiceImpl implements DemoService {  
+>   //自动注入userMapper
+> 	@Autowired  
+> 	private UserMapper userMapper;  
+>  
+>   // 根据Example查询用户  
+>	@Override  
+> 	public List<User> getUsersByExample() {  
+>      // 首先申明一个users对象用于接收查询结果（用户列表）  
+> 		List<User> users = null;  
+>      // 新建用户样例  
+> 		UserExample example = new UserExample();  
+>      // 获取一个criteria对象，criteria对象用于设置查询条件  
+> 		Criteria criteria = example.createCriteria();  
+>      // 这句话等同于 WHERE username LIKE '%a%'  
+> 		criteria.andUsernameLike("%a%");   
+>      // 这句话等同于 ORDER BY username ASC   
+> 		example.setOrderByClause("username asc");  
+>      // 这句话等同于 ORDER BY username ASC  
+> 		users = userMapper.selectByExample(example);  
+> 		return users;  
+> 	}  
+> }  
+
 
 ### 4、VO层编写指南
