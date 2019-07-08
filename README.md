@@ -17,8 +17,9 @@
 ### 2、Service层编写指南
 
 ### 3、Dao层编写指南
-#### (1)Mapper文件不需要手动编写
-mapper.xml、mapper、entity都已经通过Mybatis Maven工具自动生成，**不需要再手动编写**。
-#### (2)使用Example进行数据库操作
+    #### (1)Mapper文件不需要手动编写
+        mapper.xml、mapper、entity都已经通过Mybatis Maven工具自动生成，**不需要再手动编写**。
+        
+    #### (2)使用Example进行数据库存取操作
 
 ### 4、VO层编写指南
