@@ -15,8 +15,11 @@
 ### 1、Controller层编写指南  
 
 ### 2、Service层编写指南  
+  
 **2.1、使用Example进行数据库存取操作**  
+  
 &emsp;&emsp;项目使用Example类进行数据库交互，在Service层直接调用Example类即可，具体查询数据的样例代码如下：
+  
 > @Service  
 > // 这是一个Demo样例的服务层实现  
 > public class DemoServiceImpl implements DemoService {  
