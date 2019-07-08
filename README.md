@@ -25,27 +25,27 @@
 > @Service  
 > // 这是一个Demo样例的服务层实现  
 > public class DemoServiceImpl implements DemoService {  
->   //自动注入userMapper
-> 	@Autowired  
-> 	private UserMapper userMapper;  
+> 　//自动注入userMapper
+> 　@Autowired  
+> 　private UserMapper userMapper;  
 >  
->   // 根据Example查询用户  
->	@Override  
-> 	public List<User> getUsersByExample() {  
->      // 首先申明一个users对象用于接收查询结果（用户列表）  
-> 		List<User> users = null;  
->      // 新建用户样例  
-> 		UserExample example = new UserExample();  
->      // 获取一个criteria对象，criteria对象用于设置查询条件  
-> 		Criteria criteria = example.createCriteria();  
->      // 这句话等同于 WHERE username LIKE '%a%'  
-> 		criteria.andUsernameLike("%a%");   
->      // 这句话等同于 ORDER BY username ASC   
-> 		example.setOrderByClause("username asc");  
->      // 这句话等同于 ORDER BY username ASC  
-> 		users = userMapper.selectByExample(example);  
-> 		return users;  
-> 	}  
+> 　// 根据Example查询用户  
+> 　@Override  
+> 　public List<User> getUsersByExample() {  
+> 　　// 首先申明一个users对象用于接收查询结果（用户列表）  
+> 　　List<User> users = null;  
+> 　　// 新建用户样例  
+> 　　UserExample example = new UserExample();  
+> 　　// 获取一个criteria对象，criteria对象用于设置查询条件  
+> 　　Criteria criteria = example.createCriteria();  
+> 　　// 这句话等同于 WHERE username LIKE '%a%'  
+> 　　criteria.andUsernameLike("%a%");   
+> 　　// 这句话等同于 ORDER BY username ASC   
+> 　　example.setOrderByClause("username asc");  
+> 　　// 这句话等同于 ORDER BY username ASC  
+> 　　users = userMapper.selectByExample(example);  
+> 　　return users;  
+> 　}  
 > }  
 
 
