@@ -11,9 +11,9 @@
 **开发框架**：Spring、SpringMVC、Mybatis
 
 ## 启动方法
-  &emsp;&emsp;使用IDEA导入GIT远端项目，等待项目加载完成。  
-  &emsp;&emsp;为项目配置tomcat 8.5运行环境，点击运行按钮，可以查看执行情况。    
-  &emsp;&emsp;在浏览器中输入：http://localhost:8080/ 访问项目首页。  
+**导入项目**：使用IDEA导入GIT远端项目，等待项目加载完成。  
+**环境配置**：为项目配置tomcat 8.5运行环境，点击运行按钮，可以查看执行情况。    
+**启动成功**：在浏览器中输入：http://localhost:8080/ 访问项目首页。  
 
 ## 编写指南
 
