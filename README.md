@@ -1,5 +1,5 @@
 # CuitJavaEEPractice
-**JAVAEE实训课程项目工程文件**
+**成信大JAVAEE实训课程项目**
 
 ## 项目简介  
 **项目名称**：家庭理财管理系统  
