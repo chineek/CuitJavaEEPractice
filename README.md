@@ -24,6 +24,7 @@
 &emsp;&emsp;模板中包含各类请求的映射方法，直接复制模板进行修改即可，模板代码如下：  
   
 > @Controller  
+> @RequestMapping(value = {"/Demo"})  
 > public class DemoController {  
 > 　//自动注入Service层
 > 　@Autowired  
@@ -33,8 +34,10 @@
 > 　 * @return  
 > 　 */  
 > 　@RequestMapping(value = {"/StrDemo"})  
+> 　// 使用ResponseBody可以让返回的数据变为字节流  
 > 　@ResponseBody  
 > 　public String returnStr() {  
+> 　　// 直接给前台返回一个字符串，一般用于AJAX交互。
 > 　　return "hello,这是第一个映射";  
 > 　}  
 > 　/**  
@@ -47,6 +50,7 @@
 > 　　DemoBean testBean = new DemoBean();  
 > 　　testBean.setDemostr("测试实体");  
 > 　　testBean.setDemoint(12);  
+> 　　// 会自动将Bean封装为JSON格式数据返回给前端
 > 　　return testBean;  
 > 　}  
 > 　/**  
@@ -59,11 +63,12 @@
 > 　		"application/json" }, produces = { "application/json" })  
 > 　@ResponseBody  
 > 　public Object addEmpGetStu(@RequestBody VODemo orderAndRole) throws Exception {  
+> 　　// 同时获取两个前端的数据，需要在VO层封装两个对象，并添加get方法，注意参数样式。
 > 　　Order order = orderAndRole.getOrder();  
 > 　　Role role = orderAndRole.getRole();  
-> 　　System.out.print(role);  
 > 　　order.setInfoAssessmentdate(new Date());  
 > 　　order.setInfoRemarks("这是生成的");  
+> 　　// 返回order对象的json数据。
 > 　　JSONObject responseObj = (JSONObject) JSONObject.toJSON(order);  
 > 　　return responseObj;  
 > 　}  
@@ -73,6 +78,7 @@
 > 　@RequestMapping(value = {"/ServiceDemo"})  
 > 　@ResponseBody  
 > 　public String getUsers() {  
+> 　　// 调用service中的方法。
 > 　　List<User> users = demoService.getUsersByExample();  
 > 　　System.out.print(users.get(0).getSex());  
 > 　　return "请在控制台查看输出！";  
@@ -116,6 +122,5 @@
 ### 3、Dao层编写指南  
 **Mapper文件不需要手动编写**  
 &emsp;&emsp;mapper.xml、mapper、entity都已经通过Maven工具Mybatis Generator自动生成， 如果无特殊需要，无须再手动编写。
-
-
+  
 ### 4、VO层编写指南
