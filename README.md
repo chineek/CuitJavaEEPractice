@@ -33,25 +33,25 @@
 > 　 * 直接字符串映射样例  
 > 　 * @return  
 > 　 */  
-> 　@RequestMapping(value = {"/StrDemo"})  
-> 　// 使用ResponseBody可以让返回的数据变为字节流  
-> 　@ResponseBody  
-> 　public String returnStr() {  
-> 　　// 直接给前台返回一个字符串，一般用于AJAX交互。  
-> 　　return "hello,这是第一个映射";  
-> 　}  
+>> 　@RequestMapping(value = {"/StrDemo"})  
+>> 　// 使用ResponseBody可以让返回的数据变为字节流  
+>> 　@ResponseBody  
+>> 　public String returnStr() {  
+>> 　　// 直接给前台返回一个字符串，一般用于AJAX交互。  
+>> 　　return "hello,这是第一个映射";  
+>> 　}  
 > 　/**  
 > 　 * 单对象获取样例  
 > 　 * @return  
 > 　 */  
-> 　@RequestMapping(value = {"/BeanDemo"})  
-> 　@ResponseBody  
-> 　public DemoBean returnEntify() {  
-> 　　DemoBean testBean = new DemoBean();  
-> 　　testBean.setDemostr("测试实体");  
-> 　　testBean.setDemoint(12);  
-> 　　// 会自动将Bean封装为JSON格式数据返回给前端  
-> 　　return testBean;  
+>> 　@RequestMapping(value = {"/BeanDemo"})  
+>> 　@ResponseBody  
+>> 　public DemoBean returnEntify() {  
+>> 　　DemoBean testBean = new DemoBean();  
+>> 　　testBean.setDemostr("测试实体");  
+>> 　　testBean.setDemoint(12);  
+>> 　　// 会自动将Bean封装为JSON格式数据返回给前端  
+>> 　　return testBean;  
 > 　}  
 > 　/**  
 > 　 * 多对象获取样例Demo  
@@ -59,30 +59,30 @@
 > 　 * @return Json数据  
 > 　 * @throws Exception  
 > 　 */  
-> 　@RequestMapping(value = { "/getMoreObjectDemo" }, method = { RequestMethod.POST }, consumes = {  
-> 　		"application/json" }, produces = { "application/json" })  
-> 　@ResponseBody  
-> 　public Object addEmpGetStu(@RequestBody VODemo orderAndRole) throws Exception {  
-> 　　// 同时获取两个前端的数据，需要在VO层封装两个对象，并添加get方法，注意参数样式。  
-> 　　Order order = orderAndRole.getOrder();  
-> 　　Role role = orderAndRole.getRole();  
-> 　　order.setInfoAssessmentdate(new Date());  
-> 　　order.setInfoRemarks("这是生成的");  
-> 　　// 返回order对象的json数据。  
-> 　　JSONObject responseObj = (JSONObject) JSONObject.toJSON(order);  
-> 　　return responseObj;  
-> 　}  
+>> 　@RequestMapping(value = { "/getMoreObjectDemo" }, method = { RequestMethod.POST }, consumes = {  
+>> 　		"application/json" }, produces = { "application/json" })  
+>> 　@ResponseBody  
+>> 　public Object addEmpGetStu(@RequestBody VODemo orderAndRole) throws Exception {  
+>> 　　// 同时获取两个前端的数据，需要在VO层封装两个对象，并添加get方法，注意参数样式。  
+>> 　　Order order = orderAndRole.getOrder();  
+>> 　　Role role = orderAndRole.getRole();  
+>> 　　order.setInfoAssessmentdate(new Date());  
+>> 　　order.setInfoRemarks("这是生成的");  
+>> 　　// 返回order对象的json数据。  
+>> 　　JSONObject responseObj = (JSONObject) JSONObject.toJSON(order);  
+>> 　　return responseObj;  
+>> 　}  
 > 　/**  
 > 　 * service调用样例Demo  
 > 　 */  
-> 　@RequestMapping(value = {"/ServiceDemo"})  
-> 　@ResponseBody  
-> 　public String getUsers() {  
-> 　　// 调用service中的方法。  
-> 　　List<User> users = demoService.getUsersByExample();  
-> 　　System.out.print(users.get(0).getSex());  
-> 　　return "请在控制台查看输出！";  
-> 　}  
+>> 　@RequestMapping(value = {"/ServiceDemo"})  
+>> 　@ResponseBody  
+>> 　public String getUsers() {  
+>> 　　// 调用service中的方法。  
+>> 　　List<User> users = demoService.getUsersByExample();  
+>> 　　System.out.print(users.get(0).getSex());  
+>> 　　return "请在控制台查看输出！";  
+>> 　}  
 > }  
 
 
