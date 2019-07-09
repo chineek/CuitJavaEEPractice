@@ -15,11 +15,11 @@
 **环境配置**：为项目配置tomcat 8.5运行环境，点击运行按钮，可以查看执行情况。    
 **启动成功**：在浏览器中输入：http://localhost:8080/ 访问项目首页。  
 
-## 编写指南
+## 编写标准
 
-### 1、Controller层编写指南  
+### 1、Controller层编写标准  
 
-### 2、Service层编写指南  
+### 2、Service层编写标准  
   
 **使用Example进行数据库存取操作**  
   
@@ -52,9 +52,9 @@
 > 　}  
 > }  
 
-### 3、Dao层编写指南  
+### 3、Dao层编写标准  
 **Mapper文件不需要手动编写**  
 &emsp;&emsp;mapper.xml、mapper、entity都已经通过Maven工具Mybatis Generator自动生成， 如果无特殊需要，无须再手动编写。
 
 
-### 4、VO层编写指南
+### 4、VO层编写标准
