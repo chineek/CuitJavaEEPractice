@@ -18,9 +18,11 @@
 ## 编写指南
 
 ### 1、Controller层编写指南  
-
+  
 **按照如下规则编写Controller**  
+  
 &emsp;&emsp;模板中包含各类请求的映射方法，直接复制模板进行修改即可，模板代码如下：  
+  
 > @Controller  
 > public class DemoController {  
 > 　//自动注入Service层
