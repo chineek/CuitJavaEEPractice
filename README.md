@@ -138,7 +138,7 @@
 >>	private Order order;
 >>	private User user;
 >>	public Order getOrder() {
->>>		return order;
+>>		return order;
 >>	}
 >>	public void setOrder(Order order) {
 >>		this.order = order;
