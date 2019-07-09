@@ -130,3 +130,24 @@
 &emsp;&emsp;mapper.xml、mapper、entity都已经通过Maven工具Mybatis Generator自动生成， 如果无特殊需要，无须再手动编写。
   
 ### 4、VO层编写标准
+**VO全称Value Object，值对象。主要用于数据交互中，非entity数据的封装。**  
+&emsp;&emsp;例：将用户和订单对象组合，成为用户订单对象。
+>// 封装用户订单对象
+>public class UserAndOrder {
+
+>>	private Order order;
+>>	private User user;
+>>	public Order getOrder() {
+>>>		return order;
+>>	}
+>>	public void setOrder(Order order) {
+>>		this.order = order;
+>>	}
+>>	public User getUser() {
+>>		return user;
+>>	}
+>>	public void setUser(User user) {
+>>		this.user = user;
+>>	}
+
+>}
