@@ -1,9 +1,14 @@
 # CuitJavaEEPractice
 **JAVAEE实训课程项目工程文件**
 
+## 项目简介  
+**项目名称**：家庭理财管理系统  
+**项目名称**：使用SSM框架，开发一个能够管理家庭内部各种财务信息的家庭理财管理系统，主要包括用户管理、收支管理、财务管理、报表管理等公共模块。  
+
 ## 技术选型
 **开发技术**：JAVA, JSP, Servlet, JDBC  
-**开发环境**：IntelliJ idea 2017.1+, jdk 8u91, mysql 5.5, tomcat 8.5.34
+**开发环境**：IntelliJ idea 2017.1+, jdk 8u91, mysql 5.5, tomcat 8.5.34  
+**开发框架**：Spring、SpringMVC、Mybatis
 
 ## 启动方法
   使用IDEA导入GIT远端项目，等待项目加载完成。
