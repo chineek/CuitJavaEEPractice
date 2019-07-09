@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="cn.edu.cuit.dao.DemoMapper">
-  <resultMap id="BaseResultMap" type="cn.edu.cuit.entity.Demo">
-    <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="info" jdbcType="VARCHAR" property="info" />
-    <result column="date" jdbcType="TIMESTAMP" property="date" />
+<mapper namespace="cn.edu.cuit.dao.AccountTypeMapper">
+  <resultMap id="BaseResultMap" type="cn.edu.cuit.entity.AccountType">
+    <id column="tid" jdbcType="INTEGER" property="tid" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -65,15 +65,15 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, info, date
+    tid, name, description
   </sql>
-  <select id="selectByExample" parameterType="cn.edu.cuit.entity.DemoExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="cn.edu.cuit.entity.AccountTypeExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from demo
+    from account_type
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -84,67 +84,67 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from demo
-    where id = #{id,jdbcType=INTEGER}
+    from account_type
+    where tid = #{tid,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from demo
-    where id = #{id,jdbcType=INTEGER}
+    delete from account_type
+    where tid = #{tid,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="cn.edu.cuit.entity.DemoExample">
-    delete from demo
+  <delete id="deleteByExample" parameterType="cn.edu.cuit.entity.AccountTypeExample">
+    delete from account_type
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="cn.edu.cuit.entity.Demo">
-    insert into demo (id, info, date
+  <insert id="insert" parameterType="cn.edu.cuit.entity.AccountType">
+    insert into account_type (tid, name, description
       )
-    values (#{id,jdbcType=INTEGER}, #{info,jdbcType=VARCHAR}, #{date,jdbcType=TIMESTAMP}
+    values (#{tid,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}
       )
   </insert>
-  <insert id="insertSelective" parameterType="cn.edu.cuit.entity.Demo">
-    insert into demo
+  <insert id="insertSelective" parameterType="cn.edu.cuit.entity.AccountType">
+    insert into account_type
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        id,
+      <if test="tid != null">
+        tid,
       </if>
-      <if test="info != null">
-        info,
+      <if test="name != null">
+        name,
       </if>
-      <if test="date != null">
-        date,
+      <if test="description != null">
+        description,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=INTEGER},
+      <if test="tid != null">
+        #{tid,jdbcType=INTEGER},
       </if>
-      <if test="info != null">
-        #{info,jdbcType=VARCHAR},
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
       </if>
-      <if test="date != null">
-        #{date,jdbcType=TIMESTAMP},
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="cn.edu.cuit.entity.DemoExample" resultType="java.lang.Long">
-    select count(*) from demo
+  <select id="countByExample" parameterType="cn.edu.cuit.entity.AccountTypeExample" resultType="java.lang.Long">
+    select count(*) from account_type
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update demo
+    update account_type
     <set>
-      <if test="record.id != null">
-        id = #{record.id,jdbcType=INTEGER},
+      <if test="record.tid != null">
+        tid = #{record.tid,jdbcType=INTEGER},
       </if>
-      <if test="record.info != null">
-        info = #{record.info,jdbcType=VARCHAR},
+      <if test="record.name != null">
+        name = #{record.name,jdbcType=VARCHAR},
       </if>
-      <if test="record.date != null">
-        date = #{record.date,jdbcType=TIMESTAMP},
+      <if test="record.description != null">
+        description = #{record.description,jdbcType=VARCHAR},
       </if>
     </set>
     <if test="_parameter != null">
@@ -152,30 +152,30 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update demo
-    set id = #{record.id,jdbcType=INTEGER},
-      info = #{record.info,jdbcType=VARCHAR},
-      date = #{record.date,jdbcType=TIMESTAMP}
+    update account_type
+    set tid = #{record.tid,jdbcType=INTEGER},
+      name = #{record.name,jdbcType=VARCHAR},
+      description = #{record.description,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="cn.edu.cuit.entity.Demo">
-    update demo
+  <update id="updateByPrimaryKeySelective" parameterType="cn.edu.cuit.entity.AccountType">
+    update account_type
     <set>
-      <if test="info != null">
-        info = #{info,jdbcType=VARCHAR},
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
       </if>
-      <if test="date != null">
-        date = #{date,jdbcType=TIMESTAMP},
+      <if test="description != null">
+        description = #{description,jdbcType=VARCHAR},
       </if>
     </set>
-    where id = #{id,jdbcType=INTEGER}
+    where tid = #{tid,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="cn.edu.cuit.entity.Demo">
-    update demo
-    set info = #{info,jdbcType=VARCHAR},
-      date = #{date,jdbcType=TIMESTAMP}
-    where id = #{id,jdbcType=INTEGER}
+  <update id="updateByPrimaryKey" parameterType="cn.edu.cuit.entity.AccountType">
+    update account_type
+    set name = #{name,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR}
+    where tid = #{tid,jdbcType=INTEGER}
   </update>
 </mapper>
