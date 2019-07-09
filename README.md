@@ -21,7 +21,7 @@
 
 ### 2、Service层编写指南  
   
-**2.1、使用Example进行数据库存取操作**  
+**使用Example进行数据库存取操作**  
   
 &emsp;&emsp;项目使用Example类进行数据库交互，在Service层直接调用Example类即可，具体查询数据的样例代码如下：
   
@@ -53,7 +53,7 @@
 > }  
 
 ### 3、Dao层编写指南  
-**3.1、Mapper文件不需要手动编写**  
+**Mapper文件不需要手动编写**  
 &emsp;&emsp;mapper.xml、mapper、entity都已经通过Maven工具Mybatis Generator自动生成， 如果无特殊需要，无须再手动编写。
 
 
