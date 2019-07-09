@@ -26,67 +26,67 @@
 > @Controller  
 > @RequestMapping(value = {"/Demo"})  
 > public class DemoController {  
-> 　//自动注入Service层  
-> 　@Autowired  
-> 　private DemoService demoService;  
+> &emsp;&emsp;//自动注入Service层  
+> &emsp;&emsp;@Autowired  
+> &emsp;&emsp;private DemoService demoService;  
 
-> 　/**  
-> 　 * 直接字符串映射样例  
-> 　 * @return  
-> 　 */  
->> 　@RequestMapping(value = {"/StrDemo"})  
-> 　// 使用ResponseBody可以让返回的数据变为字节流  
-> 　@ResponseBody  
-> 　public String returnStr() {  
-> 　　// 直接给前台返回一个字符串，一般用于AJAX交互。  
-> 　　return "hello,这是第一个映射";  
-> 　}  
+> &emsp;&emsp;/**  
+> &emsp;&emsp; * 直接字符串映射样例  
+> &emsp;&emsp; * @return  
+> &emsp;&emsp; */  
+>> &emsp;&emsp;@RequestMapping(value = {"/StrDemo"})  
+> &emsp;&emsp;// 使用ResponseBody可以让返回的数据变为字节流  
+> &emsp;&emsp;@ResponseBody  
+> &emsp;&emsp;public String returnStr() {  
+> &emsp;&emsp;&emsp;&emsp;// 直接给前台返回一个字符串，一般用于AJAX交互。  
+> &emsp;&emsp;&emsp;&emsp;return "hello,这是第一个映射";  
+> &emsp;&emsp;}  
 
-> 　/**  
-> 　 * 单对象获取样例  
-> 　 * @return  
-> 　 */  
->> 　@RequestMapping(value = {"/BeanDemo"})  
-> 　@ResponseBody  
-> 　public DemoBean returnEntify() {  
-> 　　DemoBean testBean = new DemoBean();  
-> 　　testBean.setDemostr("测试实体");  
-> 　　testBean.setDemoint(12);  
-> 　　// 会自动将Bean封装为JSON格式数据返回给前端  
-> 　　return testBean;  
-> 　}  
+> &emsp;&emsp;/**  
+> &emsp;&emsp; * 单对象获取样例  
+> &emsp;&emsp; * @return  
+> &emsp;&emsp; */  
+>> &emsp;&emsp;@RequestMapping(value = {"/BeanDemo"})  
+> &emsp;&emsp;@ResponseBody  
+> &emsp;&emsp;public DemoBean returnEntify() {  
+> &emsp;&emsp;&emsp;&emsp;DemoBean testBean = new DemoBean();  
+> &emsp;&emsp;&emsp;&emsp;testBean.setDemostr("测试实体");  
+> &emsp;&emsp;&emsp;&emsp;testBean.setDemoint(12);  
+> &emsp;&emsp;&emsp;&emsp;// 会自动将Bean封装为JSON格式数据返回给前端  
+> &emsp;&emsp;&emsp;&emsp;return testBean;  
+> &emsp;&emsp;}  
 
-> 　/**  
-> 　 * 多对象获取样例Demo  
-> 　 * @param orderAndRole  
-> 　 * @return Json数据  
-> 　 * @throws Exception  
-> 　 */  
->> 　@RequestMapping(value = { "/getMoreObjectDemo" }, method = { RequestMethod.POST }, consumes = {  
-> 　		"application/json" }, produces = { "application/json" })  
-> 　@ResponseBody  
-> 　public Object addEmpGetStu(@RequestBody VODemo orderAndRole) throws Exception {  
-> 　　// 同时获取两个前端的数据，需要在VO层封装两个对象，并添加get方法，注意参数样式。  
-> 　　Order order = orderAndRole.getOrder();  
-> 　　Role role = orderAndRole.getRole();  
-> 　　order.setInfoAssessmentdate(new Date());  
-> 　　order.setInfoRemarks("这是生成的");  
-> 　　// 返回order对象的json数据。  
-> 　　JSONObject responseObj = (JSONObject) JSONObject.toJSON(order);  
-> 　　return responseObj;  
-> 　}  
+> &emsp;&emsp;/**  
+> &emsp;&emsp; * 多对象获取样例Demo  
+> &emsp;&emsp; * @param orderAndRole  
+> &emsp;&emsp; * @return Json数据  
+> &emsp;&emsp; * @throws Exception  
+> &emsp;&emsp; */  
+>> &emsp;&emsp;@RequestMapping(value = { "/getMoreObjectDemo" }, method = { RequestMethod.POST }, consumes = {  
+> &emsp;&emsp;		"application/json" }, produces = { "application/json" })  
+> &emsp;&emsp;@ResponseBody  
+> &emsp;&emsp;public Object addEmpGetStu(@RequestBody VODemo orderAndRole) throws Exception {  
+> &emsp;&emsp;&emsp;&emsp;// 同时获取两个前端的数据，需要在VO层封装两个对象，并添加get方法，注意参数样式。  
+> &emsp;&emsp;&emsp;&emsp;Order order = orderAndRole.getOrder();  
+> &emsp;&emsp;&emsp;&emsp;Role role = orderAndRole.getRole();  
+> &emsp;&emsp;&emsp;&emsp;order.setInfoAssessmentdate(new Date());  
+> &emsp;&emsp;&emsp;&emsp;order.setInfoRemarks("这是生成的");  
+> &emsp;&emsp;&emsp;&emsp;// 返回order对象的json数据。  
+> &emsp;&emsp;&emsp;&emsp;JSONObject responseObj = (JSONObject) JSONObject.toJSON(order);  
+> &emsp;&emsp;&emsp;&emsp;return responseObj;  
+> &emsp;&emsp;}  
 
-> 　/**  
-> 　 * service调用样例Demo  
-> 　 */  
->> 　@RequestMapping(value = {"/ServiceDemo"})  
-> 　@ResponseBody  
-> 　public String getUsers() {  
-> 　　// 调用service中的方法。  
-> 　　List<User> users = demoService.getUsersByExample();  
-> 　　System.out.print(users.get(0).getSex());  
-> 　　return "请在控制台查看输出！";  
-> 　} 
+> &emsp;&emsp;/**  
+> &emsp;&emsp; * service调用样例Demo  
+> &emsp;&emsp; */  
+>> &emsp;&emsp;@RequestMapping(value = {"/ServiceDemo"})  
+> &emsp;&emsp;@ResponseBody  
+> &emsp;&emsp;public String getUsers() {  
+> &emsp;&emsp;&emsp;&emsp;// 调用service中的方法。  
+> &emsp;&emsp;&emsp;&emsp;List<User> users = demoService.getUsersByExample();  
+> &emsp;&emsp;&emsp;&emsp;System.out.print(users.get(0).getSex());  
+> &emsp;&emsp;&emsp;&emsp;return "请在控制台查看输出！";  
+> &emsp;&emsp;} 
 
 > }  
 
@@ -100,28 +100,28 @@
 > // 这是一个Demo样例的服务层实现  
 > @Service  
 > public class DemoServiceImpl implements DemoService {  
-> 　//自动注入userMapper
-> 　@Autowired  
-> 　private UserMapper userMapper;  
+> &emsp;&emsp;//自动注入userMapper
+> &emsp;&emsp;@Autowired  
+> &emsp;&emsp;private UserMapper userMapper;  
 
-> 　// 根据Example查询用户  
->> 　@Override  
-> 　public List<User> getUsersByExample() {  
-> 　　// 首先申明一个users对象用于接收查询结果（用户列表）  
-> 　　List<User> users = null;  
-> 　　// 新建用户样例  
-> 　　UserExample example = new UserExample();  
-> 　　// 获取一个criteria对象，criteria对象用于设置查询条件  
-> 　　Criteria criteria = example.createCriteria();  
-> 　　// 这句话等同于 WHERE username LIKE '%a%'  
-> 　　criteria.andUsernameLike("%a%");   
-> 　　// 这句话等同于 ORDER BY username ASC   
-> 　　example.setOrderByClause("username asc");  
-> 　　// 执行select查询，参数就是example  
-> 　　users = userMapper.selectByExample(example);  
-> 　　// 返回查询结果给controller  
-> 　　return users;  
-> 　}  
+> &emsp;&emsp;// 根据Example查询用户  
+>> &emsp;&emsp;@Override  
+> &emsp;&emsp;public List<User> getUsersByExample() {  
+> &emsp;&emsp;&emsp;&emsp;// 首先申明一个users对象用于接收查询结果（用户列表）  
+> &emsp;&emsp;&emsp;&emsp;List<User> users = null;  
+> &emsp;&emsp;&emsp;&emsp;// 新建用户样例  
+> &emsp;&emsp;&emsp;&emsp;UserExample example = new UserExample();  
+> &emsp;&emsp;&emsp;&emsp;// 获取一个criteria对象，criteria对象用于设置查询条件  
+> &emsp;&emsp;&emsp;&emsp;Criteria criteria = example.createCriteria();  
+> &emsp;&emsp;&emsp;&emsp;// 这句话等同于 WHERE username LIKE '%a%'  
+> &emsp;&emsp;&emsp;&emsp;criteria.andUsernameLike("%a%");   
+> &emsp;&emsp;&emsp;&emsp;// 这句话等同于 ORDER BY username ASC   
+> &emsp;&emsp;&emsp;&emsp;example.setOrderByClause("username asc");  
+> &emsp;&emsp;&emsp;&emsp;// 执行select查询，参数就是example  
+> &emsp;&emsp;&emsp;&emsp;users = userMapper.selectByExample(example);  
+> &emsp;&emsp;&emsp;&emsp;// 返回查询结果给controller  
+> &emsp;&emsp;&emsp;&emsp;return users;  
+> &emsp;&emsp;}  
 
 > }  
 
@@ -135,19 +135,19 @@
 >// 封装用户订单对象  
 >public class UserAndOrder {  
 
->>	　private Order order;  
->>	　private User user;  
->>	　public Order getOrder() {  
->>	　　return order;  
->>	　}  
->>	　public void setOrder(Order order) {  
->>	　　this.order = order;  
->>	　}  
->>	　public User getUser() {  
->>	　　return user;  
->>	　}  
->>	　public void setUser(User user) {  
->>	　　this.user = user;  
->>	　}  
+>>	&emsp;&emsp;private Order order;  
+>>	&emsp;&emsp;private User user;  
+>>	&emsp;&emsp;public Order getOrder() {  
+>>	&emsp;&emsp;&emsp;&emsp;return order;  
+>>	&emsp;&emsp;}  
+>>	&emsp;&emsp;public void setOrder(Order order) {  
+>>	&emsp;&emsp;&emsp;&emsp;this.order = order;  
+>>	&emsp;&emsp;}  
+>>	&emsp;&emsp;public User getUser() {  
+>>	&emsp;&emsp;&emsp;&emsp;return user;  
+>>	&emsp;&emsp;}  
+>>	&emsp;&emsp;public void setUser(User user) {  
+>>	&emsp;&emsp;&emsp;&emsp;this.user = user;  
+>>	&emsp;&emsp;}  
 
 >}  
