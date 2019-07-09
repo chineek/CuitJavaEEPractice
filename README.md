@@ -57,27 +57,27 @@
 > 　 */  
 > 　@RequestMapping(value = { "/getMoreObjectDemo" }, method = { RequestMethod.POST }, consumes = {  
 > 　		"application/json" }, produces = { "application/json" })  
-> 　@ResponseBody
-> 　public Object addEmpGetStu(@RequestBody VODemo orderAndRole) throws Exception {
-> 　　Order order = orderAndRole.getOrder();
-> 　　Role role = orderAndRole.getRole();
-> 　　System.out.print(role);
-> 　　order.setInfoAssessmentdate(new Date());
-> 　　order.setInfoRemarks("这是生成的");
-> 　　JSONObject responseObj = (JSONObject) JSONObject.toJSON(order);
-> 　　return responseObj;
-> 　}
-> 　/**
-> 　 * service调用样例Demo
-> 　 */
-> 　@RequestMapping(value = {"/ServiceDemo"})
-> 　@ResponseBody
-> 　public String getUsers() {
-> 　　List<User> users = demoService.getUsersByExample();
-> 　　System.out.print(users.get(0).getSex());
-> 　　return "请在控制台查看输出！";
-> 　}
-> }
+> 　@ResponseBody  
+> 　public Object addEmpGetStu(@RequestBody VODemo orderAndRole) throws Exception {  
+> 　　Order order = orderAndRole.getOrder();  
+> 　　Role role = orderAndRole.getRole();  
+> 　　System.out.print(role);  
+> 　　order.setInfoAssessmentdate(new Date());  
+> 　　order.setInfoRemarks("这是生成的");  
+> 　　JSONObject responseObj = (JSONObject) JSONObject.toJSON(order);  
+> 　　return responseObj;  
+> 　}  
+> 　/**  
+> 　 * service调用样例Demo  
+> 　 */  
+> 　@RequestMapping(value = {"/ServiceDemo"})  
+> 　@ResponseBody  
+> 　public String getUsers() {  
+> 　　List<User> users = demoService.getUsersByExample();  
+> 　　System.out.print(users.get(0).getSex());  
+> 　　return "请在控制台查看输出！";  
+> 　}  
+> }  
 
 
 ### 2、Service层编写指南  
