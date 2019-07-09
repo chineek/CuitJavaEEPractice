@@ -29,6 +29,7 @@
 > 　//自动注入Service层  
 > 　@Autowired  
 > 　private DemoService demoService;  
+
 > 　/**  
 > 　 * 直接字符串映射样例  
 > 　 * @return  
@@ -102,9 +103,9 @@
 > 　//自动注入userMapper
 > 　@Autowired  
 > 　private UserMapper userMapper;  
->  
+
 > 　// 根据Example查询用户  
-> 　@Override  
+>> 　@Override  
 > 　public List<User> getUsersByExample() {  
 > 　　// 首先申明一个users对象用于接收查询结果（用户列表）  
 > 　　List<User> users = null;  
@@ -121,6 +122,7 @@
 > 　　// 返回查询结果给controller  
 > 　　return users;  
 > 　}  
+
 > }  
 
 ### 3、Dao层编写标准  
