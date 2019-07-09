@@ -135,19 +135,19 @@
 >// 封装用户订单对象
 >public class UserAndOrder {  
 
->>	private Order order;  
->>	private User user;  
->>	public Order getOrder() {  
->>		return order;  
->>	}  
->>	public void setOrder(Order order) {  
->>		this.order = order;  
->>	}  
->>	public User getUser() {  
->>		return user;  
->>	}  
->>	public void setUser(User user) {  
->>		this.user = user;  
->>	}  
+>>	　private Order order;  
+>>	　private User user;  
+>>	　public Order getOrder() {  
+>>	　　return order;  
+>>	　}  
+>>	　public void setOrder(Order order) {  
+>>	　　this.order = order;  
+>>	　}  
+>>	　public User getUser() {  
+>>	　　return user;  
+>>	　}  
+>>	　public void setUser(User user) {  
+>>	　　this.user = user;  
+>>	　}  
 
 >}  
