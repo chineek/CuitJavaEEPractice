@@ -19,6 +19,65 @@
 
 ### 1、Controller层编写指南  
 
+**按照如下规则编写Controller**  
+&emsp;&emsp;模板中包含各类请求的映射方法，直接复制模板进行修改即可，模板代码如下：  
+> @Controller  
+> public class DemoController {  
+> 　//自动注入Service层
+> 　@Autowired  
+> 　private DemoService demoService;  
+> 　/**  
+> 　 * 直接字符串映射样例  
+> 　 * @return  
+> 　 */  
+> 　@RequestMapping(value = {"/StrDemo"})  
+> 　@ResponseBody  
+> 　public String returnStr() {  
+> 　　return "hello,这是第一个映射";  
+> 　}  
+> 　/**  
+> 　 * 单对象获取样例  
+> 　 * @return  
+> 　 */  
+> 　@RequestMapping(value = {"/BeanDemo"})  
+> 　@ResponseBody  
+> 　public DemoBean returnEntify() {  
+> 　　DemoBean testBean = new DemoBean();  
+> 　　testBean.setDemostr("测试实体");  
+> 　　testBean.setDemoint(12);  
+> 　　return testBean;  
+> 　}  
+> 　/**  
+> 　 * 多对象获取样例Demo  
+> 　 * @param orderAndRole  
+> 　 * @return Json数据  
+> 　 * @throws Exception  
+> 　 */  
+> 　@RequestMapping(value = { "/getMoreObjectDemo" }, method = { RequestMethod.POST }, consumes = {  
+> 　		"application/json" }, produces = { "application/json" })  
+> 　@ResponseBody
+> 　public Object addEmpGetStu(@RequestBody VODemo orderAndRole) throws Exception {
+> 　　Order order = orderAndRole.getOrder();
+> 　　Role role = orderAndRole.getRole();
+> 　　System.out.print(role);
+> 　　order.setInfoAssessmentdate(new Date());
+> 　　order.setInfoRemarks("这是生成的");
+> 　　JSONObject responseObj = (JSONObject) JSONObject.toJSON(order);
+> 　　return responseObj;
+> 　}
+> 　/**
+> 　 * service调用样例Demo
+> 　 */
+> 　@RequestMapping(value = {"/ServiceDemo"})
+> 　@ResponseBody
+> 　public String getUsers() {
+> 　　List<User> users = demoService.getUsersByExample();
+> 　　System.out.print(users.get(0).getSex());
+> 　　return "请在控制台查看输出！";
+> 　}
+> }
+
+
 ### 2、Service层编写指南  
   
 **使用Example进行数据库存取操作**  
