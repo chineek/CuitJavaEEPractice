@@ -23,10 +23,12 @@
   安装请参考：https://blog.csdn.net/ZZY1078689276/article/details/84952858  
 - 模块代码应该进行单元测试，确认代码无误后再推送(PUSH)至远端。避免出现冲突造成的难以修复的BUG。
 
-## 前端框架：layUI
+## 页面框架
 
-- layui是一款采用自身模块规范编写的前端 UI 框架，遵循原生 HTML/CSS/JS 的书写与组织形式，门槛极低，拿来即用。
-- 学习教程：https://www.layui.com/doc/
+- 前端框架：layUI  
+- layui是一款采用自身模块规范编写的前端 UI 框架，遵循原生 HTML/CSS/JS 的书写与组织形式，门槛极低，拿来即用。  
+- 学习教程：https://www.layui.com/doc/  
+
 
 ## 编写标准
 
