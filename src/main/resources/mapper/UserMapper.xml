@@ -5,7 +5,7 @@
     <id column="uid" jdbcType="INTEGER" property="uid" />
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="password" jdbcType="VARCHAR" property="password" />
-    <result column="age" jdbcType="INTEGER" property="age" />
+    <result column="birthday" jdbcType="TIMESTAMP" property="birthday" />
     <result column="sex" jdbcType="INTEGER" property="sex" />
     <result column="occupation" jdbcType="VARCHAR" property="occupation" />
     <result column="avatar" jdbcType="VARCHAR" property="avatar" />
@@ -76,8 +76,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    uid, name, password, age, sex, occupation, avatar, phone, motto, salary, role, auid, 
-    is_avaliable, create_date
+    uid, name, password, birthday, sex, occupation, avatar, phone, motto, salary, role, 
+    auid, is_avaliable, create_date
   </sql>
   <select id="selectByExample" parameterType="cn.edu.cuit.entity.UserExample" resultMap="BaseResultMap">
     select
@@ -111,12 +111,12 @@
   </delete>
   <insert id="insert" parameterType="cn.edu.cuit.entity.User">
     insert into user (uid, name, password, 
-      age, sex, occupation, 
+      birthday, sex, occupation, 
       avatar, phone, motto, 
       salary, role, auid, 
       is_avaliable, create_date)
     values (#{uid,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
-      #{age,jdbcType=INTEGER}, #{sex,jdbcType=INTEGER}, #{occupation,jdbcType=VARCHAR}, 
+      #{birthday,jdbcType=TIMESTAMP}, #{sex,jdbcType=INTEGER}, #{occupation,jdbcType=VARCHAR}, 
       #{avatar,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{motto,jdbcType=VARCHAR}, 
       #{salary,jdbcType=DECIMAL}, #{role,jdbcType=VARCHAR}, #{auid,jdbcType=INTEGER}, 
       #{isAvaliable,jdbcType=INTEGER}, #{createDate,jdbcType=TIMESTAMP})
@@ -133,8 +133,8 @@
       <if test="password != null">
         password,
       </if>
-      <if test="age != null">
-        age,
+      <if test="birthday != null">
+        birthday,
       </if>
       <if test="sex != null">
         sex,
@@ -177,8 +177,8 @@
       <if test="password != null">
         #{password,jdbcType=VARCHAR},
       </if>
-      <if test="age != null">
-        #{age,jdbcType=INTEGER},
+      <if test="birthday != null">
+        #{birthday,jdbcType=TIMESTAMP},
       </if>
       <if test="sex != null">
         #{sex,jdbcType=INTEGER},
@@ -230,8 +230,8 @@
       <if test="record.password != null">
         password = #{record.password,jdbcType=VARCHAR},
       </if>
-      <if test="record.age != null">
-        age = #{record.age,jdbcType=INTEGER},
+      <if test="record.birthday != null">
+        birthday = #{record.birthday,jdbcType=TIMESTAMP},
       </if>
       <if test="record.sex != null">
         sex = #{record.sex,jdbcType=INTEGER},
@@ -273,7 +273,7 @@
     set uid = #{record.uid,jdbcType=INTEGER},
       name = #{record.name,jdbcType=VARCHAR},
       password = #{record.password,jdbcType=VARCHAR},
-      age = #{record.age,jdbcType=INTEGER},
+      birthday = #{record.birthday,jdbcType=TIMESTAMP},
       sex = #{record.sex,jdbcType=INTEGER},
       occupation = #{record.occupation,jdbcType=VARCHAR},
       avatar = #{record.avatar,jdbcType=VARCHAR},
@@ -297,8 +297,8 @@
       <if test="password != null">
         password = #{password,jdbcType=VARCHAR},
       </if>
-      <if test="age != null">
-        age = #{age,jdbcType=INTEGER},
+      <if test="birthday != null">
+        birthday = #{birthday,jdbcType=TIMESTAMP},
       </if>
       <if test="sex != null">
         sex = #{sex,jdbcType=INTEGER},
@@ -337,7 +337,7 @@
     update user
     set name = #{name,jdbcType=VARCHAR},
       password = #{password,jdbcType=VARCHAR},
-      age = #{age,jdbcType=INTEGER},
+      birthday = #{birthday,jdbcType=TIMESTAMP},
       sex = #{sex,jdbcType=INTEGER},
       occupation = #{occupation,jdbcType=VARCHAR},
       avatar = #{avatar,jdbcType=VARCHAR},

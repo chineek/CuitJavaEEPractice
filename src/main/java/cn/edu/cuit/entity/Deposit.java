@@ -15,6 +15,8 @@ public class Deposit {
 
     private String remarks;
 
+    private Integer isComplete;
+
     public Integer getDid() {
         return did;
     }
@@ -61,5 +63,13 @@ public class Deposit {
 
     public void setRemarks(String remarks) {
         this.remarks = remarks == null ? null : remarks.trim();
+    }
+
+    public Integer getIsComplete() {
+        return isComplete;
+    }
+
+    public void setIsComplete(Integer isComplete) {
+        this.isComplete = isComplete;
     }
 }

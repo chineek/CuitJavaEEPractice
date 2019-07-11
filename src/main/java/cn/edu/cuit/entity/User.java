@@ -10,7 +10,7 @@ public class User {
 
     private String password;
 
-    private Integer age;
+    private Date birthday;
 
     private Integer sex;
 
@@ -56,12 +56,12 @@ public class User {
         this.password = password == null ? null : password.trim();
     }
 
-    public Integer getAge() {
-        return age;
+    public Date getBirthday() {
+        return birthday;
     }
 
-    public void setAge(Integer age) {
-        this.age = age;
+    public void setBirthday(Date birthday) {
+        this.birthday = birthday;
     }
 
     public Integer getSex() {
