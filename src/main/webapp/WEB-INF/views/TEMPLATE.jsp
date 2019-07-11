@@ -2,7 +2,9 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<c:set var="rootPath" value="${pageContext.request.contextPath}/asset/"/>
+<%
+    pageContext.setAttribute("rootPath", "/");
+%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -35,11 +37,11 @@
      *    util.httpRequest对象
      ------------------------------------------------------------------------------------*/
     // 发送一条get请求到"请求地址",返回data对象,并输出
-    util.httpRequest.get("请求地址", {"param1": "参数1值", "paramN": "参数n值"}, function (data) {
+    util.httpRequest.get("getAuthorityDemo", {"auid": 1}, function (data) {
         console.log(data);
     });
     // 发送一条post请求到"请求地址",返回data对象,并输出
-    util.httpRequest.post("请求地址", {"param1": "参数1值", "paramN": "参数n值"}, function (data) {
+    util.httpRequest.post("postAuthorityDemo", {"auid": 1}, function (data) {
         console.log(data);
     });
     /**----------------------------------------------------------------------------------

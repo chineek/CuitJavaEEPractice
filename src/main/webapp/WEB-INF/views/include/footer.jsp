@@ -7,7 +7,9 @@
 --%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<c:set var="rootPath" value="${pageContext.request.contextPath}/asset/"/>
+<%
+    pageContext.setAttribute("rootPath", "/");
+%>
 <!-- 底部固定区域 -->
 <div class="layui-footer">
     © 生财有道开发部 - 成都东软软件股份有限公司

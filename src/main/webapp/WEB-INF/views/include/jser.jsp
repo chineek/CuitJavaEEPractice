@@ -7,7 +7,10 @@
 --%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<c:set var="rootPath" value="${pageContext.request.contextPath}/asset/"/>
+<%
+    pageContext.setAttribute("rootPath", "/");
+%>
 <!-- 代码库导入 -->
 <script src="${rootPath}lib/layui/layui.js"></script>
+<script src="${rootPath}js/layui-elem.js"></script>
 <!-- END:代码库导入 -->

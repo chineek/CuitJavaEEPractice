@@ -21,11 +21,11 @@ util.httpRequest = (function () {
             url: url,
             type: "POST",
             contentType: "application/json; charset=utf-8",
-            data: data,
+            data: JSON.stringify(data),
             dataType: "json",
             success: function (msg) {
                 console.log(msg);
-                callback(JSON.parse(msg));
+                callback(msg);
             }
         });
     };
@@ -44,7 +44,7 @@ util.httpRequest = (function () {
             dataType: "json",
             success: function (msg) {
                 console.log(msg);
-                callback(JSON.parse(msg));
+                callback(msg);
             }
         });
     };

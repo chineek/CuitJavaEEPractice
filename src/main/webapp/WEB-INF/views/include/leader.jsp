@@ -7,7 +7,9 @@
 --%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<c:set var="rootPath" value="${pageContext.request.contextPath}/asset/"/>
+<%
+    pageContext.setAttribute("rootPath", "/");
+%>
 <!-- 头部和导航区域（请不要修改） -->
 <div class="layui-header">
     <div class="layui-logo">生财有道</div>
