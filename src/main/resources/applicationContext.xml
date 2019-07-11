@@ -9,17 +9,18 @@
          http://www.springframework.org/schema/context
          http://www.springframework.org/schema/context/spring-context-4.3.xsd
          http://www.springframework.org/schema/mvc
-         http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd"  >
+         http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd">
 
     <!-- ①：对com.springmvc包中的所有类进行扫描，以完成Bean创建和自动依赖注入的功能 -->
     <context:component-scan base-package="cn.edu.cuit"/>
-    <mvc:annotation-driven />
+    <mvc:annotation-driven/>
     <!-- 静态资源访问 -->
     <!--如果webapp下你新建了文件夹，想访问里面的静态资源，那么就要在这配置一下-->
     <mvc:resources location="/asset/images/" mapping="/images/**"/>
     <mvc:resources location="/asset/css/" mapping="/css/**"/>
     <mvc:resources location="/asset/lib/" mapping="/lib/**"/>
     <mvc:resources location="/asset/js/" mapping="/js/**"/>
+    <mvc:resources location="/asset/avatar/" mapping="/avatar/**"/>
     <!-- Configures the @Controller programming model
     <mvc:annotation-driven />-->
     <!-- ②：启动Spring MVC的注解功能，完成请求和注解POJO的映射 -->
@@ -31,7 +32,8 @@
         </property>
     </bean>
 
-    <bean id="mappingJacksonHttpMessageConverter" class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+    <bean id="mappingJacksonHttpMessageConverter"
+          class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
         <property name="supportedMediaTypes">
             <list>
                 <value>application/json;charset=UTF-8</value>
@@ -43,14 +45,14 @@
     <!-- /WEB-INF/jsp/start.jsp -->
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
-        <property name="prefix" value="/WEB-INF/views/" />
-        <property name="suffix" value=".jsp" />
+        <property name="prefix" value="/WEB-INF/views/"/>
+        <property name="suffix" value=".jsp"/>
     </bean>
     <!-- 配置dbcp数据库连接池 -->
 
     <!-- <context:property-placeholder location="classpath:db.properties"/> -->
     <!--数据库配置 -->
-    <bean id = "propertyConfigurer" class = "org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+    <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
         <property name="locations">
             <list>
                 <value>classpath:jdbc.properties</value>
@@ -73,13 +75,13 @@
 
     <!-- 配置事务管理器 -->
     <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-        <property name="dataSource" ref="dataSource" />
+        <property name="dataSource" ref="dataSource"/>
     </bean>
 
     <!-- 拦截器 -->
     <mvc:interceptors>
         <!-- 国际化操作拦截器 如果采用基于（请求/Session/Cookie）则必需配置 -->
-        <bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor" />
+        <bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor"/>
     </mvc:interceptors>
     <!-- 定义无Controller的path<->view直接映射 -->
     <!-- <mvc:view-controller path="/" view-name="redirect:/" /> -->
@@ -88,7 +90,7 @@
         <!-- 数据源 -->
         <property name="dataSource" ref="dataSource"/>
         <property name="mapperLocations" value="classpath:mapper/*Mapper.xml"/>
-        <property name="typeAliasesPackage" value="cn.edu.cuit.entity" />
+        <property name="typeAliasesPackage" value="cn.edu.cuit.entity"/>
     </bean>
 
     <!-- 在spring容器中配置mapper的扫描器产生的动态代理对象在spring的容器中自动注册，bean的id就是mapper类名（首字母小写）-->
