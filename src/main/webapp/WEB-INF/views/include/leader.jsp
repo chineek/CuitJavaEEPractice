@@ -29,6 +29,12 @@
                 <dd><a href="">家庭信息</a></dd>
             </dl>
         </li>
+        <li class="layui-nav-item">
+            <a href="javascript:void(0);">账单管理</a>
+            <dl class="layui-nav-child">
+                <dd><a href="">添加账目类型</a></dd>
+            </dl>
+        </li>
         <li class="layui-nav-item"><a href="">家庭财务管理</a></li>
     </ul>
     <ul class="layui-nav layui-layout-right">
@@ -54,7 +60,7 @@
             <li class="layui-nav-item">
                 <a class="" href="javascript:;">收支管理</a>
                 <dl class="layui-nav-child">
-                    <dd><a href="">账目列表</a></dd>
+                    <dd><a href="">查看账单</a></dd>
                     <dd><a href="">添加账目</a></dd>
                 </dl>
             </li>
