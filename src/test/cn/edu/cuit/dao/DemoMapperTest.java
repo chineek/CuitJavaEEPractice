@@ -17,20 +17,20 @@ import static org.junit.Assert.*;
 public class DemoMapperTest {
     private ApplicationContext applicationContext;
 
-//    @Autowired
-//    private DemoMapper mapper;
-//
-//    @Before
-//    public void setUp() throws Exception {
-//        // 加载spring配置文件
-//        applicationContext = new ClassPathXmlApplicationContext("classpath:applicationContext.xml");
-//        // 导入需要测试的
-//        mapper = applicationContext.getBean(DemoMapper.class);
-//    }
-//
-//    @Test
-//    public void deleteByPrimaryKey() throws Exception {
-//        mapper.deleteByPrimaryKey(2);
-//    }
+  @Autowired
+  private UserMapper mapper;
+
+   @Before
+    public void setUp() throws Exception {
+       // 加载spring配置文件
+       applicationContext = new ClassPathXmlApplicationContext("classpath:applicationContext.xml");
+       // 导入需要测试的
+       mapper = applicationContext.getBean(UserMapper.class);
+   }
+
+   @Test
+    public void deleteByPrimaryKey() throws Exception {
+       mapper.deleteByPrimaryKey(2);
+    }
 
 }
