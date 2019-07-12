@@ -35,7 +35,7 @@
         <li class="layui-nav-item"><a href="">登录系统</a></li>
         <li class="layui-nav-item">
             <a href="javascript:;">
-                <img src="http://t.cn/RCzsdCq" class="layui-nav-img">
+                <img src="${rootPath}avatar/default.png" class="layui-nav-img">
                 田洋
             </a>
             <dl class="layui-nav-child">

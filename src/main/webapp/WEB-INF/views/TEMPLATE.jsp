@@ -37,12 +37,12 @@
      *    util.httpRequest对象
      ------------------------------------------------------------------------------------*/
     // 发送一条get请求到"请求地址",返回data对象,并输出
-    util.httpRequest.get("getAuthorityDemo", {"auid": 1}, function (data) {
-        console.log(data);
+    util.httpRequest.get("getUserByNameDemo", {"name": "田"}, function (usersList) {
+        console.log(usersList);
     });
     // 发送一条post请求到"请求地址",返回data对象,并输出
-    util.httpRequest.post("postAuthorityDemo", {"auid": 1}, function (data) {
-        console.log(data);
+    util.httpRequest.post("postAuthorityDemo", {"auid": 1}, function (authority) {
+        console.log(authority);
     });
     /**----------------------------------------------------------------------------------
      * 2.在浏览器中存储一些数据

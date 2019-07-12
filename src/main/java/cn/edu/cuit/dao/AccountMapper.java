@@ -4,6 +4,7 @@ import cn.edu.cuit.entity.Account;
 import cn.edu.cuit.entity.AccountExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 
 public interface AccountMapper {
     long countByExample(AccountExample example);
