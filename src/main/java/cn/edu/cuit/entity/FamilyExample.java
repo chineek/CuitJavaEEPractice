@@ -504,63 +504,63 @@ public class FamilyExample {
             return (Criteria) this;
         }
 
-        public Criteria andIsPublicIsNull() {
-            addCriterion("\" is_public\" is null");
+        public Criteria andIsExposeIsNull() {
+            addCriterion("is_expose is null");
             return (Criteria) this;
         }
 
-        public Criteria andIsPublicIsNotNull() {
-            addCriterion("\" is_public\" is not null");
+        public Criteria andIsExposeIsNotNull() {
+            addCriterion("is_expose is not null");
             return (Criteria) this;
         }
 
-        public Criteria andIsPublicEqualTo(Integer value) {
-            addCriterion("\" is_public\" =", value, "isPublic");
+        public Criteria andIsExposeEqualTo(Integer value) {
+            addCriterion("is_expose =", value, "isExpose");
             return (Criteria) this;
         }
 
-        public Criteria andIsPublicNotEqualTo(Integer value) {
-            addCriterion("\" is_public\" <>", value, "isPublic");
+        public Criteria andIsExposeNotEqualTo(Integer value) {
+            addCriterion("is_expose <>", value, "isExpose");
             return (Criteria) this;
         }
 
-        public Criteria andIsPublicGreaterThan(Integer value) {
-            addCriterion("\" is_public\" >", value, "isPublic");
+        public Criteria andIsExposeGreaterThan(Integer value) {
+            addCriterion("is_expose >", value, "isExpose");
             return (Criteria) this;
         }
 
-        public Criteria andIsPublicGreaterThanOrEqualTo(Integer value) {
-            addCriterion("\" is_public\" >=", value, "isPublic");
+        public Criteria andIsExposeGreaterThanOrEqualTo(Integer value) {
+            addCriterion("is_expose >=", value, "isExpose");
             return (Criteria) this;
         }
 
-        public Criteria andIsPublicLessThan(Integer value) {
-            addCriterion("\" is_public\" <", value, "isPublic");
+        public Criteria andIsExposeLessThan(Integer value) {
+            addCriterion("is_expose <", value, "isExpose");
             return (Criteria) this;
         }
 
-        public Criteria andIsPublicLessThanOrEqualTo(Integer value) {
-            addCriterion("\" is_public\" <=", value, "isPublic");
+        public Criteria andIsExposeLessThanOrEqualTo(Integer value) {
+            addCriterion("is_expose <=", value, "isExpose");
             return (Criteria) this;
         }
 
-        public Criteria andIsPublicIn(List<Integer> values) {
-            addCriterion("\" is_public\" in", values, "isPublic");
+        public Criteria andIsExposeIn(List<Integer> values) {
+            addCriterion("is_expose in", values, "isExpose");
             return (Criteria) this;
         }
 
-        public Criteria andIsPublicNotIn(List<Integer> values) {
-            addCriterion("\" is_public\" not in", values, "isPublic");
+        public Criteria andIsExposeNotIn(List<Integer> values) {
+            addCriterion("is_expose not in", values, "isExpose");
             return (Criteria) this;
         }
 
-        public Criteria andIsPublicBetween(Integer value1, Integer value2) {
-            addCriterion("\" is_public\" between", value1, value2, "isPublic");
+        public Criteria andIsExposeBetween(Integer value1, Integer value2) {
+            addCriterion("is_expose between", value1, value2, "isExpose");
             return (Criteria) this;
         }
 
-        public Criteria andIsPublicNotBetween(Integer value1, Integer value2) {
-            addCriterion("\" is_public\" not between", value1, value2, "isPublic");
+        public Criteria andIsExposeNotBetween(Integer value1, Integer value2) {
+            addCriterion("is_expose not between", value1, value2, "isExpose");
             return (Criteria) this;
         }
     }

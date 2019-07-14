@@ -8,7 +8,7 @@
     <result column="motto" jdbcType="VARCHAR" property="motto" />
     <result column="avatar" jdbcType="VARCHAR" property="avatar" />
     <result column="address" jdbcType="VARCHAR" property="address" />
-    <result column=" is_public" jdbcType="INTEGER" property="isPublic" />
+    <result column="is_expose" jdbcType="INTEGER" property="isExpose" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -69,7 +69,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    fid, uid, name, motto, avatar, address, " is_public"
+    fid, uid, name, motto, avatar, address, is_expose
   </sql>
   <select id="selectByExample" parameterType="cn.edu.cuit.entity.FamilyExample" resultMap="BaseResultMap">
     select
@@ -104,10 +104,10 @@
   <insert id="insert" parameterType="cn.edu.cuit.entity.Family">
     insert into family (fid, uid, name, 
       motto, avatar, address, 
-      " is_public")
+      is_expose)
     values (#{fid,jdbcType=INTEGER}, #{uid,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, 
       #{motto,jdbcType=VARCHAR}, #{avatar,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, 
-      #{isPublic,jdbcType=INTEGER})
+      #{isExpose,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="cn.edu.cuit.entity.Family">
     insert into family
@@ -130,8 +130,8 @@
       <if test="address != null">
         address,
       </if>
-      <if test="isPublic != null">
-        " is_public",
+      <if test="isExpose != null">
+        is_expose,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -153,8 +153,8 @@
       <if test="address != null">
         #{address,jdbcType=VARCHAR},
       </if>
-      <if test="isPublic != null">
-        #{isPublic,jdbcType=INTEGER},
+      <if test="isExpose != null">
+        #{isExpose,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -185,8 +185,8 @@
       <if test="record.address != null">
         address = #{record.address,jdbcType=VARCHAR},
       </if>
-      <if test="record.isPublic != null">
-        " is_public" = #{record.isPublic,jdbcType=INTEGER},
+      <if test="record.isExpose != null">
+        is_expose = #{record.isExpose,jdbcType=INTEGER},
       </if>
     </set>
     <if test="_parameter != null">
@@ -201,7 +201,7 @@
       motto = #{record.motto,jdbcType=VARCHAR},
       avatar = #{record.avatar,jdbcType=VARCHAR},
       address = #{record.address,jdbcType=VARCHAR},
-      " is_public" = #{record.isPublic,jdbcType=INTEGER}
+      is_expose = #{record.isExpose,jdbcType=INTEGER}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -224,8 +224,8 @@
       <if test="address != null">
         address = #{address,jdbcType=VARCHAR},
       </if>
-      <if test="isPublic != null">
-        " is_public" = #{isPublic,jdbcType=INTEGER},
+      <if test="isExpose != null">
+        is_expose = #{isExpose,jdbcType=INTEGER},
       </if>
     </set>
     where fid = #{fid,jdbcType=INTEGER}
@@ -237,7 +237,7 @@
       motto = #{motto,jdbcType=VARCHAR},
       avatar = #{avatar,jdbcType=VARCHAR},
       address = #{address,jdbcType=VARCHAR},
-      " is_public" = #{isPublic,jdbcType=INTEGER}
+      is_expose = #{isExpose,jdbcType=INTEGER}
     where fid = #{fid,jdbcType=INTEGER}
   </update>
 </mapper>

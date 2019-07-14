@@ -13,7 +13,7 @@ public class Family {
 
     private String address;
 
-    private Integer isPublic;
+    private Integer isExpose;
 
     public Integer getFid() {
         return fid;
@@ -63,11 +63,24 @@ public class Family {
         this.address = address == null ? null : address.trim();
     }
 
-    public Integer getIsPublic() {
-        return isPublic;
+    public Integer getIsExpose() {
+        return isExpose;
     }
 
-    public void setIsPublic(Integer isPublic) {
-        this.isPublic = isPublic;
+    public void setIsExpose(Integer isExpose) {
+        this.isExpose = isExpose;
+    }
+
+    @Override
+    public String toString() {
+        return "Family{" +
+                "fid=" + fid +
+                ", uid=" + uid +
+                ", name='" + name + '\'' +
+                ", motto='" + motto + '\'' +
+                ", avatar='" + avatar + '\'' +
+                ", address='" + address + '\'' +
+                ", isExpose=" + isExpose +
+                '}';
     }
 }

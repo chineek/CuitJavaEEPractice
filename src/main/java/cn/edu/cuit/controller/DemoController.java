@@ -19,7 +19,7 @@ import java.util.List;
 @RequestMapping("/demo")
 public class DemoController {
     @Autowired
-    DemoService demoService;
+    private DemoService demoService;
 
     /**
      * @return String
