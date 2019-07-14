@@ -35,7 +35,8 @@
                 <div class="layui-form-item">
                     <label class="layadmin-user-login-icon layui-icon layui-icon-password"
                            for="LAY-user-login-password"></label>
-                    <input autocomplete="off" type="password" name="password" id="LAY-user-login-password" lay-verify="required"
+                    <input autocomplete="off" type="password" name="password" id="LAY-user-login-password"
+                           lay-verify="required"
                            placeholder="密码" class="layui-input">
                 </div>
                 <div class="layui-form-item" style="margin-bottom: 20px;">
@@ -99,7 +100,7 @@
             userInfo.password = sha256_digest(data.field.password);
             util.httpRequest.post("do", userInfo, function (msg) {
                 if (msg.code === 200) {
-                    window.location.href = "/index";
+                    window.location.href = "/index/";
                 } else {
                     layer.msg(msg.info, {
                         offset: '50px'

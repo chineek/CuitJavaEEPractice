@@ -36,7 +36,7 @@ public class LoginController {
     }
 
     /**
-     * 登录界面
+     * 注册界面
      *
      * @return String
      */
@@ -44,6 +44,18 @@ public class LoginController {
     public String toRegister() {
         // 跳转到login.jsp页面。
         return "register";
+    }
+
+    /**
+     * 用户注销
+     *
+     * @param session 用户会话
+     * @return 返回到登录界面
+     */
+    @RequestMapping(value = {"/out"})
+    public String doLogin(HttpSession session) {
+        session.removeAttribute("user");
+        return "redirect:log";
     }
 
     /**
@@ -90,4 +102,6 @@ public class LoginController {
         registerStatus.setCode(200);
         return registerStatus;
     }
+
+
 }

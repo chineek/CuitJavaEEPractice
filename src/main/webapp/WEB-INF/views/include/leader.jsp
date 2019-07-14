@@ -1,4 +1,4 @@
-<%--
+<%@ page import="cn.edu.cuit.entity.User" %><%--
   Created by IntelliJ IDEA.
   User: 35024
   Date: 2019/7/11
@@ -9,6 +9,11 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
     pageContext.setAttribute("rootPath", "/");
+    Object userObj = request.getSession().getAttribute("user");
+    User user = null;
+    if (userObj != null)
+        user = (User) userObj;
+    pageContext.setAttribute("isLogin", user);
 %>
 <!-- 头部和导航区域（请不要修改） -->
 <div class="layui-header">
@@ -38,18 +43,24 @@
         <li class="layui-nav-item"><a href="">家庭财务管理</a></li>
     </ul>
     <ul class="layui-nav layui-layout-right">
-        <li class="layui-nav-item"><a href="">登录系统</a></li>
-        <li class="layui-nav-item">
-            <a href="javascript:;">
-                <img src="${rootPath}avatar/default.png" class="layui-nav-img">
-                田洋
-            </a>
-            <dl class="layui-nav-child">
-                <dd><a href="">个人中心</a></dd>
-                <dd><a href="">注销</a></dd>
-            </dl>
-        </li>
-        <li class="layui-nav-item"><a href="">注销</a></li>
+        <c:choose>
+            <c:when test="${isLogin == null}">
+                <li class="layui-nav-item"><a href="${rootPath}login/log">登录系统</a></li>
+            </c:when>
+            <c:otherwise>
+                <li class="layui-nav-item">
+                    <a href="javascript:;">
+                        <img src="${rootPath}avatar/<%= user.getAvatar()%>.png" class="layui-nav-img">
+                        <%= user.getName()%>
+                    </a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="">个人中心</a></dd>
+                        <dd><a href="${rootPath}login/out">注销</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item"><a href="${rootPath}login/out">注销</a></li>
+            </c:otherwise>
+        </c:choose>
     </ul>
 </div>
 <div class="layui-side layui-bg-black">
