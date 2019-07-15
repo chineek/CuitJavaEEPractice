@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * @Date: 2019/7/14 14:45
  */
 @Controller
-@RequestMapping("/demo")
+@RequestMapping("/limit")
 public class LineOfLimitController {
     @RequestMapping(value = {"/lineoflimit"})
     public String toLineOfLimit() {
