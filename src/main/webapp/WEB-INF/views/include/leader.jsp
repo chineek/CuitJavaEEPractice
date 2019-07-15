@@ -79,7 +79,7 @@
                 <a href="javascript:;">财务管理</a>
                 <dl class="layui-nav-child">
                     <dd><a href="">额度查询</a></dd>
-                    <dd><a href="">存款目标管理</a></dd>
+                    <dd><a href="${rootPath}savegole/page">存款目标管理</a></dd>
                 </dl>
             </li>
             <li class="layui-nav-item"><a href="">系统设置</a></li>
