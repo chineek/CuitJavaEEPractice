@@ -1,5 +1,6 @@
 package cn.edu.cuit.service.impl;
 
+import cn.edu.cuit.VO.AccountCombination;
 import cn.edu.cuit.dao.AccountMapper;
 import cn.edu.cuit.entity.Account;
 import cn.edu.cuit.entity.AccountExample;
@@ -20,22 +21,45 @@ public class AccountServiceImpl implements AccountService {
     @Autowired
     AccountMapper accountMapper;
 
-    //获取该用户所有账单信息
-    public List getAccountByUser(Integer uid, Integer page, Integer limit) {
+    /**
+     * 封装查询条件的Example
+     * @param accountCombination 查询条件
+     * @return 查询条件的Example
+     */
+    private AccountExample getAccountExampleByAccountCombination(
+            AccountCombination accountCombination) {
         AccountExample ae = new AccountExample();
         AccountExample.Criteria aeCriteria = ae.createCriteria();
-        RowBounds rowBounds = new RowBounds((page - 1) * limit, limit);
-        aeCriteria.andUidEqualTo(uid);
+        aeCriteria.andUidEqualTo(accountCombination.getUid());
         ae.setOrderByClause("acid asc");
-        return (List<Account>) accountMapper.selectByExampleWithRowbounds(ae, rowBounds);
-
+        return ae;
     }
 
+    /**
+     * 根据条件获得账目列表（账单）
+     * @param accountCombination 查询条件
+     * @return 账目列表
+     */
     @Override
-    public int getAccountCountByUid(Integer uid) {
-        AccountExample ae = new AccountExample();
-        AccountExample.Criteria aeCriteria = ae.createCriteria();
-        aeCriteria.andUidEqualTo(uid);
+    public List getAccountByCombination(
+            AccountCombination accountCombination) {
+        RowBounds rowBounds =
+                new RowBounds((accountCombination.getPage() - 1) * accountCombination.getLimit(),
+                        accountCombination.getLimit());
+        AccountExample ae = getAccountExampleByAccountCombination(accountCombination);
+        return (List<Account>) accountMapper.selectByExampleWithRowbounds(ae, rowBounds);
+    }
+
+    /**
+     * 获取符合条件的账目列表中的数目
+     * @param accountCombination 条件
+     * @return 条数
+     */
+    @Override
+    public int getAccountCountByCombination(
+            AccountCombination accountCombination) {
+        AccountExample ae =
+                getAccountExampleByAccountCombination(accountCombination);
         return (int) accountMapper.countByExample(ae);
     }
 

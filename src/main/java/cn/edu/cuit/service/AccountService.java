@@ -1,5 +1,7 @@
 package cn.edu.cuit.service;
 
+import cn.edu.cuit.VO.AccountCombination;
+
 import java.util.Date;
 import java.util.List;
 
@@ -9,9 +11,9 @@ import java.util.List;
  */
 public interface AccountService {
     //根据用户ID得到用户的全部账单信息
-    public List getAccountByUser(Integer uid,Integer page,Integer limit);
+    public List getAccountByCombination(AccountCombination accountCombination);
     // 得到用户账户列表的数量
-    public int getAccountCountByUid(Integer uid);
+    public int getAccountCountByCombination(AccountCombination accountCombination);
 
     //根据时间范围得到对应的账单信息
     public List getAccountByDate(Date date1,Date date2);
