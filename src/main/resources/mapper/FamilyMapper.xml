@@ -240,4 +240,18 @@
       is_expose = #{isExpose,jdbcType=INTEGER}
     where fid = #{fid,jdbcType=INTEGER}
   </update>
+  <select id="selectByExampleWithRowbounds" parameterType="cn.edu.cuit.entity.FamilyExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from family
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
 </mapper>

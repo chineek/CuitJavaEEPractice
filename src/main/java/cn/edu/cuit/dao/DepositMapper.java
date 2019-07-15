@@ -4,6 +4,7 @@ import cn.edu.cuit.entity.Deposit;
 import cn.edu.cuit.entity.DepositExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.session.RowBounds;
 
 public interface DepositMapper {
     long countByExample(DepositExample example);
@@ -15,6 +16,8 @@ public interface DepositMapper {
     int insert(Deposit record);
 
     int insertSelective(Deposit record);
+
+    List<Deposit> selectByExampleWithRowbounds(DepositExample example, RowBounds rowBounds);
 
     List<Deposit> selectByExample(DepositExample example);
 

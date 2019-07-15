@@ -4,6 +4,7 @@ import cn.edu.cuit.entity.AccountType;
 import cn.edu.cuit.entity.AccountTypeExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.session.RowBounds;
 
 public interface AccountTypeMapper {
     long countByExample(AccountTypeExample example);
@@ -15,6 +16,8 @@ public interface AccountTypeMapper {
     int insert(AccountType record);
 
     int insertSelective(AccountType record);
+
+    List<AccountType> selectByExampleWithRowbounds(AccountTypeExample example, RowBounds rowBounds);
 
     List<AccountType> selectByExample(AccountTypeExample example);
 

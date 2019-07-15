@@ -2,6 +2,7 @@ package cn.edu.cuit.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 /**
  * author: 35024
@@ -14,9 +15,11 @@ public class IndexController {
      * @return String
      */
     @RequestMapping(value = {"/"})
-    public String toPersonalIndex() {
+    public ModelAndView toPersonalIndex() {
         // 跳转到TEMPLATE.jsp页面。
-        return "personalIndex";
+        ModelAndView mav = new ModelAndView();
+        mav.setViewName("personalIndex");
+        return mav;
     }
 
 }

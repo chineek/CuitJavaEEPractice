@@ -4,6 +4,7 @@ import cn.edu.cuit.entity.Authority;
 import cn.edu.cuit.entity.AuthorityExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.session.RowBounds;
 
 public interface AuthorityMapper {
     long countByExample(AuthorityExample example);
@@ -15,6 +16,8 @@ public interface AuthorityMapper {
     int insert(Authority record);
 
     int insertSelective(Authority record);
+
+    List<Authority> selectByExampleWithRowbounds(AuthorityExample example, RowBounds rowBounds);
 
     List<Authority> selectByExample(AuthorityExample example);
 

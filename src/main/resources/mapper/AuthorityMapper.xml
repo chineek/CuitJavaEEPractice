@@ -178,4 +178,18 @@
       description = #{description,jdbcType=VARCHAR}
     where auid = #{auid,jdbcType=INTEGER}
   </update>
+  <select id="selectByExampleWithRowbounds" parameterType="cn.edu.cuit.entity.AuthorityExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from authority
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
 </mapper>

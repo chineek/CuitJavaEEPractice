@@ -30,13 +30,4 @@ public class Authority {
     public void setDescription(String description) {
         this.description = description == null ? null : description.trim();
     }
-
-    @Override
-    public String toString() {
-        return "Authority{" +
-                "auid=" + auid +
-                ", name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                '}';
-    }
 }

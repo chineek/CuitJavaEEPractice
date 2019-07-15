@@ -240,4 +240,18 @@
       is_complete = #{isComplete,jdbcType=INTEGER}
     where did = #{did,jdbcType=INTEGER}
   </update>
+  <select id="selectByExampleWithRowbounds" parameterType="cn.edu.cuit.entity.DepositExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from deposit
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
 </mapper>

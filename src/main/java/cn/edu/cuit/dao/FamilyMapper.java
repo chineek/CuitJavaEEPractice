@@ -4,6 +4,7 @@ import cn.edu.cuit.entity.Family;
 import cn.edu.cuit.entity.FamilyExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.session.RowBounds;
 
 public interface FamilyMapper {
     long countByExample(FamilyExample example);
@@ -15,6 +16,8 @@ public interface FamilyMapper {
     int insert(Family record);
 
     int insertSelective(Family record);
+
+    List<Family> selectByExampleWithRowbounds(FamilyExample example, RowBounds rowBounds);
 
     List<Family> selectByExample(FamilyExample example);
 

@@ -8,6 +8,8 @@
     <classPathEntry
             location="C:\Users\35024\.m2\repository\mysql\mysql-connector-java\5.1.29\mysql-connector-java-5.1.29.jar"/>
     <context id="mysqlgenerator" targetRuntime="MyBatis3">
+        <!-- 生成分页 -->
+        <plugin type="org.mybatis.generator.plugins.RowBoundsPlugin"/>
         <!-- 注释 -->
         <commentGenerator>
             <property name="suppressAllComments" value="true"/><!-- 是否取消注释 -->
@@ -18,7 +20,6 @@
                         connectionURL="${url}"
                         userId="${username}"
                         password="${password}"/>
-
         <!-- 类型转换 -->
         <javaTypeResolver>
             <!-- 是否使用bigDecimal， false可自动转化以下类型（Long, Integer, Short, etc.） -->

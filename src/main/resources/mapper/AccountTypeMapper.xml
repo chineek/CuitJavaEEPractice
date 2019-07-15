@@ -178,4 +178,18 @@
       description = #{description,jdbcType=VARCHAR}
     where tid = #{tid,jdbcType=INTEGER}
   </update>
+  <select id="selectByExampleWithRowbounds" parameterType="cn.edu.cuit.entity.AccountTypeExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from account_type
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
 </mapper>

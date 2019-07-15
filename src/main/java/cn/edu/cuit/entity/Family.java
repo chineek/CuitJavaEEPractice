@@ -70,17 +70,4 @@ public class Family {
     public void setIsExpose(Integer isExpose) {
         this.isExpose = isExpose;
     }
-
-    @Override
-    public String toString() {
-        return "Family{" +
-                "fid=" + fid +
-                ", uid=" + uid +
-                ", name='" + name + '\'' +
-                ", motto='" + motto + '\'' +
-                ", avatar='" + avatar + '\'' +
-                ", address='" + address + '\'' +
-                ", isExpose=" + isExpose +
-                '}';
-    }
 }

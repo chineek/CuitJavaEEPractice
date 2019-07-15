@@ -4,6 +4,7 @@ import cn.edu.cuit.entity.Spending;
 import cn.edu.cuit.entity.SpendingExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.session.RowBounds;
 
 public interface SpendingMapper {
     long countByExample(SpendingExample example);
@@ -15,6 +16,8 @@ public interface SpendingMapper {
     int insert(Spending record);
 
     int insertSelective(Spending record);
+
+    List<Spending> selectByExampleWithRowbounds(SpendingExample example, RowBounds rowBounds);
 
     List<Spending> selectByExample(SpendingExample example);
 
