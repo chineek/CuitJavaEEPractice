@@ -5,13 +5,6 @@
   Time: 15:04
   To change this template use File | Settings | File Templates.
 --%>
-<%--
-  Created by IntelliJ IDEA.
-  User: 49510
-  Date: 2019/7/14
-  Time: 10:52
-  To change this template use File | Settings | File Templates.
---%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -24,6 +17,7 @@
 <head>
     <title>生财有道 - 您的家庭理财好助手</title>
     <jsp:include page="include/head.jsp"/>
+    <script src="${rootPath}js/sha256.js"></script>
 </head>
 <body class="layui-layout-body">
 <div class="layui-layout layui-layout-admin">
@@ -44,12 +38,6 @@
                                     <input type="text" name="name" required  lay-verify="required" placeholder="请输入姓名" autocomplete="off" class="layui-input">
                                 </div>
                             </div>
-                            <div class="layui-form-item layui-col-md3">
-                                <label class="layui-form-label">年龄</label>
-                                <div class="layui-input-block">
-                                    <input type="text" name="age" required  lay-verify="required|number" placeholder="请输入年龄" autocomplete="off" class="layui-input">
-                                </div>
-                            </div>
                             <div class="layui-form-item">
                                 <label class="layui-form-label">性别</label>
                                 <div class="layui-input-block">
@@ -60,7 +48,8 @@
                             <div class="layui-form-item layui-col-md3">
                                 <label class="layui-form-label">生日</label>
                                 <div class="layui-input-block">
-                                    <input type="text" class="layui-input" name="date" id="birthDate" lay-verify="required" placeholder="点击选择生日">
+                                    <input type="text" class="layui-input" name="birthday"
+                                           id="LAY-user-reg-birthday" lay-verify="date" placeholder="点击选择生日">
                                 </div>
                             </div>
                             <div class="layui-form-item layui-col-md4">
@@ -115,7 +104,7 @@
                             </div>
                             <div class="layui-form-item">
                                 <div class="layui-input-block">
-                                    <button class="layui-btn" lay-submit lay-filter="">立即提交</button>
+                                    <button class="layui-btn" lay-submit lay-filter="user-add-submit">添加用户</button>
                                     <button type="reset" class="layui-btn layui-btn-primary">重置</button>
                                 </div>
                             </div>
@@ -138,13 +127,10 @@
     //日期组件js
     layui.use('laydate', function () {
         var laydate = layui.laydate;
-
         laydate.render({
-            elem: '#birthDate' //指定元素
+            elem: '#LAY-user-reg-birthday' //指定元素
         });
-    })
-
-
+    });
     layui.use('form', function(){
         var form = layui.form;
 
@@ -159,7 +145,7 @@
         });
 
         //监听提交
-        form.on('submit(formDemo)', function(data){
+        form.on('submit(user-add-submit)', function(data){
             layer.msg(JSON.stringify(data.field));
 
             var user = {
@@ -173,12 +159,26 @@
                 "motto": data.field.motto,
                 "role": data.field.role,
                 "avatar": "default",
-                "auid": 1,
+                "auid": data.field.auid,
                 "isAvaliable": 1,
                 "createDate": new Date()
             };
-
-
+            // 上载信息
+            util.httpRequest.post("userAdd", user, function (msg) {
+                if (msg.code === 200) {
+                    layer.alert(msg.info, {
+                        title: "添加结果"
+                    },function() {
+                        window.location.href = "list";
+                    });
+                } else {
+                    layer.msg(msg.info, {
+                        offset: '50px'
+                        , icon: 2
+                        , time: 1000
+                    });
+                }
+            });
             return false;
         });
     });

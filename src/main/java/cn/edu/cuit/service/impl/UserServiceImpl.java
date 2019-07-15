@@ -3,6 +3,7 @@ package cn.edu.cuit.service.impl;
 /**
  * Created by a on 2019/7/14.
  */
+
 import java.util.List;
 
 import cn.edu.cuit.VO.UserListCombination;
@@ -15,7 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class UserServiceImpl implements UserService{
+public class UserServiceImpl implements UserService {
     @Autowired
     UserMapper userMapper;
 
@@ -40,11 +41,16 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public List<User> list(UserListCombination userListCombination){
-        UserExample ue=new UserExample();
-        RowBounds rowBounds = new RowBounds((userListCombination.getPage()-1)*userListCombination.getLimit(),userListCombination.getLimit());
+    public List<User> list(UserListCombination userListCombination) {
+        UserExample ue = new UserExample();
+        RowBounds rowBounds = new RowBounds((userListCombination.getPage() - 1) * userListCombination.getLimit(), userListCombination.getLimit());
         ue.setOrderByClause("uid desc");
-        return userMapper.selectByExampleWithRowbounds(ue,rowBounds);
+        List<User> users = userMapper.selectByExampleWithRowbounds(ue, rowBounds);
+        // 清空密码后返回前端
+        for (User user : users) {
+            user.setPassword("");
+        }
+        return users;
     }
 
     @Override
@@ -57,20 +63,20 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public boolean isExists(String name) {
-        UserExample example =new UserExample();
+        UserExample example = new UserExample();
         example.createCriteria().andNameEqualTo(name);
-        List<User> result= userMapper.selectByExample(example);
-        if(!result.isEmpty())
+        List<User> result = userMapper.selectByExample(example);
+        if (!result.isEmpty())
             return true;
         return false;
     }
 
     @Override
     public User get(String name, String password) {
-        UserExample example =new UserExample();
+        UserExample example = new UserExample();
         example.createCriteria().andNameEqualTo(name).andPasswordEqualTo(password);
-        List<User> result= userMapper.selectByExample(example);
-        if(result.isEmpty())
+        List<User> result = userMapper.selectByExample(example);
+        if (result.isEmpty())
             return null;
         return result.get(0);
     }
