@@ -1,36 +1,58 @@
 # CuitJavaEEPractice
-**成信大JAVAEE实训课程项目**
+**成信大JAVAEE实训课程项目**  
+**cuit javaee Training Course Project**  
 
-## 项目简介  
+## 项目简介 Project Description  
 **项目名称**：家庭理财管理系统  
+**Name**：Family Financial Management System  
+  
 **项目介绍**：一个能够管理家庭内部各种财务信息的家庭理财管理系统，主要包括用户管理、收支管理、财务管理、报表管理等公共模块。  
-
-## 技术选型
+**Introduction**：A system that would manage within the family, family finance Financial Information Management System, including user management, budget management, financial management, report management, and other public module.  
+  
+## 技术选型 Choosing Technology  
 **开发技术**：JAVA, JSP, Servlet, JDBC  
+**Development technology**：JAVA, JSP, Servlet, JDBC  
+  
 **开发环境**：IntelliJ idea 2017.1+, jdk 8u91, mysql 5.5, tomcat 8.5.34  
+**Development environment**：IntelliJ idea 2017.1+, jdk 8u91, mysql 5.5, tomcat 8.5.34  
+  
 **开发框架**：Spring、SpringMVC、Mybatis、Jquery、layui
-
-## 启动方法
+**Development Framework**：Spring、SpringMVC、Mybatis、Jquery、layui  
+  
+## 启动方法 Start Up  
 **导入项目**：使用IDEA拉取git远端项目，等待项目加载完成。  
-**环境配置**：为项目配置tomcat 8.5运行环境，点击运行按钮，可以查看执行情况。    
-**启动成功**：在浏览器中输入：http://localhost:8080/ 访问项目首页。  
+**Import Project**：Using the idea of distal pull git project, waiting for the project finishes loading.  
+  
+**环境配置**：为项目配置tomcat 8.5运行环境，点击运行按钮，可以查看执行情况。  
+**Configuring environment**：configuring Tomcat 8.5 Runtime Environment for your project, click the Run button, you can view the status of implementation.  
+  
+**启动成功**：在浏览器中输入：http://localhost:8080/ 访问项目首页。 
+**Start Completed**：In the browser, enter : http://localhost:8080/ to visit the project home page.  
 
-## 开发规范(必读)  
-
+## 开发规范(必读)  Development Specification (important)  
 - 在每次编写代码前应该先pull代码，确保本地版本与主要分支一致。  
 - 开发代码分工合作，尽量避免修改公共的代码文件，避免出现未知的版本冲突。  
 - idea应安装.ignore插件，避免上传不必要的IDE配置文件。本项目中插件所需的'.ignore'文件已经生成。  
   安装请参考：https://blog.csdn.net/ZZY1078689276/article/details/84952858  
 - 模块代码应该进行单元测试，确认代码无误后再推送(PUSH)至远端。避免出现冲突造成的难以修复的BUG。
+  
+- You should pull the code before writing each code to ensure that the local version is consistent with the main branch.  
+- Develop code division of work to avoid modifying public code files and avoiding unknown version conflicts.  
+- Idea should install the .ignore plug-in to avoid uploading unnecessary IDE profiles.  
+  The '.ignore' file required for the plug-in in this project has been generated.    
+  Please refer to: https://blog.csdn.net/ZZY1078689276/article/details/84952858  
+- The module code should be unit tested to confirm that the code is correct before pushing (PUSH) to the far end. Avoid hard-to-fix BUGS caused by conflict.  
 
-## 页面框架
-
+## 页面框架  Page Framework
 - 前端框架：layUI  
 - layui是一款采用自身模块规范编写的前端 UI 框架，遵循原生 HTML/CSS/JS 的书写与组织形式，门槛极低，拿来即用。  
 - 学习教程：https://www.layui.com/doc/  
-
-
-## 编写标准
+  
+- Front Page frame: layUI  
+- Layui is a UI framework written with its own module specification, following the writing and organization of native HTML/CSS/JS, with very low thresholds for ready-to-use.  
+- Learning tutorial: https://www.layui.com/doc/  
+  
+## 编写标准 Writing Standards
 
 ### 1、Controller层编写标准  
   
