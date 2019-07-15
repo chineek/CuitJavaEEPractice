@@ -10,15 +10,82 @@
 <head>
     <title>生财有道 - 您的家庭理财好助手</title>
     <jsp:include page="include/head.jsp"/>
+    <script src="${rootPath}lib/echarts.js"></script>
 </head>
 <body class="layui-layout-body">
 <div class="layui-layout layui-layout-admin">
     <!-- 导入导航条 -->
     <jsp:include page="include/leader.jsp"/>
     <!-- END：导航条 -->
-    <div class="layui-body layui-bg-gray">
+    <div class="layui-body layui-bg-gray" style="padding: 30px 40px;">
         <!-- ===================================在这里编写HTML代码================================== -->
+        <div class="layui-row layui-col-space20">
+            <div class="layui-col-md6">
+                <div class="layui-card">
+                    <div class="layui-card-header">个人信息</div>
+                    <div class="layui-card-body" style="padding: 10px 10px 40px 20px;">
+                        <!-- 欢迎信息 -->
+                        <h1 style="line-height: 40px;">系统管理员，晚上好！</h1>
+                        <div class="layui-text" style="line-height: 40px;padding-bottom: 15px;">
+                            <i class="layui-icon layui-icon-notice" style="color: #FFB800;"></i>
+                            今天是2019年7月15日 欢迎您使用生财有道家庭理财系统！
+                        </div>
+                        <!-- END:欢迎信息 -->
+                        <!-- 个人情况 -->
+                        <div class="layui-row layui-col-space30">
+                            <div class="layui-col-md2">
+                                <div style="line-height: 18px;">存款目标</div>
+                            </div>
+                            <div class="layui-col-md7">
+                                <div class="layui-progress layui-progress-big" lay-showPercent="yes">
+                                    <div class="layui-progress-bar layui-bg-green" lay-percent="9996/12456"></div>
+                                </div>
+                            </div>
+                            <div class="layui-col-space3">
+                                <div style="line-height: 18px;">还有8天</div>
+                            </div>
+                        </div>
+                        <div class="layui-row layui-col-space30">
+                            <div class="layui-col-md2">
+                                <div style="line-height: 18px;">消费额度</div>
+                            </div>
+                            <div class="layui-col-md7">
+                                <div class="layui-progress layui-progress-big" lay-showPercent="yes">
+                                    <div class="layui-progress-bar layui-bg-orange" lay-percent="1400/5000"></div>
+                                </div>
+                            </div>
+                            <div class="layui-col-space3">
+                                <div style="line-height: 18px;">剩余3600元</div>
+                            </div>
+                        </div>
+                        <!-- END:个人情况 -->
+                    </div>
+                </div>
+                <div class="layui-card">
+                    <div class="layui-card-header">本月收支情况（收入100.0元，支出3000.0元）</div>
+                    <div class="layui-card-body" style="padding: 10px 10px 40px 20px;">
+                        <div class="layui-row">
+                            <!-- 本月收支情况 -->
+                            <div class="layui-col-lg12" style="height: 140px;">
+                                <div id="echartTest" style="width: 100%;height: 140px;"></div>
+                            </div>
+                            <!-- END：本月收支情况 -->
+                            <!-- 本月收支占比 -->
+                            <div class="layui-col-lg12">
+                                <div class="layui-row">
+                                    <div class="layui-col-lg6"></div>
+                                    <div class="layui-col-lg6"></div>
+                                </div>
+                            </div>
+                            <!-- END：本月收支占比 -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="layui-col-md6">
 
+            </div>
+        </div>
         <!-- ================================END：在这里编写HTML代码================================ -->
     </div>
     <!-- 导入底部 -->
@@ -28,6 +95,7 @@
 <!-- 导入代码库文件 -->
 <jsp:include page="include/jser.jsp"/>
 <!-- END：代码库文件 -->
+<script src="${rootPath}js/personal-index-echarts.js"></script>
 <!-- ================================在这里编写页面的js代码================================ -->
 <script>
     // 这里我编写了一个简单的操作工具库，接下来是使用示例。
