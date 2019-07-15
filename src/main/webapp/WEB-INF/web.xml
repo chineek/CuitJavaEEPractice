@@ -28,7 +28,7 @@
         <!-- 可以自定义servlet.xml配置文件的位置和名称， 默认为WEB-INF目录下，名称为[<servlet-name>]-servlet.xml，如spring-servlet.xml -->
         <init-param>
             <param-name>contextConfigLocation</param-name>
-            <param-value> classpath:applicationContext.xml</param-value>
+            <param-value>classpath:applicationContext.xml</param-value>
         </init-param>
         <load-on-startup>1</load-on-startup>
     </servlet>
@@ -36,6 +36,10 @@
     <servlet-mapping>
         <servlet-name>springServlet</servlet-name>
         <url-pattern>/</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>springServlet</servlet-name>
+        <url-pattern>/index/</url-pattern>
     </servlet-mapping>
     <!-- Spring配置 -->
     <listener>
@@ -48,13 +52,14 @@
         <servlet-name>default</servlet-name>
         <url-pattern>*.md</url-pattern>
     </servlet-mapping>
+
     <context-param>
         <param-name>contextConfigLocation</param-name>
         <param-value>classpath:applicationContext.xml</param-value>
     </context-param>
     <!-- 欢迎页面-->
     <welcome-file-list>
-        <welcome-file>/WEB-INF/index.jsp</welcome-file>
+        <welcome-file>index/</welcome-file>
     </welcome-file-list>
     <!--404错误展示页面，可自行配置-->
     <!--<error-page>-->

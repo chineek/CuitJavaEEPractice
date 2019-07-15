@@ -9,7 +9,7 @@
          http://www.springframework.org/schema/context
          http://www.springframework.org/schema/context/spring-context-4.3.xsd
          http://www.springframework.org/schema/mvc
-         http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd">
+         http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd">
 
     <!-- ①：对com.springmvc包中的所有类进行扫描，以完成Bean创建和自动依赖注入的功能 -->
     <context:component-scan base-package="cn.edu.cuit"/>
@@ -21,6 +21,19 @@
     <mvc:resources location="/asset/lib/" mapping="/lib/**"/>
     <mvc:resources location="/asset/js/" mapping="/js/**"/>
     <mvc:resources location="/asset/avatar/" mapping="/avatar/**"/>
+    <!-- 配置拦截器 -->
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/>
+            <mvc:exclude-mapping path="/images/**"/>
+            <mvc:exclude-mapping path="/css/**"/>
+            <mvc:exclude-mapping path="/lib/**"/>
+            <mvc:exclude-mapping path="/js/**"/>
+            <mvc:exclude-mapping path="/avatar/**"/>
+            <mvc:exclude-mapping path="/login/**"/>
+            <bean class="cn.edu.cuit.interceptor.LoginInterceptor"/>
+        </mvc:interceptor>
+    </mvc:interceptors>
     <!-- Configures the @Controller programming model
     <mvc:annotation-driven />-->
     <!-- ②：启动Spring MVC的注解功能，完成请求和注解POJO的映射 -->
