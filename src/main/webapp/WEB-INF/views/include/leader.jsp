@@ -37,7 +37,7 @@
         <li class="layui-nav-item">
             <a href="javascript:void(0);">账单管理</a>
             <dl class="layui-nav-child">
-                <dd><a href="">添加账目类型</a></dd>
+                <dd><a href="${rootPath}accountType/">添加账目类型</a></dd>
             </dl>
         </li>
         <li class="layui-nav-item"><a href="">家庭财务管理</a></li>
