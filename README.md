@@ -16,7 +16,7 @@
 **开发环境**：IntelliJ idea 2017.1+, jdk 8u91, mysql 5.5, tomcat 8.5.34  
 **Development environment**：IntelliJ idea 2017.1+, jdk 8u91, mysql 5.5, tomcat 8.5.34  
   
-**开发框架**：Spring、SpringMVC、Mybatis、Jquery、layui
+**开发框架**：Spring、SpringMVC、Mybatis、Jquery、layui  
 **Development Framework**：Spring、SpringMVC、Mybatis、Jquery、layui  
   
 ## 启动方法 Start Up  
