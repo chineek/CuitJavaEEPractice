@@ -26,8 +26,8 @@
             <li class="layui-nav-item">
                 <a href="javascript:void(0);">成员管理</a>
                 <dl class="layui-nav-child">
-                    <dd><a href="${rootPath}user/userAdd">添加成员</a></dd>
-                    <dd><a href="${rootPath}user/UserList">查询成员列表</a></dd>
+                    <dd><a href="${rootPath}user/add">添加成员</a></dd>
+                    <dd><a href="${rootPath}user/list">查询成员列表</a></dd>
                 </dl>
             </li>
             <li class="layui-nav-item">
@@ -59,7 +59,7 @@
                         <%= user.getName()%>
                     </a>
                     <dl class="layui-nav-child">
-                        <dd><a href="">个人中心</a></dd>
+                        <dd><a href="${rootPath}user/center">个人中心</a></dd>
                         <dd><a href="${rootPath}login/out">注销</a></dd>
                     </dl>
                 </li>
