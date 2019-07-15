@@ -25,7 +25,9 @@
 
         <div class="layui-row">
             <div class="layui-col-md10">
-                <textarea type="text">账单详情</textarea>
+                <fieldset class="layui-elem-field layui-field-title" style="margin-top: 1%;padding-bottom: 1%">
+                    <legend>账单详情</legend>
+                </fieldset>
             </div>
             <div class="layui-col-md2">
                 <button type="button" class="layui-btn layui-btn-lg" lay-event="add"
@@ -62,18 +64,17 @@
         table.render({
             elem: '#demo',
             title: '账单详情',
-            url: '/account/getAccountByUser?uid=<%= user.getUid()%>',
+            url: '/account/getAccountByUser',
             totalRow: true,  //开启合计
+            method:'post',
+            where:{
+                'uid':<%= user.getUid()%>
+            },
             cols: [[ //标题栏
                 {
                     field: 'ietype',
                     title: '类型',
                     minWidth: 150,
-                    // fixed: 'left',
-                    // unresize: true,
-                    // sort: true,
-                    // totalRowText: '合计',
-                    //temlet:'#type_explain',  //引用JavaScript将类型数字转换为对应类型
                     templet: function (item) {  //将类型数字转换为对应类型
                         var typeInt = parseInt(item.ietype);
                         if (typeInt === 0) {
@@ -93,7 +94,6 @@
                 , {field: 'remarks', title: '备注', minWidth: 150}
                 , {field: 'option', title: '操作', toolbar: '#barDemo', minWidth: 200}
             ]]
-            //,skin: 'line' //表格风格
             , even: true
             , page: true //是否显示分页
             , limits: [5, 8, 10, 20]  //每页显示数量选择
