@@ -135,6 +135,7 @@
         var laydate = layui.laydate;
         laydate.render({
             elem: '#LAY-user-reg-birthday' //指定元素
+            ,type:'date'
         });
     });
     layui.use('form', function(){

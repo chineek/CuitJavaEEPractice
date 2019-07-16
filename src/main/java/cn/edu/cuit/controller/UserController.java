@@ -45,12 +45,6 @@ public class UserController {
         mav.setViewName("userAdd");
         return mav;
     }
-    @RequestMapping(value = {"/edit"})
-    public ModelAndView toUserEdit() {
-        ModelAndView mav = new ModelAndView();
-        mav.setViewName("userEdit");
-        return mav;
-    }
 
     @RequestMapping(value = {"/getUserList"})
     @ResponseBody
@@ -63,30 +57,36 @@ public class UserController {
     }
 
     @RequestMapping(value = {"/center"})
-    public String toUser(Model model, HttpSession session) {
+    public ModelAndView toUser(HttpSession session) {
         User user = (User) session.getAttribute("user");
-        List<User> us = userService.list(1);
-        model.addAttribute("user", us);
-        return "user";
+        List<User> us = userService.list(user.getUid());
+        ModelAndView mav = new ModelAndView();
+        mav.setViewName("user");
+        mav.addObject("userInfo",us.get(0));
+        return mav;
     }
 
     @RequestMapping(value = {"/userDelete"})
-    public String deleteUser(Model model, HttpSession session, int uid) {
+    public String deleteUser(HttpSession session, int uid) {
         User user = (User) session.getAttribute("user");
         userService.delete(uid);
-        return "success";
+        return "redirect:list";
     }
 
     @RequestMapping(value = {"/userEdit"})
-    public UserListStatus editUser(@RequestBody User user) {
-        UserListStatus us=new UserListStatus();
-        if(userService.isExists(user.getName())){
-            us.setCount(405);
-        }else{
-            userService.update(user);
-            us.setCode(200);
-        }
-        return us;
+    @ResponseBody
+    public UserListStatus editUser(@RequestBody User user,HttpSession session) {
+        UserListStatus rs = new UserListStatus();
+        userService.update(user);
+        rs.setCode(200);
+        rs.setMsg("添加成功!");
+        // 要更新session中的用户的值
+        List<User> us = userService.list(user.getUid());
+        User newUser = us.get(0);
+        newUser.setPassword("");
+        session.setAttribute("user",newUser);
+        rs.setData(us);
+        return rs;
     }
 
     @RequestMapping(value = {"/userAdd"})
