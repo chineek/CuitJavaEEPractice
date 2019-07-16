@@ -1015,6 +1015,66 @@ public class UserExample {
             addCriterion("create_date not between", value1, value2, "createDate");
             return (Criteria) this;
         }
+
+        public Criteria andFidIsNull() {
+            addCriterion("fid is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andFidIsNotNull() {
+            addCriterion("fid is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andFidEqualTo(Integer value) {
+            addCriterion("fid =", value, "fid");
+            return (Criteria) this;
+        }
+
+        public Criteria andFidNotEqualTo(Integer value) {
+            addCriterion("fid <>", value, "fid");
+            return (Criteria) this;
+        }
+
+        public Criteria andFidGreaterThan(Integer value) {
+            addCriterion("fid >", value, "fid");
+            return (Criteria) this;
+        }
+
+        public Criteria andFidGreaterThanOrEqualTo(Integer value) {
+            addCriterion("fid >=", value, "fid");
+            return (Criteria) this;
+        }
+
+        public Criteria andFidLessThan(Integer value) {
+            addCriterion("fid <", value, "fid");
+            return (Criteria) this;
+        }
+
+        public Criteria andFidLessThanOrEqualTo(Integer value) {
+            addCriterion("fid <=", value, "fid");
+            return (Criteria) this;
+        }
+
+        public Criteria andFidIn(List<Integer> values) {
+            addCriterion("fid in", values, "fid");
+            return (Criteria) this;
+        }
+
+        public Criteria andFidNotIn(List<Integer> values) {
+            addCriterion("fid not in", values, "fid");
+            return (Criteria) this;
+        }
+
+        public Criteria andFidBetween(Integer value1, Integer value2) {
+            addCriterion("fid between", value1, value2, "fid");
+            return (Criteria) this;
+        }
+
+        public Criteria andFidNotBetween(Integer value1, Integer value2) {
+            addCriterion("fid not between", value1, value2, "fid");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

@@ -32,6 +32,8 @@ public class User {
 
     private Date createDate;
 
+    private Integer fid;
+
     public Integer getUid() {
         return uid;
     }
@@ -142,5 +144,13 @@ public class User {
 
     public void setCreateDate(Date createDate) {
         this.createDate = createDate;
+    }
+
+    public Integer getFid() {
+        return fid;
+    }
+
+    public void setFid(Integer fid) {
+        this.fid = fid;
     }
 }
