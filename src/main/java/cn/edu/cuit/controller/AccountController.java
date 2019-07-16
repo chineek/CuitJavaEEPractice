@@ -47,16 +47,5 @@ public class AccountController {
         als.setCount(accountService.getAccountCountByCombination(accountCombination));
         return als;
     }
-    /**
-     * 根据账单类型来得到账单信息
-     *
-     * @return List<User>
-     */
-    @RequestMapping(value = {"/getAccountByIEType"})
-    // 使用ResponseBody可以让返回的数据变为字节流
-    @ResponseBody
-    public List<Account> getAccountByIEType(@RequestBody AccountCombination accountCombination) {
-        /* 直接给前台返回一个字符串，一般用于AJAX交互。 */
-        return (List<Account>) accountService.getAccountByCombination(accountCombination);
-    }
+
 }

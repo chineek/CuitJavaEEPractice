@@ -23,6 +23,7 @@ public class AccountServiceImpl implements AccountService {
 
     /**
      * 封装查询条件的Example
+     *
      * @param accountCombination 查询条件
      * @return 查询条件的Example
      */
@@ -31,18 +32,28 @@ public class AccountServiceImpl implements AccountService {
         AccountExample ae = new AccountExample();
         AccountExample.Criteria aeCriteria = ae.createCriteria();
         //根据收支类型获得账目列表（账单）
-        if(accountCombination.getIetype()!=null){
+        if (accountCombination.getIetype() != null) {
             aeCriteria.andIetypeEqualTo(accountCombination.getIetype());
+        }
+        //根据指定时间获得账目列表（账单）
+        if (accountCombination.getStartDate() != null && accountCombination.getEndDate() != null) {
+            aeCriteria.andDateBetween(accountCombination.getStartDate(), accountCombination.getEndDate());
+        }
+
+        //根据备注进行模糊搜索（账单）
+        if (accountCombination.getRemarks() != null) {
+            aeCriteria.andRemarksLike("%" + accountCombination.getRemarks() + "%");
         }
         //根据用户ID获得账目列表（账单）
         aeCriteria.andUidEqualTo(accountCombination.getUid());
 
-        ae.setOrderByClause("acid asc");
+        ae.setOrderByClause("acid desc");
         return ae;
     }
 
     /**
      * 根据条件获得账目列表（账单）
+     *
      * @param accountCombination 查询条件
      * @return 账目列表
      */
@@ -58,6 +69,7 @@ public class AccountServiceImpl implements AccountService {
 
     /**
      * 获取符合条件的账目列表中的数目
+     *
      * @param accountCombination 条件
      * @return 条数
      */
@@ -68,7 +80,6 @@ public class AccountServiceImpl implements AccountService {
                 getAccountExampleByAccountCombination(accountCombination);
         return (int) accountMapper.countByExample(ae);
     }
-
 
 
 }

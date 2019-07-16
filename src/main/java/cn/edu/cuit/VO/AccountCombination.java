@@ -11,8 +11,10 @@ public class AccountCombination {
     private Integer limit;
     private Integer page;
     private Integer ietype;
-    private Date date;
+    private Date startDate;
+    private Date endDate;
     private Integer auid;
+    private String remarks;
 
     public Integer getUid() {
         return uid;
@@ -46,12 +48,20 @@ public class AccountCombination {
         this.ietype = ietype;
     }
 
-    public Date getDate() {
-        return date;
+    public Date getStartDate() {
+        return startDate;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
+    }
+
+    public Date getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
     }
 
     public Integer getAuid() {
@@ -60,5 +70,13 @@ public class AccountCombination {
 
     public void setAuid(Integer auid) {
         this.auid = auid;
+    }
+
+    public String getRemarks() {
+        return remarks;
+    }
+
+    public void setRemarks(String remarks) {
+        this.remarks = remarks;
     }
 }
