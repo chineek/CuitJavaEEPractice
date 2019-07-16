@@ -12,6 +12,7 @@
 <%
     pageContext.setAttribute("rootPath", "/");
     User user=(User)request.getSession().getAttribute("user");
+    Integer sex=user.getSex();
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -41,16 +42,18 @@
                                 <div class="layui-form-item layui-col-md3">
                                     <label class="layui-form-label">性别</label>
                                     <div class="layui-input-block">
-
-                                        <input type="text" name="sex" required  lay-verify="required" value="${userInfo.sex}" autocomplete="off" class="layui-input">
-
+                                        <%if(sex==0){%>
+                                        <input type="text" name="sex" required  lay-verify="required" value="男" autocomplete="off" class="layui-input">
+                                        <%}%>
+                                        <%if(sex==1){%>
+                                        <input type="text" name="sex" required  lay-verify="required" value="女" autocomplete="off" class="layui-input">
+                                        <%}%>
                                     </div>
-
                                 </div>
                                 <div class="layui-form-item layui-col-md4">
                                     <label class="layui-form-label">生日</label>
                                     <div class="layui-input-block">
-                                        <input type="text" class="layui-input" name="birthday" id="birthday" lay-verify="date" value="${userInfo.birthday}">
+                                        <input type="text" class="layui-input" name="birthday" id="birthday" lay-verify="date">
                                     </div>
                                 </div>
                                 <div class="layui-form-item layui-col-md3">
@@ -122,7 +125,7 @@
         laydate.render({
             elem: '#birthday' //指定元素
             ,value:'${userInfo.birthday}'
-            //,format:'yyyy-MM-dd'
+            ,format:'yyyy-MM-dd'
         });
     });
     layui.use('form', function(){
