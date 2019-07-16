@@ -89,7 +89,7 @@
                                 <div class="layui-form-item layui-col-md3">
                                     <label class="layui-form-label">权限</label>
                                     <div class="layui-input-block">
-                                        <input type="text" name="auid" required  lay-verify="required" value="${userInfo.auid}" autocomplete="off" class="layui-input">
+                                        <input type="text" name="auid"  id="auid" required  lay-verify="required" value="${userInfo.auid}" autocomplete="off" class="layui-input">
                                     </div>
                                 </div>
                                 <div class="layui-form-item layui-col-md3">
@@ -119,12 +119,24 @@
 <!-- END：代码库文件 -->
 <!-- ================================在这里编写页面的js代码================================ -->
 <script>
+    //转换日期格式
+    var date = "${userInfo.birthday}";
+    $("#birthday").val(util.date.format(date, "yyyy-MM-dd"));
+
+    //转换auid格式
+    var auid = "${userInfo.auid}";
+    if(auid == 1) {
+        $("#auid").val("家长");
+    }else {
+        $("#auid").val("普通成员");
+    }
+
     //日期组件js
     layui.use('laydate', function () {
         var laydate = layui.laydate;
         laydate.render({
             elem: '#birthday' //指定元素
-            ,value:'${userInfo.birthday}'
+            //,value:'$//{userInfo.birthday}'
             ,format:'yyyy-MM-dd'
         });
     });

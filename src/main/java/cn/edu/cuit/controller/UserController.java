@@ -73,6 +73,11 @@ public class UserController {
         return "redirect:list";
     }
 
+    @RequestMapping(value = {"/Edit"})
+    public String toUserEdit() {
+        return "userEdit";
+    }
+
     @RequestMapping(value = {"/userEdit"})
     @ResponseBody
     public UserListStatus editUser(@RequestBody User user,HttpSession session) {
