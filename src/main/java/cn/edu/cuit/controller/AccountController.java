@@ -8,10 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -31,10 +29,14 @@ public class AccountController {
     @RequestMapping(value = {"/list"})
     public String toAccount() {
         // 跳转到account.jsp页面。
-        return "account";
+        return "accountList";
     }
 
-    //获取到单个用户账单的全部信息
+    /**
+     * 获取到单个用户账单的全部信息
+     * @param accountCombination
+     * @return
+     */
     @RequestMapping(value = {"/getAccountByCombination"})
     @ResponseBody
     public AccountListStatus getAccountByUser(@RequestBody AccountCombination accountCombination) {
@@ -44,5 +46,17 @@ public class AccountController {
         als.setData(accountList);
         als.setCount(accountService.getAccountCountByCombination(accountCombination));
         return als;
+    }
+    /**
+     * 根据账单类型来得到账单信息
+     *
+     * @return List<User>
+     */
+    @RequestMapping(value = {"/getAccountByIEType"})
+    // 使用ResponseBody可以让返回的数据变为字节流
+    @ResponseBody
+    public List<Account> getAccountByIEType(@RequestBody AccountCombination accountCombination) {
+        /* 直接给前台返回一个字符串，一般用于AJAX交互。 */
+        return (List<Account>) accountService.getAccountByCombination(accountCombination);
     }
 }

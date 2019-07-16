@@ -30,7 +30,13 @@ public class AccountServiceImpl implements AccountService {
             AccountCombination accountCombination) {
         AccountExample ae = new AccountExample();
         AccountExample.Criteria aeCriteria = ae.createCriteria();
+        //根据收支类型获得账目列表（账单）
+        if(accountCombination.getIetype()!=null){
+            aeCriteria.andIetypeEqualTo(accountCombination.getIetype());
+        }
+        //根据用户ID获得账目列表（账单）
         aeCriteria.andUidEqualTo(accountCombination.getUid());
+
         ae.setOrderByClause("acid asc");
         return ae;
     }
@@ -63,30 +69,6 @@ public class AccountServiceImpl implements AccountService {
         return (int) accountMapper.countByExample(ae);
     }
 
-    //根据时间得到对应的账单信息
-    public List getAccountByDate(Date date1, Date date2) {
-        AccountExample ae = new AccountExample();
-        AccountExample.Criteria aeCriteria = ae.createCriteria();
-        aeCriteria.andDateBetween(date1, date2);
-        ae.setOrderByClause("date asc");
-        return accountMapper.selectByExample(ae);
-    }
 
-    //根据金额范围得到对应的账单信息
-    public List getAccountByAmount(Long amount1, Long amount2) {
-        AccountExample ae = new AccountExample();
-        AccountExample.Criteria aeCriteria = ae.createCriteria();
-        aeCriteria.andAmountBetween(amount1, amount2);
-        ae.setOrderByClause("amount asc");
-        return accountMapper.selectByExample(ae);
-    }
 
-    //根据账单类型得到对应的账单信息
-    public List getAccountByIEType(Integer IEType) {
-        AccountExample ae = new AccountExample();
-        AccountExample.Criteria aeCriteria = ae.createCriteria();
-        aeCriteria.andIetypeEqualTo(IEType);
-        ae.setOrderByClause("amount asc");
-        return accountMapper.selectByExample(ae);
-    }
 }
