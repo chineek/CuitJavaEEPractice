@@ -10,6 +10,7 @@ import cn.edu.cuit.service.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -47,11 +48,19 @@ public class LoginServiceImpl implements LoginService {
     }
 
     public boolean addUserAndFamily(UserAndFamily userAndFamily) {
-        int res = userMapper.insert(userAndFamily.getUser());
-        // 获取刚刚插入的用户的UID
-        User user = getUserByUsernameAndPassword(userAndFamily.getUser());
+        // 生成uid和fid
+        int uid = (int) (new Date().getTime() / 1000);
+        int fid = uid + 1;
+        // 返回数据
+        int res = 0;
+        // 添加用户和family
+        User user = userAndFamily.getUser();
+        user.setUid(uid);
+        user.setFid(fid);
+        res += userMapper.insert(user);
         Family family = userAndFamily.getFamily();
-        family.setUid(user.getUid());
+        family.setUid(uid);
+        family.setFid(fid);
         res += familyMapper.insert(family);
         return res > 1;
     }
