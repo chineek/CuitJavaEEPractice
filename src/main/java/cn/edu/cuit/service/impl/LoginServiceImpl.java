@@ -54,14 +54,15 @@ public class LoginServiceImpl implements LoginService {
         // 返回数据
         int res = 0;
         // 添加用户和family
-        User user = userAndFamily.getUser();
-        user.setUid(uid);
-        user.setFid(fid);
-        res += userMapper.insert(user);
         Family family = userAndFamily.getFamily();
         family.setUid(uid);
         family.setFid(fid);
         res += familyMapper.insert(family);
+        User user = userAndFamily.getUser();
+        user.setUid(uid);
+        user.setFid(fid);
+        res += userMapper.insert(user);
+
         return res > 1;
     }
 }
