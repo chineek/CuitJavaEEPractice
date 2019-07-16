@@ -16,6 +16,7 @@
     <result column="auid" jdbcType="INTEGER" property="auid" />
     <result column="is_avaliable" jdbcType="INTEGER" property="isAvaliable" />
     <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="fid" jdbcType="INTEGER" property="fid" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -77,7 +78,7 @@
   </sql>
   <sql id="Base_Column_List">
     uid, name, password, birthday, sex, occupation, avatar, phone, motto, salary, role, 
-    auid, is_avaliable, create_date
+    auid, is_avaliable, create_date, fid
   </sql>
   <select id="selectByExample" parameterType="cn.edu.cuit.entity.UserExample" resultMap="BaseResultMap">
     select
@@ -114,12 +115,14 @@
       birthday, sex, occupation, 
       avatar, phone, motto, 
       salary, role, auid, 
-      is_avaliable, create_date)
+      is_avaliable, create_date, fid
+      )
     values (#{uid,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
       #{birthday,jdbcType=TIMESTAMP}, #{sex,jdbcType=INTEGER}, #{occupation,jdbcType=VARCHAR}, 
       #{avatar,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{motto,jdbcType=VARCHAR}, 
       #{salary,jdbcType=DECIMAL}, #{role,jdbcType=VARCHAR}, #{auid,jdbcType=INTEGER}, 
-      #{isAvaliable,jdbcType=INTEGER}, #{createDate,jdbcType=TIMESTAMP})
+      #{isAvaliable,jdbcType=INTEGER}, #{createDate,jdbcType=TIMESTAMP}, #{fid,jdbcType=INTEGER}
+      )
   </insert>
   <insert id="insertSelective" parameterType="cn.edu.cuit.entity.User">
     insert into user
@@ -166,6 +169,9 @@
       <if test="createDate != null">
         create_date,
       </if>
+      <if test="fid != null">
+        fid,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="uid != null">
@@ -209,6 +215,9 @@
       </if>
       <if test="createDate != null">
         #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fid != null">
+        #{fid,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -263,6 +272,9 @@
       <if test="record.createDate != null">
         create_date = #{record.createDate,jdbcType=TIMESTAMP},
       </if>
+      <if test="record.fid != null">
+        fid = #{record.fid,jdbcType=INTEGER},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -283,7 +295,8 @@
       role = #{record.role,jdbcType=VARCHAR},
       auid = #{record.auid,jdbcType=INTEGER},
       is_avaliable = #{record.isAvaliable,jdbcType=INTEGER},
-      create_date = #{record.createDate,jdbcType=TIMESTAMP}
+      create_date = #{record.createDate,jdbcType=TIMESTAMP},
+      fid = #{record.fid,jdbcType=INTEGER}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -330,6 +343,9 @@
       <if test="createDate != null">
         create_date = #{createDate,jdbcType=TIMESTAMP},
       </if>
+      <if test="fid != null">
+        fid = #{fid,jdbcType=INTEGER},
+      </if>
     </set>
     where uid = #{uid,jdbcType=INTEGER}
   </update>
@@ -347,7 +363,8 @@
       role = #{role,jdbcType=VARCHAR},
       auid = #{auid,jdbcType=INTEGER},
       is_avaliable = #{isAvaliable,jdbcType=INTEGER},
-      create_date = #{createDate,jdbcType=TIMESTAMP}
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      fid = #{fid,jdbcType=INTEGER}
     where uid = #{uid,jdbcType=INTEGER}
   </update>
   <select id="selectByExampleWithRowbounds" parameterType="cn.edu.cuit.entity.UserExample" resultMap="BaseResultMap">
