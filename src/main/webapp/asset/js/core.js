@@ -138,5 +138,15 @@ util.date = (function () {
     dateObj.format = function (datetime, fmt) {
         return Format(datetime, fmt);
     };
+    dateObj.getAge = function (datetime) {
+        var strBirthday = dateObj.format(datetime, "yyyy-MM-dd");
+        var strBirthdayArr = strBirthday.split("-");
+        var d = new Date();
+        var yearDiff = d.getFullYear() - strBirthdayArr[0];
+        var monthDiff = d.getMonth() + 1 - strBirthdayArr[1];
+        var dayDiff = d.getDate() - strBirthdayArr[2];
+        var age = monthDiff < 0 || (monthDiff === 0 && dayDiff < 0) ? yearDiff - 1 : yearDiff;
+        return age = age < 0 ? 0 : age;
+    };
     return dateObj;
 })();
