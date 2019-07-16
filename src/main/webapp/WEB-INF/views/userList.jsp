@@ -58,13 +58,14 @@
 <!-- END：代码库文件 -->
 <!-- 操作按钮-->
 <script type="text/html" id="userEditBar">
-    <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>
     <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
 </script>
 
 <!-- ================================在这里编写页面的js代码================================ -->
 <script>
+    var info;//定义全局变量用来传值
+
     //表格js
     layui.use('table', function () {
         var table = layui.table;
@@ -116,7 +117,7 @@
                 , {
                     field: 'auid', title: '成员权限', sort: true,
                     templet: function (item) {
-                        if (parseInt(item.sex) === 0) {
+                        if (parseInt(item.auid) === 1) {
                             return "家长";
                         } else {
                             return "普通成员";
@@ -132,6 +133,51 @@
                 , {fixed: 'right', title: '操作', width: 150, toolbar: '#userEditBar'}
             ]]
         })
+
+        table.on('tool(test)', function(obj){ //注：tool 是工具条事件名，test 是 table 原始容器的属性 lay-filter="对应的值"
+            var data = obj.data //获得当前行数据
+                ,layEvent = obj.event; //获得 lay-event 对应的值
+            if(layEvent === 'edit'){
+                info = JSON.stringify(data);
+                layui.use('layer', function () {
+                    var layer = layui.layer;
+
+                    layer.open({
+                        type: 2,
+                        title: '编辑',
+                        area: ['350px', '565px'],
+                        content: '/user/Edit', //这里content是一个URL
+                        end: function () {
+                            location.reload();
+                        }
+                    });
+                })
+            } else if(layEvent === 'del'){
+                //layer.msg('删除操作');
+                layer.confirm('是否删除' + JSON.stringify(data.uid), function(index) {
+                    obj.del();
+                    layer.close(index);
+
+                    //向服务端发送删除指令
+                    var uid = {"uid": data.uid};
+                    util.httpRequest.post("userDelete", uid, function (msg) {
+                        if (msg.code === 200) {
+                            layer.alert(msg.info, {
+                                title: "删除结果"
+                            },function() {
+                                window.location.href = "list";
+                            });
+                        } else {
+                            layer.msg(msg.info, {
+                                offset: '50px'
+                                , icon: 2
+                                , time: 1000
+                            });
+                        }
+                    });
+                });
+            }
+        });
     })
 </script>
 <!-- ================================END:在这里编写页面的js代码================================ -->

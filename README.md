@@ -26,7 +26,7 @@
 **环境配置**：为项目配置tomcat 8.5运行环境，点击运行按钮，可以查看执行情况。  
 **Configuring environment**：configuring Tomcat 8.5 Runtime Environment for your project, click the Run button, you can view the status of implementation.  
   
-**启动成功**：在浏览器中输入：http://localhost:8080/ 访问项目首页。 
+**启动成功**：在浏览器中输入：http://localhost:8080/ 访问项目首页。  
 **Start Completed**：In the browser, enter : http://localhost:8080/ to visit the project home page.  
 
 ## 开发规范(必读)  Development Specification (important)  
@@ -52,7 +52,7 @@
 - Layui is a UI framework written with its own module specification, following the writing and organization of native HTML/CSS/JS, with very low thresholds for ready-to-use.  
 - Learning tutorial: https://www.layui.com/doc/  
   
-## 编写标准 Writing Standards
+## 编写标准 Writing Standards  
 
 ### 1、Controller层编写标准  
   

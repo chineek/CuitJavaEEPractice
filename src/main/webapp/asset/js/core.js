@@ -148,5 +148,42 @@ util.date = (function () {
         var age = monthDiff < 0 || (monthDiff === 0 && dayDiff < 0) ? yearDiff - 1 : yearDiff;
         return age = age < 0 ? 0 : age;
     };
+    /**
+     * 获得欢迎语句
+     * @returns {*}
+     */
+    dateObj.getGreeting = function () {
+        var now = new Date();
+        var times = now.getHours();
+        if (times >= 0 && times < 6) {
+            return "凌晨了，早点休息"
+        }
+        if (times >= 6 && times < 9) {
+            return "早上好"
+        }
+        if (times >= 9 && times < 11) {
+            return "上午好"
+        }
+        if (times >= 11 && times < 13) {
+            return "中午好"
+        }
+        if (times >= 13 && times < 17) {
+            return "下午好"
+        }
+        if (times >= 17 && times < 19) {
+            return "傍晚好"
+        }
+        if (times >= 19 && times < 24) {
+            return "晚上好"
+        }
+    };
+    /**
+     * 获得指定天数的毫秒数
+     * @param day
+     * @returns {number}
+     */
+    dateObj.getTimestampByDay = function (day) {
+        return 1000 * 60 * 60 * 24 * day;
+    };
     return dateObj;
 })();
