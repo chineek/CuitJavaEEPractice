@@ -191,11 +191,10 @@
             var limit={
                 "uid":parseInt(data.field.members),
                 "amount":parseInt(data.field.limit),
-                "start_date":new Date(data.field.date),
-                "end_date":new Date(data.field.date1)
+                "startDate":new Date(data.field.date),
+                "endDate":new Date(data.field.date1)
             };
-            alert(limit.amount)
-            util.httpRequest("setlimit",limit,function (msg) {
+            util.httpRequest.post("setlimit",limit,function (msg) {
                 if (msg.code === 200) {
                     layer.alert(msg.info, {
                         title: "提交结果"

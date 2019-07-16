@@ -1,9 +1,16 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ page import="cn.edu.cuit.entity.User" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
     pageContext.setAttribute("rootPath", "/");
+    Object userObj = request.getSession().getAttribute("user");
+    User user = new User();
+    if (userObj != null)
+        user = (User) userObj;
+    pageContext.setAttribute("isLogin", user);
+    pageContext.setAttribute("auid", user.getAuid());
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -27,6 +34,7 @@
                             <legend>设定存款目标</legend>
                         </fieldset>
                         <form class="layui-form" action="">
+                            <c:if test="${auid==1}">
                             <div class="layui-form-item">
                                 <label class="layui-form-label">成员选择</label>
                                 <div class="layui-input-block">
@@ -38,20 +46,7 @@
                                     </select>
                                 </div>
                             </div>
-
-                            <!--<div class="layui-form-item">
-                                <label class="layui-form-label">单行输入框</label>
-                                <div class="layui-input-block">
-                                    <input name="title" class="layui-input" type="text" placeholder="请输入标题" autocomplete="off" lay-verify="title">
-                                </div>
-                            </div>
-                            <div class="layui-form-item">
-                                <label class="layui-form-label">验证必填项</label>
-                                <div class="layui-input-block">
-                                    <input name="username" class="layui-input" type="text" placeholder="请输入" autocomplete="off" lay-verify="required" lay-reqtext="用户名是必填项，岂能为空？">
-                                </div>
-                            </div>
-                            -->
+                            </c:if>
 
                             <div class="layui-form-item">
                                 <label class="layui-form-label">目标设定</label>
@@ -215,16 +210,23 @@
 
         //监听提交
         form.on('submit(add)', function (data) {
+            //判断是否为管理员
+            var temp;
+            var auid = ${auid};
+            if(auid==1){
+                temp=parseInt(data.field.members);
+            }else {
+                temp=parseInt(auid);
+            }
             /*封装数据对象*/
             var goal = {
-                "uid": parseInt(data.field.members),
+                "uid": temp,
                 "amount": parseInt(data.field.goal),
                 "remarks": data.field.content,
                 "startDate": new Date(data.field.date),
                 "endDate": new Date(data.field.date1),
                 "isComplete": 0
             };
-            alert(goal.amount)
             util.httpRequest.post("setgoal", goal, function (msg) {
                 if (msg.code === 200) {
                     layer.alert(msg.info, {
