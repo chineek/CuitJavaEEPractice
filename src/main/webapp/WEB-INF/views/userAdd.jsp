@@ -89,6 +89,12 @@
                                     <input type="radio" name="auid" value="2" title="成员" checked>
                                 </div>
                             </div>
+                            <div class="layui-form-item layui-col-md3">
+                                <label class="layui-form-label">家庭ID</label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="fid" required  lay-verify="required|number" placeholder="请输入家庭ID" autocomplete="off" class="layui-input">
+                                </div>
+                            </div>
                             <div class="layui-form-item">
                                 <label class="layui-form-label">密码设置</label>
                                 <div class="layui-input-inline">
@@ -129,6 +135,7 @@
         var laydate = layui.laydate;
         laydate.render({
             elem: '#LAY-user-reg-birthday' //指定元素
+            ,type:'date'
         });
     });
     layui.use('form', function(){
@@ -161,7 +168,8 @@
                 "avatar": "default",
                 "auid": data.field.auid,
                 "isAvaliable": 1,
-                "createDate": new Date()
+                "createDate": new Date(),
+                "fid":data.field.fid
             };
             // 上载信息
             util.httpRequest.post("userAdd", user, function (msg) {

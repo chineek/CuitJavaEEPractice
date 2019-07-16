@@ -134,6 +134,24 @@
         })
     })
 </script>
+<script>
+    table.on('tool(test)',function(user){
+        var data=user.data,
+            layEvent=user.event;
+        if(layEvent==='detail'){
+            lay.msg("查看操作");
+        }
+        else if(layEvent==='del'){
+            layer.confirm('是否删除',function(index){
+                user.del();
+                layer.close(index);
+            });
+        }
+        else if(layEvent==='edit'){
+            layer.msg('编辑操作')
+        }
+    });
+</script>
 <!-- ================================END:在这里编写页面的js代码================================ -->
 </body>
 </html>
