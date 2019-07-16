@@ -14,10 +14,10 @@ import static org.junit.Assert.*;
  * date: 2019/7/12.
  */
 public class DemoServiceImplTest {
-    private ApplicationContext applicationContext;
 
     @Autowired
     private DemoService demoService;
+    private ApplicationContext applicationContext;
     @Before
     public void setUp() throws Exception {
         // 加载spring配置文件

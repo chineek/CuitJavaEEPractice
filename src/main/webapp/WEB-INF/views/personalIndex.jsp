@@ -19,9 +19,9 @@
     <!-- 封装需要用到的数据 -->
     <script>
         var chartsDatas = {
-            lineChartData: {},
-            pieChartData: {},
-            multiplexBarChartData: {}
+            lineChart: ${accountMonthReport},
+            pieChart: {},
+            multiplexBarChart: {}
         }
     </script>
 </head>

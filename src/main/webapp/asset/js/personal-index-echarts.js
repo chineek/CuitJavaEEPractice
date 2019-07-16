@@ -2,15 +2,12 @@
     /**
      * 绘制折线图
      */
+    console.log(chartsDatas.lineChart);
     var lineOption = echartsUtil.generateLineChart({
         title: "本月的收支统计",
-        xData: ['07-01', '07-02', '07-03'],
-        yDataNames: ["收入", "支出", "合计"],
-        yData: [
-            [120, 132, 101],
-            [220, 182, 191],
-            [150, 232, 201]
-        ]
+        xData: chartsDatas.lineChart.dateList,
+        yDataNames: chartsDatas.lineChart.types,
+        yData: chartsDatas.lineChart.typeNum
     });
     var lineChart = echartsUtil.init("echartsMonthLine", lineOption);
     /**
