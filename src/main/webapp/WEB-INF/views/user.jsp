@@ -11,8 +11,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
     pageContext.setAttribute("rootPath", "/");
-    User user=(User)request.getSession().getAttribute("user");
-    Integer sex=user.getSex();
+    User user = (User)request.getSession().getAttribute("user");
+    Integer sex = user.getSex();
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -42,10 +42,10 @@
                                 <div class="layui-form-item layui-col-md3">
                                     <label class="layui-form-label">性别</label>
                                     <div class="layui-input-block">
-                                        <%if(sex==0){%>
+                                        <%if(sex == 0){%>
                                         <input type="text" name="sex" required  lay-verify="required" value="男" autocomplete="off" class="layui-input">
                                         <%}%>
-                                        <%if(sex==1){%>
+                                        <%if(sex == 1){%>
                                         <input type="text" name="sex" required  lay-verify="required" value="女" autocomplete="off" class="layui-input">
                                         <%}%>
                                     </div>
@@ -140,6 +140,7 @@
             ,format:'yyyy-MM-dd'
         });
     });
+
     layui.use('form', function(){
         var form = layui.form;
 
@@ -172,7 +173,7 @@
                     });
                 }
             });
-            return false;
+        return false;
         });
     });
 </script>

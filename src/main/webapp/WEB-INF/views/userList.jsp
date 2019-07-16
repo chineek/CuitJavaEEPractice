@@ -146,15 +146,36 @@
                         type: 2,
                         title: '编辑',
                         area: ['350px', '565px'],
-                        content: '/user/Edit' //这里content是一个URL
+                        content: '/user/Edit', //这里content是一个URL
+                        end: function () {
+                            location.reload();
+                        }
                     });
                 })
             } else if(layEvent === 'del'){
-                layer.msg('删除操作');
-                //layer.confirm('是否删除',function(index) {
-                //user.del();
-                //layer.close(index);
-                //});
+                //layer.msg('删除操作');
+                layer.confirm('是否删除' + JSON.stringify(data.uid), function(index) {
+                    obj.del();
+                    layer.close(index);
+
+                    //向服务端发送删除指令
+                    var uid = {"uid": data.uid};
+                    util.httpRequest.post("userDelete", uid, function (msg) {
+                        if (msg.code === 200) {
+                            layer.alert(msg.info, {
+                                title: "删除结果"
+                            },function() {
+                                window.location.href = "list";
+                            });
+                        } else {
+                            layer.msg(msg.info, {
+                                offset: '50px'
+                                , icon: 2
+                                , time: 1000
+                            });
+                        }
+                    });
+                });
             }
         });
     })

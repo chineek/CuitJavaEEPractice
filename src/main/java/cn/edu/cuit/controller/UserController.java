@@ -67,8 +67,10 @@ public class UserController {
     }
 
     @RequestMapping(value = {"/userDelete"})
-    public String deleteUser(HttpSession session, int uid) {
+    @ResponseBody
+    public String deleteUser(HttpSession session, @RequestParam int uid) {
         User user = (User) session.getAttribute("user");
+        //System.out.println(uid);
         userService.delete(uid);
         return "redirect:list";
     }

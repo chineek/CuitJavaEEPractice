@@ -30,7 +30,7 @@
 <div class="layui-card">
     <div class="layui-card-header">个人信息</div>
     <div class="layui-card-body">
-        <form class="layui-form" action="success.jsp" method="post">
+        <form class="layui-form" action="">
             <div class="layui-form-item ">
                 <label class="layui-form-label">姓名</label>
                 <div class="layui-input-block">
@@ -56,9 +56,9 @@
                 </div>
             </div>
             <div class="layui-form-item layui-col-md5">
-                <label class="layui-form-label">人生目标</label>
+                <label class="layui-form-label">职业</label>
                 <div class="layui-input-block">
-                    <input type="text" name="motto" id="motto" required  lay-verify="required" autocomplete="off" class="layui-input">
+                    <input type="text" name="occupation" id="occupation" required  lay-verify="required" autocomplete="off" class="layui-input">
                 </div>
             </div>
             <div class="layui-form-item layui-col-md3">
@@ -81,7 +81,7 @@
             </div>
             <div class="layui-form-item">
                 <div class="layui-input-block">
-                    <button class="layui-btn" lay-submit lay-filter="">确认修改</button>
+                    <button class="layui-btn" lay-submit lay-filter="EditSubmit">确认修改</button>
                 </div>
             </div>
         </form>
@@ -96,9 +96,10 @@
     var info = eval('('+parent.info+')');
 
     $("#name").val(info.name);
+    $("#age").val(parent.info);
     $("#birthday").val(util.date.format(info.birthday, "yyyy-MM-dd"));
     $("#phone").val(info.phone);
-    $("#motto").val(info.motto);
+    $("#occupation").val(info.occupation);
     $("#salary").val(info.salary);
     $("#role").val(info.role);
     var sex = info.sex;
@@ -122,6 +123,58 @@
             ,type:'date'
         });
     });
+
+
+    layui.use('form', function(){
+        var form = layui.form;
+
+        //监听提交
+        form.on('submit(EditSubmit)', function(data){
+            layer.msg(JSON.stringify(data.field));
+
+            var sex = data.field.sex;
+            if(sex == "男") {
+                var sexx = 0;
+            }else {
+                var sexx = 1;
+            }
+
+            var auid = data.field.auid;
+            if(auid == "家长") {
+                var a = 1;
+            }else {
+                var a = 2;
+            }
+
+            var user = {
+                "uid":info.uid,
+                "name": data.field.name,
+                "birthday": new Date(data.field.birthday),
+                "sex": parseInt(sexx),
+                "occupation": data.field.occupation,
+                "salary": parseFloat(data.field.salary).toFixed(2),
+                "phone": data.field.phone,
+                "motto": data.field.motto,
+                "role": data.field.role,
+                "auid": a,
+                "fid":data.field.fid
+            };
+            // 上载信息
+            util.httpRequest.post("userEdit", user, function (msg) {
+                if (msg.code === 200) {
+                    layer.msg("修改成功");
+                    //window.location.href = "list";
+                } else {
+                    layer.msg(msg.info, {
+                        offset: '50px'
+                        , icon: 2
+                        , time: 1000
+                    });
+                }
+            });
+            return false;
+        });
+    });//--%>
 </script>
 <!-- ================================END:在这里编写页面的js代码================================ -->
 </body>
