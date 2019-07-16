@@ -46,6 +46,7 @@ public class SaveGoalServiceImpl implements SaveGoalService {
         UserExample ueByFid=new UserExample();
         UserExample.Criteria uefCriteria=ueByFid.createCriteria();
         uefCriteria.andFidEqualTo(fid);
+        uefCriteria.andIsAvaliableEqualTo(1);
         List<User> userList=userMapper.selectByExample(ueByFid);
         return userList;
     }

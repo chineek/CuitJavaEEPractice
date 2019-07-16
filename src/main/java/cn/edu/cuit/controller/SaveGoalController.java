@@ -25,7 +25,7 @@ public class SaveGoalController {
     @RequestMapping(value = {"/page"})
     public String toSaveGoal() {
         // 跳转到SaveGoal.jsp页面。
-        return "SaveGoal";
+        return "savegoal";
     }
     @RequestMapping(value = {"/setgoal"})
     @ResponseBody

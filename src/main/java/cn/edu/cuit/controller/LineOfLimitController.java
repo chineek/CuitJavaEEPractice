@@ -29,7 +29,7 @@ public class LineOfLimitController {
     @RequestMapping(value = {"/page"})
     public String toLineOfLimit() {
         // 跳转到SaveGoal.jsp页面。
-        return "LineOfLimit";
+        return "lineoflimit";
     }
 
     @RequestMapping(value = {"/setlimit"})
