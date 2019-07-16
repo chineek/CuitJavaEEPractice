@@ -3,10 +3,7 @@ package cn.edu.cuit.service.impl;
 import cn.edu.cuit.dao.DepositMapper;
 import cn.edu.cuit.dao.FamilyMapper;
 import cn.edu.cuit.dao.UserMapper;
-import cn.edu.cuit.entity.Deposit;
-import cn.edu.cuit.entity.FamilyExample;
-import cn.edu.cuit.entity.User;
-import cn.edu.cuit.entity.UserExample;
+import cn.edu.cuit.entity.*;
 import cn.edu.cuit.service.SaveGoalService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,8 +22,18 @@ public class SaveGoalServiceImpl implements SaveGoalService {
     FamilyMapper familyMapper;
     @Autowired
     UserMapper userMapper;
+
+    //判断是否存在进行的目标
     @Override
+    public Integer isRun() {
+        DepositExample de=new DepositExample();
+        DepositExample.Criteria deCriteria=de.createCriteria();
+        deCriteria.andIsCompleteEqualTo(0);
+        int flag=depositMapper.selectByExample(de).size();
+        return flag;
+    }
     //设置存款目标
+    @Override
     public boolean addSaveGoal(Deposit savegoal) {
         if(savegoal.getRemarks()==""||savegoal.getRemarks()==null){
             savegoal.setRemarks("无");

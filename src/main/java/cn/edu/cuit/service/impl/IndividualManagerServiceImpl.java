@@ -36,7 +36,7 @@ public class IndividualManagerServiceImpl implements IndividualManagerService {
         DepositExample.Criteria deCriteria=de.createCriteria();
         deCriteria.andUidEqualTo(uid);
         deCriteria.andIsCompleteEqualTo(0);
-        Deposit deposit=depositMapper.selectByExample(de).get(0);
+        Deposit deposit=depositMapper.selectByExample(de).get(0);//当前进行的存款目标
         adv.setUid(uid);
         adv.setStartDate(deposit.getStartDate());
         adv.setEndDate(deposit.getEndDate());
@@ -44,7 +44,7 @@ public class IndividualManagerServiceImpl implements IndividualManagerService {
         aeCriteria.andUidEqualTo(uid);
         aeCriteria.andIetypeEqualTo(0);
         aeCriteria.andDateBetween(deposit.getStartDate(),deposit.getEndDate());
-        List<Account> accounts=accountMapper.selectByExample(ae);
+        List<Account> accounts=accountMapper.selectByExample(ae);//当前目标时间内的账目
         Integer sum=0;
         for(int i=0;i<accounts.size();i++){
             sum+=accounts.get(i).getAmount().intValue();

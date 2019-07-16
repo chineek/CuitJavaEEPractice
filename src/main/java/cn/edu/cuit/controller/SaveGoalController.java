@@ -30,12 +30,21 @@ public class SaveGoalController {
     @RequestMapping(value = {"/setgoal"})
     @ResponseBody
     public SaveGoalStatus doSave(HttpSession session, @RequestBody Deposit goal){
+        int flag=saveGoalService.isRun();
         SaveGoalStatus sgs=new SaveGoalStatus();
-        //添加存款目标
-        saveGoalService.addSaveGoal(goal);
-        sgs.setInfo("添加目标成功");
-        sgs.setCode(200);
-        return sgs;
+        if(flag==0){
+            //添加存款目标
+            saveGoalService.addSaveGoal(goal);
+            sgs.setInfo("添加目标成功");
+            sgs.setCode(200);
+            return sgs;
+
+        }else {
+            sgs.setInfo("存在正在进行的目标，请先完成当前目标");
+            sgs.setCode(0);
+            return sgs;
+        }
+
     }
     @RequestMapping(value={"/getmembers"})
     @ResponseBody

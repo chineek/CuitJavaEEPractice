@@ -190,17 +190,17 @@
                     })
                 } else {
                     layer.msg(msg.info, {
-                        offset: '100px'
+                        offset: '50%'
                         , icon: 2
-                        , time: 1000
+                        , time: 3000
                     });
                 }
             });
 
 
-            layer.alert(JSON.stringify(data.field), {
+            /*layer.alert(JSON.stringify(data.field), {
                 title: '最终的提交信息'
-            });
+            });*/
             return false;
         });
 

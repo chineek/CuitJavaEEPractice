@@ -9,6 +9,15 @@ import cn.edu.cuit.entity.Deposit;
  */
 public class SaveGoalStatus extends Status {
     private Deposit deposit;
+    private Integer isrun;
+
+    public Integer getIsrun() {
+        return isrun;
+    }
+
+    public void setIsrun(Integer isrun) {
+        this.isrun = isrun;
+    }
 
     public Deposit getDeposit() {
         return deposit;
@@ -22,6 +31,7 @@ public class SaveGoalStatus extends Status {
     public String toString() {
         return "SaveGoalStatus{" +
                 "deposit=" + deposit +
+                ", isrun=" + isrun +
                 ", info='" + info + '\'' +
                 ", code=" + code +
                 '}';
