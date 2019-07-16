@@ -30,7 +30,7 @@
                             <div class="layui-form-item">
                                 <label class="layui-form-label">成员选择</label>
                                 <div class="layui-input-block">
-                                    <select name="interest" lay-filter="member">
+                                    <select name="members" lay-filter="member">
 
                                         <option value="0" selected="">自己</option>
                                         <option value="1">儿子</option>
@@ -38,20 +38,6 @@
                                     </select>
                                 </div>
                             </div>
-
-                            <!--<div class="layui-form-item">
-                                <label class="layui-form-label">单行输入框</label>
-                                <div class="layui-input-block">
-                                    <input name="title" class="layui-input" type="text" placeholder="请输入标题" autocomplete="off" lay-verify="title">
-                                </div>
-                            </div>
-                            <div class="layui-form-item">
-                                <label class="layui-form-label">验证必填项</label>
-                                <div class="layui-input-block">
-                                    <input name="username" class="layui-input" type="text" placeholder="请输入" autocomplete="off" lay-verify="required" lay-reqtext="用户名是必填项，岂能为空？">
-                                </div>
-                            </div>
-                            -->
 
                             <div class="layui-form-item">
                                 <label class="layui-form-label">额度设定</label>
@@ -201,6 +187,31 @@
 
         //监听提交
         form.on('submit(add)', function (data) {
+            /*封装对象*/
+            var limit={
+                "uid":parseInt(data.field.members),
+                "amount":parseInt(data.field.limit),
+                "start_date":new Date(data.field.date),
+                "end_date":new Date(data.field.date1)
+            };
+            alert(limit.amount)
+            util.httpRequest("setlimit",limit,function (msg) {
+                if (msg.code === 200) {
+                    layer.alert(msg.info, {
+                        title: "提交结果"
+                    },function() {
+                        window.location.href = "index";
+                    })
+                } else {
+                    layer.msg(msg.info, {
+                        offset: '100px'
+                        , icon: 2
+                        , time: 1000
+                    });
+                }
+
+            })
+
             layer.alert(JSON.stringify(data.field), {
                 title: '最终的提交信息'
             })

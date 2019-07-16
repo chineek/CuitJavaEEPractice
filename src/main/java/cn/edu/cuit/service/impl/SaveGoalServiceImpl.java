@@ -1,7 +1,9 @@
 package cn.edu.cuit.service.impl;
 
 import cn.edu.cuit.dao.DepositMapper;
+import cn.edu.cuit.dao.UserMapper;
 import cn.edu.cuit.entity.Deposit;
+import cn.edu.cuit.entity.User;
 import cn.edu.cuit.entity.UserExample;
 import cn.edu.cuit.service.SaveGoalService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +19,8 @@ import java.util.List;
 public class SaveGoalServiceImpl implements SaveGoalService {
     @Autowired
     DepositMapper depositMapper;
+    @Autowired
+    UserMapper userMapper;
     @Override
     //设置存款目标
     public boolean addSaveGoal(Deposit savegoal) {
@@ -30,9 +34,6 @@ public class SaveGoalServiceImpl implements SaveGoalService {
     @Override
     public List getAllUser() {
         UserExample ue=new UserExample();
-        UserExample.Criteria ueCriteria=ue.createCriteria();
-        
-
-        return null;
+        return userMapper.selectByExample(ue);
     }
 }
