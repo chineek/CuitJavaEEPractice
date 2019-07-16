@@ -45,6 +45,12 @@ public class UserController {
         mav.setViewName("userAdd");
         return mav;
     }
+    @RequestMapping(value = {"/edit"})
+    public ModelAndView toUserEdit() {
+        ModelAndView mav = new ModelAndView();
+        mav.setViewName("userEdit");
+        return mav;
+    }
 
     @RequestMapping(value = {"/getUserList"})
     @ResponseBody
@@ -72,11 +78,15 @@ public class UserController {
     }
 
     @RequestMapping(value = {"/userEdit"})
-    public String editUser(Model model, HttpSession session, int uid, int name) {
-        User user = (User) session.getAttribute("user");
-        //List<User> us=userService.list(user.getUid());
-        userService.update(user);
-        return "success";
+    public UserListStatus editUser(@RequestBody User user) {
+        UserListStatus us=new UserListStatus();
+        if(userService.isExists(user.getName())){
+            us.setCount(405);
+        }else{
+            userService.update(user);
+            us.setCode(200);
+        }
+        return us;
     }
 
     @RequestMapping(value = {"/userAdd"})
