@@ -1,8 +1,10 @@
 package cn.edu.cuit.service.impl;
 
 import cn.edu.cuit.dao.DepositMapper;
+import cn.edu.cuit.dao.FamilyMapper;
 import cn.edu.cuit.dao.UserMapper;
 import cn.edu.cuit.entity.Deposit;
+import cn.edu.cuit.entity.FamilyExample;
 import cn.edu.cuit.entity.User;
 import cn.edu.cuit.entity.UserExample;
 import cn.edu.cuit.service.SaveGoalService;
@@ -20,6 +22,8 @@ public class SaveGoalServiceImpl implements SaveGoalService {
     @Autowired
     DepositMapper depositMapper;
     @Autowired
+    FamilyMapper familyMapper;
+    @Autowired
     UserMapper userMapper;
     @Override
     //设置存款目标
@@ -31,9 +35,18 @@ public class SaveGoalServiceImpl implements SaveGoalService {
         return rs>1;
     }
 
+   //查询家庭成员
     @Override
-    public List getAllUser() {
-        UserExample ue=new UserExample();
-        return userMapper.selectByExample(ue);
+    public List getAllUser(int uid) {
+        UserExample ueByUid=new UserExample();
+        UserExample.Criteria uebCriteria=ueByUid.createCriteria();
+        uebCriteria.andUidEqualTo(uid);
+        int fid=userMapper.selectByExample(ueByUid).get(0).getFid();
+
+        UserExample ueByFid=new UserExample();
+        UserExample.Criteria uefCriteria=ueByFid.createCriteria();
+        uefCriteria.andFidEqualTo(fid);
+        List<User> userList=userMapper.selectByExample(ueByFid);
+        return userList;
     }
 }

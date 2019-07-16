@@ -81,7 +81,7 @@
     <div class="layui-body">
         <!-- -------------编写的HTML代码从这里开始------------- -->
         <div style="padding: 50px;font-size:40px;">成员额度管理
-            <button type="button" class="layui-btn"style="float:right">添加新额度限制</button>
+            <button type="button" class="layui-btn"style="float:right" onclick="window.open('/page')">添加新额度限制</button>
         </div>
         <table class="layui-table" lay-data="{width: 1500, height:330, url:'/demo/table/user/', page:true, id:'idTest'}" lay-filter="demo">
             <thead>

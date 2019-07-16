@@ -11,6 +11,7 @@
         user = (User) userObj;
     pageContext.setAttribute("isLogin", user);
     pageContext.setAttribute("auid", user.getAuid());
+    pageContext.setAttribute("uid", user.getUid());
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -35,17 +36,17 @@
                         </fieldset>
                         <form class="layui-form" action="">
                             <c:if test="${auid==1}">
-                            <div class="layui-form-item">
-                                <label class="layui-form-label">成员选择</label>
-                                <div class="layui-input-block">
-                                    <select name="members" lay-filter="member">
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label">成员选择</label>
+                                    <div class="layui-input-block" name="select">
+                                        <select name="members" id="LAYMembersSelect" lay-filter="member">
 
-                                        <option value="0" selected="">自己</option>
-                                        <option value="1">儿子</option>
-                                        <option value="2">女儿</option>
-                                    </select>
+                                            <option value="0" selected="">自己</option>
+                                            <option value="1">儿子</option>
+                                            <option value="2">女儿</option>
+                                        </select>
+                                    </div>
                                 </div>
-                            </div>
                             </c:if>
 
                             <div class="layui-form-item">
@@ -70,7 +71,8 @@
                                 <div class="layui-inline" style="width: 60%">
                                     <label class="layui-form-label">起始时间</label>
                                     <div class="layui-input-block">
-                                        <input name="date" class="layui-input" id="date" type="text" autocomplete="off"
+                                        <input name="startDate" class="layui-input" id="startDate" type="text"
+                                               autocomplete="off"
                                                lay-verify="time1">
                                     </div>
                                 </div>
@@ -79,17 +81,12 @@
                                 <div class="layui-inline" style="width: 60%">
                                     <label class="layui-form-label">结束时间</label>
                                     <div class="layui-input-block">
-                                        <input name="date1" class="layui-input" id="date1" type="text"
+                                        <input name="endDate" class="layui-input" id="endDate" type="text"
                                                autocomplete="off" lay-verify="time2">
                                     </div>
                                 </div>
                             </div>
-                            <!--<div class="layui-form-item layui-form-text">
-                              <label class="layui-form-label">编辑器</label>
-                              <div class="layui-input-block">
-                                <textarea class="layui-textarea layui-hide" name="content" lay-verify="content" id="LAY_demo_editor"></textarea>
-                              </div>
-                            </div>-->
+
                             <div class="layui-form-item">
                                 <div class="layui-input-block">
                                     <button class="layui-btn" lay-filter="add" lay-submit="">确认添加</button>
@@ -115,41 +112,6 @@
 <!-- END：代码库文件 -->
 <!-- ================================在这里编写页面的js代码================================ -->
 <script>
-    // 这里我编写了一个简单的操作工具库，接下来是使用示例。
-    // 下面内容是为了说明可以做什么，正式页面删掉就行。
-    /**----------------------------------------------------------------------------------
-     * 1.快速发送请求到服务器
-     *    util.httpRequest对象
-     ------------------------------------------------------------------------------------*/
-    // 发送一条get请求到"请求地址",返回data对象,并输出
-    util.httpRequest.get("getUserByNameDemo", {"name": "田"}, function (usersList) {
-        console.log(usersList);
-    });
-    // 发送一条post请求到"请求地址",返回data对象,并输出
-    util.httpRequest.post("postAuthorityDemo", {"auid": 1}, function (authority) {
-        console.log(authority);
-    });
-    /**----------------------------------------------------------------------------------
-     * 2.在浏览器中存储一些数据
-     *    util.data对象
-     ------------------------------------------------------------------------------------*/
-    // 存储一个对象，"内容"可以不是字符串，而是一个对象
-    util.data.set("存储名称", "内容");
-    // 获取刚刚存储的数据对象
-    var dataObject = util.data.get("存储名称");
-    // 打印刚刚存储的对象
-    console.log(dataObject);
-    // 删除存储的内容
-    util.data.remove("存储名称");
-    /**----------------------------------------------------------------------------------
-     * 3.获取浏览器URL参数
-     *    util.param对象
-     ------------------------------------------------------------------------------------*/
-    // 可以获取如"http://www.baidu.com/index?xxx=1"中xxx的值
-    // 具体使用方法如下
-    console.log(util.param.xxx);
-</script>
-<script>
     layui.use(['form', 'layedit', 'laydate'], function () {
         var form = layui.form
             , layer = layui.layer
@@ -158,14 +120,12 @@
 
         //日期
         laydate.render({
-            elem: '#date'
+            elem: '#startDate'
         });
         laydate.render({
-            elem: '#date1'
+            elem: '#endDate'
         });
 
-        /*//创建一个编辑器
-        var editIndex = layedit.build('LAY_demo_editor');*/
 
         //自定义验证规则
         form.verify({
@@ -174,34 +134,27 @@
                     return '标题至少得5个字符啊';
                 }
             }
-            , pass: [
-                /^[\S]{6,12}$/
-                , '密码必须6到12位，且不能出现空格'
-            ]
-            , content: function (value) {
-                layedit.sync(editIndex);
-            }
+
             , goal: function (value) {
-                if (value == "") {
+                if (value === "") {
                     return '要有梦想啊，目标不能为空啊';
                 } else if (isNaN(value)) {
                     return '目标金额必须是数字';
                 }
             }
             , time1: function (value) {
-                var date = new Date($("#date").val());
-                var date1 = new Date($("#date1").val());
+                var startDate = new Date($("#startDate").val());
+                var endDate = new Date($("#endDate").val());
 
-                console.log(date);
-                console.log(date1);
-                if (value == "") {
+
+                if (value === "") {
                     return '请选择起始日期';
-                } else if (date > date1) {
+                } else if (startDate > endDate) {
                     return '起始日期不能大于结束日期！';
                 }
             }
             , time2: function (value) {
-                if (value == "") {
+                if (value === "") {
                     return '请选择结束时间';
                 }
             }
@@ -213,25 +166,26 @@
             //判断是否为管理员
             var temp;
             var auid = ${auid};
-            if(auid==1){
-                temp=parseInt(data.field.members);
-            }else {
-                temp=parseInt(auid);
+            var uid =${uid};
+            if (auid === 1) {
+                temp = parseInt(data.field.members);
+            } else {
+                temp = parseInt(uid);
             }
             /*封装数据对象*/
             var goal = {
                 "uid": temp,
                 "amount": parseInt(data.field.goal),
                 "remarks": data.field.content,
-                "startDate": new Date(data.field.date),
-                "endDate": new Date(data.field.date1),
+                "startDate": new Date(data.field.startDate),
+                "endDate": new Date(data.field.endDate),
                 "isComplete": 0
             };
             util.httpRequest.post("setgoal", goal, function (msg) {
                 if (msg.code === 200) {
                     layer.alert(msg.info, {
                         title: "提交结果"
-                    },function() {
+                    }, function () {
                         window.location.href = "index";
                     })
                 } else {
@@ -242,12 +196,36 @@
                     });
                 }
             });
+
+
             layer.alert(JSON.stringify(data.field), {
                 title: '最终的提交信息'
-            })
+            });
             return false;
         });
 
+        // 初始化Select
+        var initSelect = (function () {
+            var uid =${uid};
+            util.httpRequest.post("getmembers", {
+                "uid": uid
+            }, function getMembers(result) {
+
+                var members = $("#LAYMembersSelect");
+                $(members).empty();
+                var memberList = result;
+                var appendHtml = '';
+                for (var i = 0; i < memberList.length; i++) {
+                    appendHtml = $('<option value="' + memberList[i].uid + '">' + memberList[i].name + '</option>');
+                    if (i === 0) {
+                        $(appendHtml).attr("selected", "");
+                    }
+                    $(members).append(appendHtml);
+                }
+                form.render('select');
+            });
+            return "initSuccess";
+        })();
     });
 </script>
 
