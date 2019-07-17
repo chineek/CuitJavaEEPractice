@@ -131,40 +131,7 @@
 <!-- END:代码库导入 -->
 <!-- -------------在这里编写页面的js代码------------- -->
 <script>
-    // layui.use('element', function(){
-    //     var $ = layui.jquery
-    //         ,element = layui.element; //Tab的切换功能，切换事件监听等，需要依赖element模块
-    //
-    //     //触发事件
-    //     var active = {
-    //         setPercent: function(){
-    //             //设置50%进度
-    //             element.progress('demo', '50%')
-    //         }
-    //         ,loading: function(othis){
-    //             var DISABLED = 'layui-btn-disabled';
-    //             if(othis.hasClass(DISABLED)) return;
-    //
-    //             //模拟loading
-    //             var n = 0, timer = setInterval(function(){
-    //                 n = n + Math.random()*10|0;
-    //                 if(n>100){
-    //                     n = 100;
-    //                     clearInterval(timer);
-    //                     othis.removeClass(DISABLED);
-    //                 }
-    //                 element.progress('demo', n+'%');
-    //             }, 300+Math.random()*1000);
-    //
-    //             othis.addClass(DISABLED);
-    //         }
-    //     };
-    //
-    //     $('.site-demo-active').on('click', function(){
-    //         var othis = $(this), type = $(this).data('type');
-    //         active[type] ? active[type].call(this, othis) : '';
-    //     });
-    // });
+
 
     layui.use('laydate', function(){
         var laydate = layui.laydate;
@@ -174,23 +141,7 @@
             ,calendar: true
         });
 
-//自定义重要日
-        laydate.render({
-            elem: '#test18'
-            ,mark: {
-                '0-10-14': '生日'
-                ,'0-12-31': '跨年' //每年的日期
-                ,'0-0-10': '工资' //每月某天
-                ,'0-0-15': '月中'
-                ,'2017-8-15': '' //如果为空字符，则默认显示数字+徽章
-                ,'2099-10-14': '呵呵'
-            }
-            ,done: function(value, date){
-                if(date.year === 2017 && date.month === 8 && date.date === 15){ //点击2017年8月15日，弹出提示语
-                    layer.msg('这一天是：中国人民抗日战争胜利72周年');
-                }
-            }
-        });
+
     });
     layui.use('table', function(){
         var table = layui.table;

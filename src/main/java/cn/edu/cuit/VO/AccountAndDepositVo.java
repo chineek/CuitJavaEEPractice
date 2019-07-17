@@ -9,6 +9,8 @@ import java.util.Date;
 public class AccountAndDepositVo {
     private Integer uid;
 
+    private Integer auid;
+
     private Date startDate;
 
     private Date endDate;
@@ -16,6 +18,14 @@ public class AccountAndDepositVo {
     private Long Goal;
 
     private Integer complete;
+
+    public Integer getAuid() {
+        return auid;
+    }
+
+    public void setAuid(Integer auid) {
+        this.auid = auid;
+    }
 
     public Integer getUid() {
         return uid;
@@ -61,6 +71,7 @@ public class AccountAndDepositVo {
     public String toString() {
         return "AccountAndDepositVo{" +
                 "uid=" + uid +
+                ", auid=" + auid +
                 ", startDate=" + startDate +
                 ", endDate=" + endDate +
                 ", Goal=" + Goal +

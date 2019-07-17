@@ -25,6 +25,7 @@ public class LimitManagerServiceImpl implements LimitManagerService {
     @Autowired
     AccountMapper accountMapper;
 
+    //额度使用情况
     @Override
     public List getAllLimit(int uid,Integer page,Integer limit) {
         List<UserAndSpendingVO> usList=new ArrayList<UserAndSpendingVO>();
@@ -40,6 +41,7 @@ public class LimitManagerServiceImpl implements LimitManagerService {
         uefCriteria.andIsAvaliableEqualTo(1);
         List<User> userList=userMapper.selectByExample(ueByFid);
 
+        //
         SpendingExample se=new SpendingExample();
         SpendingExample.Criteria seCriteria=se.createCriteria();
         AccountExample ae=new AccountExample();
