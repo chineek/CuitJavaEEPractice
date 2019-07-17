@@ -157,6 +157,7 @@
                 layer.confirm('是否删除' + JSON.stringify(data.uid), function(index) {
                     obj.del();
                     layer.close(index);
+                    location.reload();
 
                     //向服务端发送删除指令
                     var uid = {"uid": data.uid};

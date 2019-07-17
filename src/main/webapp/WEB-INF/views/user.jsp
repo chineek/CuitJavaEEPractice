@@ -13,6 +13,7 @@
     pageContext.setAttribute("rootPath", "/");
     User user = (User)request.getSession().getAttribute("user");
     Integer sex = user.getSex();
+    Integer auid = user.getAuid();
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -36,7 +37,7 @@
                                 <div class="layui-form-item layui-col-md4">
                                     <label class="layui-form-label">姓名</label>
                                     <div class="layui-input-block">
-                                        <input type="text" name="name" required  lay-verify="required" value="${userInfo.name}" autocomplete="off" class="layui-input">
+                                        <input type="text" name="name" required  lay-verify="required" value="${userInfo.name}" autocomplete="off" class="layui-input" readonly>
                                     </div>
                                 </div>
                                 <div class="layui-form-item layui-col-md3">
@@ -47,8 +48,8 @@
                                         <input type="radio" name="sex" value="1" title="女">
                                         <%}%>
                                         <%if(sex == 1){%>
-                                        <input type="radio" name="sex" value="1" title="女" checked>
                                         <input type="radio" name="sex" value="0" title="男">
+                                        <input type="radio" name="sex" value="1" title="女" checked>
                                         <%}%>
                                     </div>
                                 </div>
@@ -88,10 +89,17 @@
                                         <input type="text" name="role" required  lay-verify="required" value="${userInfo.role}" autocomplete="off" class="layui-input">
                                     </div>
                                 </div>
-                                <div class="layui-form-item layui-col-md3">
+                                <div class="layui-form-item">
                                     <label class="layui-form-label">权限</label>
                                     <div class="layui-input-block">
-                                        <input type="text" name="auid"  id="auid" required  lay-verify="required" value="${userInfo.auid}" autocomplete="off" class="layui-input">
+                                        <%if(auid == 1){%>
+                                        <input type="radio" name="auid" value="1" title="家长" checked>
+                                        <input type="radio" name="auid" value="2" title="普通成员">
+                                        <%}%>
+                                        <%if(auid == 2){%>
+                                        <input type="radio" name="auid" value="1" title="家长">
+                                        <input type="radio" name="auid" value="2" title="普通成员" checked>
+                                        <%}%>
                                     </div>
                                 </div>
                                 <div class="layui-form-item layui-col-md3">
@@ -125,14 +133,6 @@
     var date = "${userInfo.birthday}";
     $("#birthday").val(util.date.format(date, "yyyy-MM-dd"));
 
-    //转换auid格式
-    var auid = "${userInfo.auid}";
-    if(auid == 1) {
-        $("#auid").val("家长");
-    }else {
-        $("#auid").val("普通成员");
-    }
-
     //日期组件js
     layui.use('laydate', function () {
         var laydate = layui.laydate;
@@ -148,13 +148,7 @@
 
         //监听提交
         form.on('submit(userEditSubmit)', function(data){
-            layer.msg(JSON.stringify(data.field));
-            var auid = data.field.auid;
-            if(auid == "家长") {
-                var a = 1;
-            }else {
-                var a = 2;
-            }
+            //layer.msg(JSON.stringify(data.field));
 
             var user = {
                 "uid":${userInfo.uid},
@@ -166,7 +160,7 @@
                 "phone": data.field.phone,
                 "motto": data.field.motto,
                 "role": data.field.role,
-                "auid": a,
+                "auid": data.field.auid,
                 "fid":data.field.fid
             };
             // 上载信息

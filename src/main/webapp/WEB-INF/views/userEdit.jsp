@@ -34,13 +34,15 @@
             <div class="layui-form-item ">
                 <label class="layui-form-label">姓名</label>
                 <div class="layui-input-block">
-                    <input type="text" name="name" id="name" required  lay-verify="required" autocomplete="off" class="layui-input">
+                    <input type="text" name="name" id="name" required  lay-verify="required" autocomplete="off" class="layui-input" readonly>
                 </div>
             </div>
             <div class="layui-form-item layui-col-md3">
                 <label class="layui-form-label">性别</label>
                 <div class="layui-input-block">
-                    <input type="text" name="sex" id="sex" required  lay-verify="required" autocomplete="off" class="layui-input">
+                    <input type="radio" name="sex" id="nan" value="0" title="男">
+                    <input type="radio" name="sex" id="nv" value="1" title="女">
+                    <!--<input type="text" name="sex" id="sex" required  lay-verify="required" autocomplete="off" class="layui-input">-->
                 </div>
             </div>
             <div class="layui-form-item layui-col-md4">
@@ -76,7 +78,8 @@
             <div class="layui-form-item layui-col-md3">
                 <label class="layui-form-label">权限</label>
                 <div class="layui-input-block">
-                    <input type="text" name="auid" id="auid" required  lay-verify="required" autocomplete="off" class="layui-input">
+                    <input type="radio" name="auid" id="a1" value="1" title="家长" >
+                    <input type="radio" name="auid" id="a2" value="2" title="普通成员">
                 </div>
             </div>
             <div class="layui-form-item">
@@ -104,15 +107,17 @@
     $("#role").val(info.role);
     var sex = info.sex;
     if(sex == 0) {
-        $("#sex").val("男");
+        $("#nan").attr('checked', true);
+        //$("#sex").val("男");
     }else {
-        $("#sex").val("女");
+        //$("#sex").val("女");
+        $("#nv").attr('checked', true);
     }
     var auid = info.auid;
     if(auid == 1) {
-        $("#auid").val("家长");
+        $("#a1").attr('checked', true);
     }else {
-        $("#auid").val("普通成员");
+        $("#a2").attr('checked', true);
     }
 
     //日期组件js
@@ -130,33 +135,19 @@
 
         //监听提交
         form.on('submit(EditSubmit)', function(data){
-            layer.msg(JSON.stringify(data.field));
-
-            var sex = data.field.sex;
-            if(sex == "男") {
-                var sexx = 0;
-            }else {
-                var sexx = 1;
-            }
-
-            var auid = data.field.auid;
-            if(auid == "家长") {
-                var a = 1;
-            }else {
-                var a = 2;
-            }
+            //layer.msg(JSON.stringify(data.field));
 
             var user = {
                 "uid":info.uid,
                 "name": data.field.name,
                 "birthday": new Date(data.field.birthday),
-                "sex": parseInt(sexx),
+                "sex": parseInt(data.field.sex),
                 "occupation": data.field.occupation,
                 "salary": parseFloat(data.field.salary).toFixed(2),
                 "phone": data.field.phone,
                 "motto": data.field.motto,
                 "role": data.field.role,
-                "auid": a,
+                "auid": data.field.auid,
                 "fid":data.field.fid
             };
             // 上载信息
