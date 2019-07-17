@@ -142,10 +142,24 @@
             tooltip: {
                 trigger: 'axis',
                 position: function (point, params, dom, rect, size) {
-                    return [0, point[1] - 40];
+                        return [-150, point[1] - 150];
                 },
                 axisPointer: {
                     type: 'shadow'
+                },
+                formatter: function (params) {//提示信息，为空时，显示成0.00
+                    var tip = params[0].axisValueLabel + "收支详情<br>";
+                    var isEmpty = true;
+                    for (var i = 0; i < params.length; i++) {
+                        var param = params[i];
+                        if (param.value === 0.0) {
+                            continue;
+                        }
+                        isEmpty = false;
+                        tip += param.marker + param.seriesName + ":" + param.value.toFixed(2) + "元<br>";
+                    }
+                    if (isEmpty) tip += "暂无收支信息。";
+                    return tip;
                 }
             },
             legend: {
