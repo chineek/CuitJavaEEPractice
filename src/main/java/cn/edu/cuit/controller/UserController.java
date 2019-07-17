@@ -51,10 +51,9 @@ public class UserController {
     public UserListStatus getUserList(@RequestBody UserListCombination userListCombination,HttpSession session) {
         UserListStatus uls = new UserListStatus();
         User user =(User) session.getAttribute("user");
-        List<User> userList = (List<User>) userService.list(userListCombination);
-        userList=(List<User>) userService.list1(user.getFid());
+        List<User> userList =userService.list(userListCombination,user.getFid());
         uls.setData(userList);
-        uls.setCount(userService.getCountByUser());
+        uls.setCount(userService.getCountByUser(user.getFid()));
         return uls;
     }
 
