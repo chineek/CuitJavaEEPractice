@@ -44,7 +44,7 @@ public class SaveGoalController {
     @RequestMapping(value = {"/setgoal"})
     @ResponseBody
     public SaveGoalStatus doSave(HttpSession session, @RequestBody Deposit goal){
-        int flag=saveGoalService.isRun();
+        int flag=saveGoalService.isRun(goal.getUid());
         SaveGoalStatus sgs=new SaveGoalStatus();
         if(flag==0){
             //添加存款目标

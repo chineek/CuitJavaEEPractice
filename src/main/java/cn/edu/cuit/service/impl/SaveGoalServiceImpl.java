@@ -25,9 +25,10 @@ public class SaveGoalServiceImpl implements SaveGoalService {
 
     //判断是否存在进行的目标
     @Override
-    public Integer isRun() {
+    public Integer isRun(int uid) {
         DepositExample de=new DepositExample();
         DepositExample.Criteria deCriteria=de.createCriteria();
+        deCriteria.andUidEqualTo(uid);
         deCriteria.andIsCompleteEqualTo(0);
         int flag=depositMapper.selectByExample(de).size();
         return flag;

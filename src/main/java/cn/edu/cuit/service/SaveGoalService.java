@@ -11,7 +11,7 @@ import java.util.List;
 public interface SaveGoalService {
 
     //判断是否存在进行的目标
-    public Integer isRun();
+    public Integer isRun(int uid);
 
     //添加存款目标
     public boolean addSaveGoal(Deposit savegoal);
