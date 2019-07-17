@@ -32,9 +32,13 @@ public class SaveGoalController {
     @RequestMapping(value = {"/page"})
     public String toSaveGoal() {
         return "showgoal";
-        // 跳转到SaveGoal.jsp页面。
-        //return "savegoal";
+
     }
+    @RequestMapping(value = {"/savegoal"})
+    public String SaveGoal() {
+        return "savegoal";
+    }
+
 
     //添加存款目标
     @RequestMapping(value = {"/setgoal"})
@@ -81,6 +85,16 @@ public class SaveGoalController {
         return individualManagerService.getIndividualState(user.getUid());
     }
 
+    //取消存款目标
+    @RequestMapping(value = {"/concelGoal"})
+    @ResponseBody
+    public SaveGoalStatus ConcelGoal(HttpSession session,@RequestBody User user){
+        SaveGoalStatus sgs=new SaveGoalStatus();
+        individualManagerService.cancelGoal(user.getUid());
+        sgs.setInfo("取消目标成功");
+        sgs.setCode(200);
+        return sgs;
+    }
 
 
 }
