@@ -60,7 +60,7 @@
                 data: data.yDataNames
             },
             grid: {
-                top:'22%',
+                top: '22%',
                 left: '3%',
                 right: '4%',
                 bottom: '3%',
@@ -90,7 +90,7 @@
     echartsUtilObj.generatePieChart = function (data) {
         // 计算位置偏移
         var pieNum = data.dataNames.length;
-        var pieRadius = 100 - (100 / (pieNum + 1));
+        var pieRadius = 50;
         // 封装对象
         var contactSeries = (function () {
             var series = [];
@@ -141,6 +141,9 @@
             },
             tooltip: {
                 trigger: 'axis',
+                position: function (point, params, dom, rect, size) {
+                    return [0, point[1] - 40];
+                },
                 axisPointer: {
                     type: 'shadow'
                 }
@@ -149,7 +152,7 @@
                 data: data.dataNames
             },
             grid: {
-                top:'12%',
+                top: '12%',
                 left: '1%',
                 right: '4%',
                 bottom: '14%',
@@ -167,8 +170,7 @@
                     splitArea: {show: true}
                 }
             ],
-            dataZoom: [{
-            }, {
+            dataZoom: [{}, {
                 type: 'inside'
             }],
             series: data.seriesData

@@ -8,6 +8,7 @@ import cn.edu.cuit.service.ReportService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -140,6 +141,178 @@ public class ReportServiceImpl implements ReportService {
         accountReport.setAccountMonthTypeReport(accountMonthTypeReport);
         /* ======封装月度类型结束====== */
         return accountReport;
+    }
+
+    @Override
+    public AccountYearReport getYearReportByDateRange(User user, DateRange dateRange) {
+        AccountYearReport accountYearReport = new AccountYearReport();
+        // 获得账单数据
+        AccountExample accountExample = new AccountExample();
+        AccountExample.Criteria accountCriteria = accountExample.createCriteria();
+        accountCriteria.andUidEqualTo(user.getUid());
+        if (dateRange != null) {
+            accountCriteria.andDateBetween(dateRange.getStartDate(), dateRange.getEndDate());
+        } else {
+            dateRange = new DateRange();
+        }
+        List<Account> accountList = accountMapper.selectByExample(accountExample);
+        // 获得类型列表
+        AccountTypeExample accountTypeExample = new AccountTypeExample();
+        List<AccountType> accountTypes = accountTypeMapper.selectByExample(accountTypeExample);
+        // 首先设置基础列名
+        List<String> dataNamesCollections = Arrays.asList("收入", "支出", "盈利", "亏损");
+        List<String> dataNamesList = new ArrayList<String>();
+        dataNamesList.addAll(dataNamesCollections);
+        accountYearReport.setDataNames(dataNamesList);
+        // 配置月份列表
+        SimpleDateFormat monthSdf = new SimpleDateFormat("yyyy-MM");
+        SimpleDateFormat dateSdf = new SimpleDateFormat("yyyy-MM-dd");
+        Calendar calendar = Calendar.getInstance();
+        List<String> xAxisNamesList = new ArrayList<>();
+        for (calendar.setTime(dateRange.getStartDate());
+             calendar.getTime().getTime() <= dateRange.getEndDate().getTime();
+             calendar.add(Calendar.MONTH, 1)) {
+            String monthStr = monthSdf.format(calendar.getTime());
+            xAxisNamesList.add(monthStr);
+        }
+        // 查询年数据
+        List<Double> incomeTotalData = new ArrayList<>();
+        List<Double> expensesTotalData = new ArrayList<>();
+        List<Double> monthTotalData = new ArrayList<>();
+        List<Map<String, Double>> typeTotalData = new ArrayList<>();
+        for (String aXAxisNamesList : xAxisNamesList) {
+            DateRange monthDateRange = new DateRange();
+            try {
+                calendar.setTime(dateSdf.parse(aXAxisNamesList + "-01"));
+                monthDateRange.setStartDate(calendar.getTime());
+                calendar.add(Calendar.MONTH, 1);
+                monthDateRange.setEndDate(calendar.getTime());
+                AccountReport monthReport = getMonthReportByDateRange(user, monthDateRange);
+                // 计算月总收入
+                AccountMonthReport accountMonthReport = monthReport.getAccountMonthReport();
+                List<List<Double>> monthNumList = accountMonthReport.getTypeNum();
+                List<Double> incomeDataList = monthNumList.get(0);
+                List<Double> expensesDataList = monthNumList.get(1);
+                Double incomeTotal = 0.0;
+                Double expensesTotal = 0.0;
+                Double monthTotal = 0.0;
+                for (Double income : incomeDataList) {
+                    incomeTotal += income;
+                    monthTotal += income;
+                }
+                for (Double expenses : expensesDataList) {
+                    expensesTotal -= expenses;
+                    monthTotal -= expenses;
+                }
+                incomeTotalData.add(incomeTotal);
+                expensesTotalData.add(expensesTotal);
+                monthTotalData.add(monthTotal);
+                // 计算各类型收支
+                AccountMonthTypeReport accountMonthTypeReport = monthReport.getAccountMonthTypeReport();
+                List<AccountTypeSum> incomeTypeSumList = accountMonthTypeReport.getTypeNum().get(0);
+                List<AccountTypeSum> expensesTypeSumList = accountMonthTypeReport.getTypeNum().get(1);
+                Map<String, Double> typeMap = new HashMap<>();
+                for (AccountTypeSum accountTypeSum : incomeTypeSumList) {
+                    typeMap.put(accountTypeSum.getName(), accountTypeSum.getValue());
+                }
+                for (AccountTypeSum accountTypeSum : expensesTypeSumList) {
+                    typeMap = ReportUtil.addAmountToTotal(typeMap, accountTypeSum.getName(), -accountTypeSum.getValue());
+                }
+                typeTotalData.add(typeMap);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
+        // 格式化数据
+        List<String> aXAxisNamesListData = new ArrayList<>();
+        SimpleDateFormat chineseMonthSdf = new SimpleDateFormat("M月");
+        SimpleDateFormat chineseYearSdf = new SimpleDateFormat("yyyy年");
+        for (String aXAxisNamesList : xAxisNamesList) {
+            try {
+                String chineseMonthStr = chineseMonthSdf.format(monthSdf.parse(aXAxisNamesList));
+                if (chineseMonthStr.equals("1月")) {
+                    chineseMonthStr = chineseYearSdf.format(monthSdf.parse(aXAxisNamesList)) + chineseMonthStr;
+                }
+                aXAxisNamesListData.add(chineseMonthStr);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
+        accountYearReport.setxAxisNames(aXAxisNamesListData);
+        // 封装数据集
+        List<AccountYearSeries> seriesData = new ArrayList<>();
+        // 封装收入列表
+        AccountYearSeries accountYearSeries = new AccountYearSeries();
+        accountYearSeries.setName("收入");
+        accountYearSeries.setStack("收入");
+        accountYearSeries.setBarWidth(-1);
+        accountYearSeries.setType("bar");
+        accountYearSeries.setIsMarkLine(1);
+        accountYearSeries.setData(incomeTotalData);
+        seriesData.add(accountYearSeries);
+        // 封装支出列表
+        accountYearSeries = new AccountYearSeries();
+        accountYearSeries.setName("支出");
+        accountYearSeries.setStack("支出");
+        accountYearSeries.setBarWidth(-1);
+        accountYearSeries.setType("bar");
+        accountYearSeries.setIsMarkLine(1);
+        accountYearSeries.setData(expensesTotalData);
+        seriesData.add(accountYearSeries);
+        // 封装亏损列表
+        accountYearSeries = new AccountYearSeries();
+        accountYearSeries.setName("亏损");
+        accountYearSeries.setStack("盈亏");
+        accountYearSeries.setBarWidth(-1);
+        accountYearSeries.setType("bar");
+        accountYearSeries.setIsMarkLine(0);
+        List<Double> lossTotalData = new ArrayList<>();
+        for (Double monthData : monthTotalData) {
+            if (monthData > 0)
+                lossTotalData.add(0.0);
+            else
+                lossTotalData.add(monthData);
+        }
+        accountYearSeries.setData(lossTotalData);
+        seriesData.add(accountYearSeries);
+        // 封装盈利列表
+        accountYearSeries = new AccountYearSeries();
+        accountYearSeries.setName("盈利");
+        accountYearSeries.setStack("盈亏");
+        accountYearSeries.setBarWidth(-1);
+        accountYearSeries.setType("bar");
+        accountYearSeries.setIsMarkLine(0);
+        List<Double> profitTotalData = new ArrayList<>();
+        for (Double monthData : monthTotalData) {
+            if (monthData < 0)
+                profitTotalData.add(0.0);
+            else
+                profitTotalData.add(monthData);
+        }
+        accountYearSeries.setData(profitTotalData);
+        seriesData.add(accountYearSeries);
+        // 封装类型列表
+        for (AccountType accountType : accountTypes) {
+            String typeName = accountType.getName();
+            AccountYearSeries typeSeries = new AccountYearSeries();
+            typeSeries.setName(typeName);
+            typeSeries.setStack("收支类型比例");
+            typeSeries.setType("bar");
+            typeSeries.setBarWidth(-1);
+            typeSeries.setIsMarkLine(0);
+            List<Double> typeData = new ArrayList<>();
+            for (Map<String, Double> typeTotal : typeTotalData) {
+                if (typeTotal.get(typeName) != null) {
+                    typeData.add(typeTotal.get(typeName));
+                } else {
+                    typeData.add(0.0);
+                }
+            }
+            typeSeries.setData(typeData);
+            seriesData.add(typeSeries);
+        }
+        accountYearReport.setSeriesData(seriesData);
+        return accountYearReport;
     }
 
 }

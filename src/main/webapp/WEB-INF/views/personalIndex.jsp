@@ -20,8 +20,8 @@
     <script>
         var chartsDatas = {
             lineChart: ${accountMonthReport},
-            pieChart: {},
-            multiplexBarChart: {}
+            pieChart: ${accountMonthTypeReport},
+            multiplexBarChart: ${accountYearReport}
         }
     </script>
 </head>
@@ -104,7 +104,7 @@
                         <div class="layui-row">
                             <div class="layui-col-md6">近期账单</div>
                             <div class="layui-col-md6" style="text-align: right;padding-right: 20px;">
-                                <a href="#" style="color:#01AAED;">
+                                <a href="${rootPath}account/list" style="color:#01AAED;">
                                     <small>查看更多</small>
                                 </a>
                             </div>
