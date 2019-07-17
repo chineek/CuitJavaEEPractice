@@ -15,14 +15,26 @@
         user = (User) userObj;
     pageContext.setAttribute("isLogin", user);
     pageContext.setAttribute("auid", user.getAuid());
+    /**
+     * 当前页面地址
+     */
+    String referer = request.getRequestURI();
+    String[] urlParts = referer.split("/");
+    String uri = "";
+    if (urlParts.length > 0) {
+        String[] urlSplit = urlParts[urlParts.length - 1].split("\\.");
+        if (urlSplit.length > 0)
+            uri = urlSplit[0];
+    }
+
 %>
 <!-- 头部和导航区域（请不要修改） -->
 <div class="layui-header">
     <div class="layui-logo">生财有道</div>
 
-        <ul class="layui-nav layui-layout-left">
-            <li class="layui-nav-item"><a href="${rootPath}index/">个人首页</a></li>
-            <c:if test="${auid==1}">
+    <ul class="layui-nav layui-layout-left">
+        <li class="layui-nav-item"><a href="${rootPath}index/">个人首页</a></li>
+        <c:if test="${auid==1}">
             <li class="layui-nav-item">
                 <a href="javascript:void(0);">成员管理</a>
                 <dl class="layui-nav-child">
@@ -44,8 +56,8 @@
                 </dl>
             </li>
             <li class="layui-nav-item"><a href="">家庭财务管理</a></li>
-            </c:if>
-        </ul>
+        </c:if>
+    </ul>
 
     <ul class="layui-nav layui-layout-right">
         <c:choose>
@@ -72,22 +84,25 @@
     <div class="layui-side-scroll">
         <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
         <ul class="layui-nav layui-nav-tree">
-            <li class="layui-nav-item layui-nav-itemed"><a href="${rootPath}index/">首页</a></li>
-            <li class="layui-nav-item">
+            <li class="layui-nav-item <%=uri.equals("personalIndex")?"layui-nav-itemed":""%>"><a
+                    href="${rootPath}index/">首页</a></li>
+            <li class="layui-nav-item <%=uri.equals("accountList")?"layui-nav-itemed":""%> <%=uri.equals("addAccount")?"layui-nav-itemed":""%>">
                 <a class="" href="javascript:;">收支管理</a>
                 <dl class="layui-nav-child">
-                    <dd><a href="${rootPath}account/list">查看账单</a></dd>
-                    <dd><a href="${rootPath}accountInfo/addInfo">添加账目</a></dd>
+                    <dd class="<%=uri.equals("accountList")?"layui-nav-itemed":""%>"><a href="${rootPath}account/list">查看账单</a>
+                    </dd>
+                    <dd class="<%=uri.equals("addAccount")?"layui-nav-itemed":""%>"><a
+                            href="${rootPath}accountInfo/addInfo">添加账目</a></dd>
                 </dl>
             </li>
-            <li class="layui-nav-item">
+            <li class="layui-nav-item <%=uri.equals("lineOfLimit")?"layui-nav-itemed":""%> <%=uri.equals("limitmanager")?"layui-nav-itemed":""%>">
                 <a href="javascript:;">财务管理</a>
                 <dl class="layui-nav-child">
                     <dd><a href="">额度查询</a></dd>
-                    <c:if test="${auid==1}">
-                    <dd><a href="${rootPath}limit/page">添加额度限制</a></dd>
-                    </c:if>
-                    <dd><a href="${rootPath}savegoal/page">存款目标管理</a></dd>
+                    <dd class="<%=uri.equals("lineOfLimit")?"layui-nav-itemed":""%>"><a
+                            href="${rootPath}limit/lineoflimit">添加额度限制</a></dd>
+                    <dd class="<%=uri.equals("limitmanager")?"layui-nav-itemed":""%>"><a
+                            href="${rootPath}savegoal/page">存款目标管理</a></dd>
                 </dl>
             </li>
             <li class="layui-nav-item"><a href="">系统设置</a></li>

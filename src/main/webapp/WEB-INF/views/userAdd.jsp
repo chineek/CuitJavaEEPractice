@@ -1,4 +1,4 @@
-<%--
+<%@ page import="cn.edu.cuit.entity.User" %><%--
   Created by IntelliJ IDEA.
   User: 49510
   Date: 2019/7/15
@@ -11,6 +11,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
     pageContext.setAttribute("rootPath", "/");
+    pageContext.setAttribute("user", (User) request.getSession().getAttribute("user"));
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -35,7 +36,8 @@
                             <div class="layui-form-item layui-col-md4">
                                 <label class="layui-form-label">姓名</label>
                                 <div class="layui-input-block">
-                                    <input type="text" name="name" required  lay-verify="required" placeholder="请输入姓名" autocomplete="off" class="layui-input">
+                                    <input type="text" name="name" required lay-verify="required" placeholder="请输入姓名"
+                                           autocomplete="off" class="layui-input">
                                 </div>
                             </div>
                             <div class="layui-form-item">
@@ -55,31 +57,36 @@
                             <div class="layui-form-item layui-col-md4">
                                 <label class="layui-form-label">职业</label>
                                 <div class="layui-input-block">
-                                    <input type="text" name="occupation" required  lay-verify="required" placeholder="请输入职业" autocomplete="off" class="layui-input">
+                                    <input type="text" name="occupation" required lay-verify="required"
+                                           placeholder="请输入职业" autocomplete="off" class="layui-input">
                                 </div>
                             </div>
                             <div class="layui-form-item layui-col-md4">
                                 <label class="layui-form-label">电话</label>
                                 <div class="layui-input-block">
-                                    <input type="text" name="phone" required  lay-verify="required|phone|number" placeholder="请输入电话" autocomplete="off" class="layui-input">
+                                    <input type="text" name="phone" required lay-verify="required|phone|number"
+                                           placeholder="请输入电话" autocomplete="off" class="layui-input">
                                 </div>
                             </div>
                             <div class="layui-form-item layui-col-md5">
                                 <label class="layui-form-label">人生目标</label>
                                 <div class="layui-input-block">
-                                    <input type="text" name="motto" required  lay-verify="required" placeholder="请输入人生目标" autocomplete="off" class="layui-input">
+                                    <input type="text" name="motto" required lay-verify="required" placeholder="请输入人生目标"
+                                           autocomplete="off" class="layui-input">
                                 </div>
                             </div>
                             <div class="layui-form-item layui-col-md3">
                                 <label class="layui-form-label">月收入</label>
                                 <div class="layui-input-block">
-                                    <input type="text" name="salary" required  lay-verify="required|number" placeholder="请输入月收入" autocomplete="off" class="layui-input">
+                                    <input type="text" name="salary" required lay-verify="required|number"
+                                           placeholder="请输入月收入" autocomplete="off" class="layui-input">
                                 </div>
                             </div>
                             <div class="layui-form-item layui-col-md3">
                                 <label class="layui-form-label">家庭角色</label>
                                 <div class="layui-input-block">
-                                    <input type="text" name="role" required  lay-verify="required" placeholder="请输入家庭角色" autocomplete="off" class="layui-input">
+                                    <input type="text" name="role" required lay-verify="required" placeholder="请输入家庭角色"
+                                           autocomplete="off" class="layui-input">
                                 </div>
                             </div>
                             <div class="layui-form-item">
@@ -89,23 +96,27 @@
                                     <input type="radio" name="auid" value="2" title="成员" checked>
                                 </div>
                             </div>
-                            <div class="layui-form-item layui-col-md3">
+                            <div class="layui-form-item layui-col-md3 layui-hide">
                                 <label class="layui-form-label">家庭ID</label>
                                 <div class="layui-input-block">
-                                    <input type="text" name="fid" required  lay-verify="required|number" placeholder="请输入家庭ID" autocomplete="off" class="layui-input">
+                                    <input type="hidden" name="fid" value="${user.fid}" autocomplete="off"
+                                           class="layui-input">
                                 </div>
                             </div>
                             <div class="layui-form-item">
                                 <label class="layui-form-label">密码设置</label>
                                 <div class="layui-input-inline">
-                                    <input type="password" name="pass" id="pass" required lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input">
+                                    <input type="password" name="pass" id="pass" required lay-verify="required"
+                                           placeholder="请输入密码" autocomplete="off" class="layui-input">
                                 </div>
                                 <div class="layui-form-mid layui-word-aux">6到12位数字或字母</div>
                             </div>
                             <div class="layui-form-item">
                                 <label class="layui-form-label">重复密码</label>
                                 <div class="layui-input-inline">
-                                    <input type="password" name="repass" id="repass" required lay-verify="required|repass" placeholder="请再次输入密码" autocomplete="off" class="layui-input">
+                                    <input type="password" name="repass" id="repass" required
+                                           lay-verify="required|repass" placeholder="请再次输入密码" autocomplete="off"
+                                           class="layui-input">
                                 </div>
                             </div>
                             <div class="layui-form-item">
@@ -135,25 +146,25 @@
         var laydate = layui.laydate;
         laydate.render({
             elem: '#LAY-user-reg-birthday' //指定元素
-            ,type:'date'
+            , type: 'date'
         });
     });
 
-    layui.use('form', function(){
+    layui.use('form', function () {
         var form = layui.form;
 
         //重复密码判断
         form.verify({
             repass: function (value) {
                 var pass = $("#pass").val();
-                if(!new RegExp(pass).test(value)){
+                if (!new RegExp(pass).test(value)) {
                     return '两次输入的密码不一致';
                 }
             }
         });
 
         //监听提交
-        form.on('submit(user-add-submit)', function(data){
+        form.on('submit(user-add-submit)', function (data) {
             layer.msg(JSON.stringify(data.field));
 
             var user = {
@@ -170,14 +181,14 @@
                 "auid": data.field.auid,
                 "isAvaliable": 1,
                 "createDate": new Date(),
-                "fid":data.field.fid
+                "fid": data.field.fid
             };
             // 上载信息
             util.httpRequest.post("userAdd", user, function (msg) {
                 if (msg.code === 200) {
                     layer.alert(msg.info, {
                         title: "添加结果"
-                    },function() {
+                    }, function () {
                         window.location.href = "list";
                     });
                 } else {

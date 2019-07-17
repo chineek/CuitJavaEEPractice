@@ -1,4 +1,5 @@
 <%@ page import="cn.edu.cuit.entity.User" %>
+<%@ page import="cn.edu.cuit.entity.Account" %>
 <%@ page import="java.util.Calendar" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
@@ -122,36 +123,19 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
-                                <td>收入</td>
-                                <td>1000.00</td>
-                                <td>2019-07-16 12:44</td>
-                                <td>奶粉</td>
-                            </tr>
-                            <tr>
-                                <td>收入</td>
-                                <td>1000.00</td>
-                                <td>2019-07-16 12:44</td>
-                                <td>奶粉</td>
-                            </tr>
-                            <tr>
-                                <td>收入</td>
-                                <td>1000.00</td>
-                                <td>2019-07-16 12:44</td>
-                                <td>奶粉</td>
-                            </tr>
-                            <tr>
-                                <td>收入</td>
-                                <td>1000.00</td>
-                                <td>2019-07-16 12:44</td>
-                                <td>奶粉</td>
-                            </tr>
-                            <tr>
-                                <td>收入</td>
-                                <td>1000.00</td>
-                                <td>2019-07-16 12:44</td>
-                                <td>奶粉</td>
-                            </tr>
+                            <c:forEach var="account" items="${accountList}">
+                                <tr>
+                                    <td>${account.ietype==0?'收入':'支出'}</td>
+                                    <td>
+                                        <fmt:formatNumber type="number" maxFractionDigits="2"
+                                                          value="${account.amount}"/>
+                                    </td>
+                                    <td>
+                                        <fmt:formatDate value="${account.date }" pattern="yyyy-MM-dd hh:ss"/>
+                                    </td>
+                                    <td>${account.remarks}</td>
+                                </tr>
+                            </c:forEach>
                             </tbody>
                         </table>
                     </div>

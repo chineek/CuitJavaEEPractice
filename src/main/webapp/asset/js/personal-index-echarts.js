@@ -2,7 +2,6 @@
     /**
      * 绘制折线图
      */
-    console.log(chartsDatas.lineChart);
     var lineOption = echartsUtil.generateLineChart({
         title: "本月的收支统计",
         xData: chartsDatas.lineChart.dateList,
@@ -42,7 +41,6 @@
             mutiplexDataList[i].barWidth = undefined;
         }
     }
-    console.log(mutiplexDataList);
     var multiplexBarOption = echartsUtil.generateMultiplexBarChart({
         title: "",
         dataNames: chartsDatas.multiplexBarChart.dataNames,

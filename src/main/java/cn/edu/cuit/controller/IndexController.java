@@ -1,9 +1,7 @@
 package cn.edu.cuit.controller;
 
-import cn.edu.cuit.VO.AccountMonthReport;
-import cn.edu.cuit.VO.AccountReport;
-import cn.edu.cuit.VO.AccountYearReport;
-import cn.edu.cuit.VO.DateRange;
+import cn.edu.cuit.VO.*;
+import cn.edu.cuit.entity.Account;
 import cn.edu.cuit.entity.User;
 import cn.edu.cuit.service.AccountService;
 import cn.edu.cuit.service.ReportService;
@@ -20,6 +18,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 /**
  * author: 35024
@@ -61,11 +60,20 @@ public class IndexController {
         // 获得存款目标
 
         // 获得近期账单列表
+        AccountCombination accountCombination = new AccountCombination();
+        accountCombination.setStartDate(dateRange.getStartDate());
+        accountCombination.setStartDate(dateRange.getEndDate());
+        accountCombination.setUid(user.getUid());
+        accountCombination.setLimit(8);
+        accountCombination.setPage(1);
+        List<Account> accountList = (List<Account>) accountService.getAccountByCombination(accountCombination);
+
         // 封装报表数据
         ObjectMapper objectMapper = new ObjectMapper();
         mav.addObject("accountMonthReport", objectMapper.writeValueAsString(accountReport.getAccountMonthReport()));
         mav.addObject("accountMonthTypeReport", objectMapper.writeValueAsString(accountReport.getAccountMonthTypeReport()));
         mav.addObject("accountYearReport", objectMapper.writeValueAsString(accountYearReport));
+        mav.addObject("accountList", accountList);
         return mav;
     }
 
