@@ -1,11 +1,9 @@
 package cn.edu.cuit.service.impl;
 
-import cn.edu.cuit.VO.AccountMonthReport;
-import cn.edu.cuit.VO.DateRange;
+import cn.edu.cuit.VO.*;
 import cn.edu.cuit.dao.AccountMapper;
-import cn.edu.cuit.entity.Account;
-import cn.edu.cuit.entity.AccountExample;
-import cn.edu.cuit.entity.User;
+import cn.edu.cuit.dao.AccountTypeMapper;
+import cn.edu.cuit.entity.*;
 import cn.edu.cuit.service.ReportService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,6 +19,8 @@ import java.util.*;
 public class ReportServiceImpl implements ReportService {
     @Autowired
     private AccountMapper accountMapper;
+    @Autowired
+    private AccountTypeMapper accountTypeMapper;
 
 
     private static class ReportUtil {
@@ -33,12 +33,22 @@ public class ReportServiceImpl implements ReportService {
             amountMouthMap.put(name, total);
             return amountMouthMap;
         }
+
+        static void addAccountTypeSumToList(List<AccountTypeSum> list, String name, Double value) {
+            AccountTypeSum accountTypeSum = new AccountTypeSum();
+            accountTypeSum.setName(name);
+            accountTypeSum.setValue(value);
+            list.add(accountTypeSum);
+        }
     }
 
     @Override
-    public AccountMonthReport getMonthReportByDateRange(User user, DateRange dateRange) {
-        // 获得账单数据
+    public AccountReport getMonthReportByDateRange(User user, DateRange dateRange) {
+        // 封装数据对象
+        AccountReport accountReport = new AccountReport();
         AccountMonthReport accountMonthReport = new AccountMonthReport();
+        AccountMonthTypeReport accountMonthTypeReport = new AccountMonthTypeReport();
+        // 获得账单数据
         AccountExample accountExample = new AccountExample();
         AccountExample.Criteria accountCriteria = accountExample.createCriteria();
         accountCriteria.andUidEqualTo(user.getUid());
@@ -46,18 +56,25 @@ public class ReportServiceImpl implements ReportService {
             accountCriteria.andDateBetween(dateRange.getStartDate(), dateRange.getEndDate());
         }
         List<Account> accountList = accountMapper.selectByExample(accountExample);
-        // 封装月度数据集合
-        Map<String, Double> amountMouthIncomeMap = new HashMap<>();
-        Map<String, Double> amountMouthExpensesMap = new HashMap<>();
+        // 获得类型列表
+        AccountTypeExample accountTypeExample = new AccountTypeExample();
+        List<AccountType> accountTypes = accountTypeMapper.selectByExample(accountTypeExample);
+        /* ======封装月度数据====== */
+        Map<String, Double> amountMonthIncomeMap = new HashMap<>();
+        Map<String, Double> amountMonthExpensesMap = new HashMap<>();
+        Map<String, Double> typeMonthIncomeMap = new HashMap<>();
+        Map<String, Double> typeMonthExpensesMap = new HashMap<>();
         SimpleDateFormat sdf = new SimpleDateFormat("MM-dd");
         for (Account account : accountList) {
             String monthDate = sdf.format(account.getDate());
             switch (account.getIetype()) {
                 case 0:
-                    amountMouthIncomeMap = ReportUtil.addAmountToTotal(amountMouthIncomeMap, monthDate, (double) account.getAmount());
+                    amountMonthIncomeMap = ReportUtil.addAmountToTotal(amountMonthIncomeMap, monthDate, (double) account.getAmount());
+                    typeMonthIncomeMap = ReportUtil.addAmountToTotal(typeMonthIncomeMap, account.getTid() + "", (double) account.getAmount());
                     break;
                 case 1:
-                    amountMouthExpensesMap = ReportUtil.addAmountToTotal(amountMouthExpensesMap, monthDate, (double) account.getAmount());
+                    amountMonthExpensesMap = ReportUtil.addAmountToTotal(amountMonthExpensesMap, monthDate, (double) account.getAmount());
+                    typeMonthExpensesMap = ReportUtil.addAmountToTotal(typeMonthExpensesMap, account.getTid() + "", (double) account.getAmount());
                     break;
             }
         }
@@ -71,16 +88,17 @@ public class ReportServiceImpl implements ReportService {
         List<Double> totalNum = new ArrayList<>();
         Calendar calendar = Calendar.getInstance();
         Double sum = 0.0;
+        // 将数据降维
         for (calendar.setTime(dateRange.getStartDate());
              calendar.getTime().getTime() <= dateRange.getEndDate().getTime();
              calendar.add(Calendar.DAY_OF_MONTH, 1)) {
             String monthDate = sdf.format(calendar.getTime());
             dateList.add(monthDate);
-            if (amountMouthIncomeMap.get(monthDate) == null) amountMouthIncomeMap.put(monthDate, 0.0);
-            if (amountMouthExpensesMap.get(monthDate) == null) amountMouthExpensesMap.put(monthDate, 0.0);
-            incomeNum.add(amountMouthIncomeMap.get(monthDate));
-            expensesNum.add(amountMouthExpensesMap.get(monthDate));
-            sum += amountMouthIncomeMap.get(monthDate) - amountMouthExpensesMap.get(monthDate);
+            if (amountMonthIncomeMap.get(monthDate) == null) amountMonthIncomeMap.put(monthDate, 0.0);
+            if (amountMonthExpensesMap.get(monthDate) == null) amountMonthExpensesMap.put(monthDate, 0.0);
+            incomeNum.add(amountMonthIncomeMap.get(monthDate));
+            expensesNum.add(amountMonthExpensesMap.get(monthDate));
+            sum += amountMonthIncomeMap.get(monthDate) - amountMonthExpensesMap.get(monthDate);
             totalNum.add(sum);
         }
         // 设置日期列表
@@ -95,6 +113,33 @@ public class ReportServiceImpl implements ReportService {
         accountMonthReport.getTypeNum().add(incomeNum);
         accountMonthReport.getTypeNum().add(expensesNum);
         accountMonthReport.getTypeNum().add(totalNum);
-        return accountMonthReport;
+        accountReport.setAccountMonthReport(accountMonthReport);
+        /* ======封装月度数据结束====== */
+        /* ======封装月度类型数据====== */
+        List<String> dataNameCollections = Arrays.asList("收入类型", "支出类型");
+        List<String> dataNameList = new ArrayList<String>();
+        dataNameList.addAll(dataNameCollections);
+        accountMonthTypeReport.setDataNameList(dataNameList);
+        // 映射账单类型
+        Map<String, String> accountTypeMap = new HashMap<>();
+        for (AccountType accountType : accountTypes) {
+            accountTypeMap.put(accountType.getTid() + "", accountType.getName());
+        }
+        List<AccountTypeSum> typeMonthIncomeData = new ArrayList<>();
+        List<AccountTypeSum> typeMonthExpensesData = new ArrayList<>();
+        for (String key : typeMonthIncomeMap.keySet()) {
+            ReportUtil.addAccountTypeSumToList(typeMonthIncomeData, accountTypeMap.get(key), typeMonthIncomeMap.get(key));
+        }
+        for (String key : typeMonthExpensesMap.keySet()) {
+            ReportUtil.addAccountTypeSumToList(typeMonthExpensesData, accountTypeMap.get(key), typeMonthExpensesMap.get(key));
+        }
+        List<List<AccountTypeSum>> typeNumList = new ArrayList<>();
+        typeNumList.add(typeMonthIncomeData);
+        typeNumList.add(typeMonthExpensesData);
+        accountMonthTypeReport.setTypeNum(typeNumList);
+        accountReport.setAccountMonthTypeReport(accountMonthTypeReport);
+        /* ======封装月度类型结束====== */
+        return accountReport;
     }
+
 }
