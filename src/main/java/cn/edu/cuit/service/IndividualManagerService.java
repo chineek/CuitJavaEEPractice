@@ -15,5 +15,12 @@ public interface IndividualManagerService {
   public AccountAndDepositVo getIndividualState(int uid);
   //个人历史存款目标
   public List getHistoryGoal(SaveGoalCombination saveGoalCombination);
+  //历史存款目标数量
+  public int getCountHistoryGoal(SaveGoalCombination saveGoalCombination);
+  //取消当前目标
+  public boolean cancelGoal(int uid);
+  //提前完成目标
+  public boolean finishGoal(int uid);
+
 
 }

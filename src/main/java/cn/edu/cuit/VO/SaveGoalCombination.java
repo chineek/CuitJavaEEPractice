@@ -9,7 +9,7 @@ import cn.edu.cuit.entity.Deposit;
 public class SaveGoalCombination {
     private int limit;
     private int page;
-    private Deposit deposit;
+    private int uid;
 
     public int getLimit() {
         return limit;
@@ -27,12 +27,12 @@ public class SaveGoalCombination {
         this.page = page;
     }
 
-    public Deposit getDeposit() {
-        return deposit;
+    public int getUid() {
+        return uid;
     }
 
-    public void setDeposit(Deposit deposit) {
-        this.deposit = deposit;
+    public void setUid(int uid) {
+        this.uid = uid;
     }
 }
 

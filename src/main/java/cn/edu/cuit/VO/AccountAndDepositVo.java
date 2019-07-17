@@ -15,9 +15,27 @@ public class AccountAndDepositVo {
 
     private Date endDate;
 
-    private Long Goal;
+    private Long goal;
 
     private Integer complete;
+
+    private String remarks;
+
+    public Long getGoal() {
+        return goal;
+    }
+
+    public void setGoal(Long goal) {
+        this.goal = goal;
+    }
+
+    public String getRemarks() {
+        return remarks;
+    }
+
+    public void setRemarks(String remarks) {
+        this.remarks = remarks;
+    }
 
     public Integer getAuid() {
         return auid;
@@ -51,14 +69,6 @@ public class AccountAndDepositVo {
         this.endDate = endDate;
     }
 
-    public Long getGoal() {
-        return Goal;
-    }
-
-    public void setGoal(Long goal) {
-        Goal = goal;
-    }
-
     public Integer getComplete() {
         return complete;
     }
@@ -74,8 +84,9 @@ public class AccountAndDepositVo {
                 ", auid=" + auid +
                 ", startDate=" + startDate +
                 ", endDate=" + endDate +
-                ", Goal=" + Goal +
+                ", goal=" + goal +
                 ", complete=" + complete +
+                ", remarks='" + remarks + '\'' +
                 '}';
     }
 }

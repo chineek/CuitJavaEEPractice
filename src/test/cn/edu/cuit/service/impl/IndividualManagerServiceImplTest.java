@@ -1,5 +1,7 @@
 package cn.edu.cuit.service.impl;
 
+import cn.edu.cuit.VO.SaveGoalCombination;
+import cn.edu.cuit.entity.Deposit;
 import cn.edu.cuit.service.IndividualManagerService;
 import cn.edu.cuit.service.SaveGoalService;
 import org.junit.Before;
@@ -29,6 +31,14 @@ public class IndividualManagerServiceImplTest {
 
     @Test
     public void getIndividualState() {
-        System.out.println(individualManagerService.getIndividualState(1).getStartDate());
+        SaveGoalCombination saveGoalCombination=new SaveGoalCombination();
+        Deposit deposit=new Deposit();
+        deposit.setUid(1);
+        saveGoalCombination.setPage(1);
+        saveGoalCombination.setLimit(10);
+        saveGoalCombination.setUid(1);
+        //System.out.println(individualManagerService.getHistoryGoal(saveGoalCombination).size());
+        //System.out.println(individualManagerService.getCountHistoryGoal(saveGoalCombination));
+        System.out.println(individualManagerService.getIndividualState(1).getComplete());
     }
 }
