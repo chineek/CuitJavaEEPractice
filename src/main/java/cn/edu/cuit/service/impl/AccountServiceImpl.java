@@ -47,7 +47,7 @@ public class AccountServiceImpl implements AccountService {
         //根据用户ID获得账目列表（账单）
         aeCriteria.andUidEqualTo(accountCombination.getUid());
 
-        ae.setOrderByClause("acid desc");
+        ae.setOrderByClause("date desc");
         return ae;
     }
 
