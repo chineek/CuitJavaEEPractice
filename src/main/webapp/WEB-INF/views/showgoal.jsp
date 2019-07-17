@@ -77,14 +77,12 @@
         var element=layui.element;
         var layer=layui.layer;
         var uid=${uid};
-
+        var state = $("#currentState");
         var initSelect = (function () {
             var uid =${uid};
             util.httpRequest.post("/savegoal/getCurrentGoal", {
                 "uid": uid
             }, function getCurrentGoal(result) {
-
-                var state = $("#currentState");
                 $(state).empty();
                 var currentState = result;
                 var appendHtml = '';
@@ -122,7 +120,6 @@
                         '        </div>\n' ;
                     $(state).append(appendHtml);
                     element.render();
-
                 }
 
 
@@ -182,7 +179,9 @@
                 ,content: '可以填写任意的layer代码'
             });
         }
-
+        $(state).on("click","#cancel",function () {
+            cancel();
+        });
     });
 </script>
 

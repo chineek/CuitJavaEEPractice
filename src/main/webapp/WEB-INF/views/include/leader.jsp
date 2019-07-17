@@ -95,14 +95,18 @@
                             href="${rootPath}accountInfo/addInfo">添加账目</a></dd>
                 </dl>
             </li>
-            <li class="layui-nav-item <%=uri.equals("lineOfLimit")?"layui-nav-itemed":""%> <%=uri.equals("limitmanager")?"layui-nav-itemed":""%>">
+            <li class="layui-nav-item <%=uri.equals("lineoflimit")?"layui-nav-itemed":""%> <%=uri.equals("showgoal")?"layui-nav-itemed":""%>">
                 <a href="javascript:;">财务管理</a>
                 <dl class="layui-nav-child">
-                    <dd><a href="">额度查询</a></dd>
-                    <dd class="<%=uri.equals("lineOfLimit")?"layui-nav-itemed":""%>"><a
-                            href="${rootPath}limit/lineoflimit">添加额度限制</a></dd>
-                    <dd class="<%=uri.equals("limitmanager")?"layui-nav-itemed":""%>"><a
-                            href="${rootPath}savegoal/page">存款目标管理</a></dd>
+                    <dd class="<%=uri.equals("lineoflimit")?"layui-nav-itemed":""%>">
+                        <a href="${rootPath}limit/page">额度查询</a>
+                    </dd>
+                    <dd class="<%=uri.equals("lineoflimit")?"layui-nav-itemed":""%>">
+                        <a href="${rootPath}limit/page">添加额度限制</a>
+                    </dd>
+                    <dd class="<%=uri.equals("showgoal")?"layui-nav-itemed":""%>">
+                        <a href="${rootPath}savegoal/page">存款目标管理</a>
+                    </dd>
                 </dl>
             </li>
             <li class="layui-nav-item"><a href="">系统设置</a></li>
