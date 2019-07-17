@@ -7,6 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
 import static org.junit.Assert.*;
 
 /**
@@ -27,7 +31,12 @@ public class DemoServiceImplTest {
     }
     @Test
     public void getUserByName() throws Exception {
-        System.out.print(demoService.getUserByName("田"));
+        Calendar calendar=Calendar.getInstance();
+        SimpleDateFormat dateSdf = new SimpleDateFormat("yyyy-MM-dd");
+        calendar.setTime(dateSdf.parse("2019-07-01"));
+        System.out.print(calendar.getTime());
+        calendar.add(Calendar.MONTH, 1);
+        System.out.print(calendar.getTime());
     }
 
 }

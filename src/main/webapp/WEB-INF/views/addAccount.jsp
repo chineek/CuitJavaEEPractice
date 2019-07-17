@@ -25,11 +25,12 @@
                     <div class="layui-form-item" pane>
                         <label class="layui-form-label">账目金额</label>
                         <div class="layui-input-block">
-                            <input type="text" id="amount" name="amount" placeholder="￥" autocomplete="off" class="layui-input" value="">
+                            <input type="text" lay-verify="required|number" id="amount" name="amount" placeholder="￥"
+                                   autocomplete="off" class="layui-input" value="">
                         </div>
                     </div>
                     <div class="layui-form-item" pane>
-                    <label class="layui-form-label">收支类型</label>
+                        <label class="layui-form-label">收支类型</label>
                         <div class="layui-input-block">
                             <input type="radio" name="ietype" value="0" title="收入">
                             <input type="radio" name="ietype" value="1" title="支出" checked>
@@ -45,7 +46,7 @@
                     <div class="layui-form-item" pane>
                         <label class="layui-form-label">账单分类</label>
                         <div class="layui-input-block">
-                            <select name="tid" id="select_id">
+                            <select lay-verify="required" name="tid" id="select_id">
                             </select>
                         </div>
                     </div>
@@ -58,7 +59,8 @@
                     <input type="hidden" name="uid" value="${uid}" id="uid">
                     <div class="layui-form-item">
                         <div class="layui-input-block" style="text-align:center">
-                            <button class="layui-btn" lay-submit lay-filter="formDemo" id="commit">&emsp;提交&emsp;</button>
+                            <button class="layui-btn" lay-submit lay-filter="accountCommit" id="commit">&emsp;提交&emsp;
+                            </button>
                             <button type="reset" class="layui-btn layui-btn-primary">&emsp;重置&emsp;</button>
                         </div>
                     </div>
@@ -76,67 +78,67 @@
 <!-- END：代码库文件 -->
 <!-- ================================在这里编写页面的js代码================================ -->
 <script>
-    function renderform(){
-        layui.use('form', function(){
+    function renderform() {
+        layui.use('form', function () {
             var form = layui.form;
             form.render();
+            form.on('submit(accountCommit)', function (data) {
+                $.ajax({
+                    url: "/accountInfo/saveAccount",
+                    type: "POST",
+                    data: $("#accountInfo").serialize(),
+                    success: function (result) {
+                        if (result === "success") {
+                            $(window).attr("location", "${rootPath}account/list");
+                        } else {
+                            layer.msg("账单添加失败，请稍后重试！", {
+                                offset: '50px'
+                                , icon: 2
+                                , time: 1000
+                            });
+                        }
+                    }
+                });
+                return false;
+            });
         });
     }
 
     //页面加载时响应
-    $(function(){
+    $(function () {
         $.ajax({
-            url:"/accountInfo/queryAccountType",
-            type:"GET",
-            success:function(result){
+            url: "/accountInfo/queryAccountType",
+            type: "GET",
+            success: function (result) {
                 renderform();
                 showAccountType(result);
             }
         })
-    })
+    });
 
     //显示账单类型
-    function showAccountType(result){
+    function showAccountType(result) {
         var list = result;
-        $("<option value="+"''"+">请选择</option>").appendTo("#select_id");
-        $.each(list,function(index, item){
+        $("<option value=" + "''" + ">请选择</option>").appendTo("#select_id");
+        $.each(list, function (index, item) {
             $("<option></option>").val(item.tid).text(item.name).appendTo("#select_id");
         });
     }
 
     //表单提交验证
-    function check(){
-        if($("#amount").val() == ""){
+    function check() {
+        if ($("#amount").val() === "") {
             window.alert("请输入账目金额！");
             $("#amount").focus();
             return false;
         }
-        if($("#select_id").val() == ""){
+        if ($("#select_id").val() === "") {
             window.alert("请选择账目类型！");
             $("#select_id").focus();
             return false;
         }
         return true;
     }
-
-    //"提交"按钮响应
-    $("#commit").click(function(){
-        if(check() == true){
-            $.ajax({
-                url:"/accountInfo/saveAccount",
-                type:"POST",
-                data:$("#accountInfo").serialize(),
-                success:function(result){
-                    if(result == "success"){
-                        window.alert("账单添加成功！");
-                        $(window).attr("location","../accountInfo/accountInfoTest");
-                    }else{
-                        window.alert("账单添加失败，请稍后重试！");
-                    }
-                }
-            });
-        }
-    })
 </script>
 <!-- ================================END:在这里编写页面的js代码================================ -->
 </body>

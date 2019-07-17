@@ -41,10 +41,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> list(UserListCombination userListCombination) {
+    public List<User> list(UserListCombination userListCombination,int fid) {
         UserExample ue = new UserExample();
         RowBounds rowBounds = new RowBounds((userListCombination.getPage() - 1) * userListCombination.getLimit(), userListCombination.getLimit());
-        ue.setOrderByClause("uid desc");
+        ue.createCriteria().andFidEqualTo(fid);
+        ue.setOrderByClause("fid desc");
         List<User> users = userMapper.selectByExampleWithRowbounds(ue, rowBounds);
         // 清空密码后返回前端
         for (User user : users) {
@@ -82,8 +83,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public int getCountByUser() {
+    public int getCountByUser(int fid) {
         UserExample ue = new UserExample();
+        ue.createCriteria().andFidEqualTo(fid);
         return (int) userMapper.countByExample(ue);
     }
 }

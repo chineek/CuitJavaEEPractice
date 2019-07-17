@@ -4,6 +4,7 @@ import cn.edu.cuit.dao.AccountTypeMapper;
 import cn.edu.cuit.entity.AccountType;
 import cn.edu.cuit.entity.AccountTypeExample;
 import cn.edu.cuit.service.AccountTypeService;
+import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,8 +14,9 @@ import java.util.List;
 public class AccountTypeServiceImpl implements AccountTypeService {
     @Autowired
     AccountTypeMapper ATMapper;
+
     @Override
-    public void addAccountType(String name,String description){
+    public void addAccountType(String name, String description) {
         AccountType accountType = new AccountType();
         accountType.setName(name);
         accountType.setDescription(description);
@@ -22,11 +24,18 @@ public class AccountTypeServiceImpl implements AccountTypeService {
     }
 
     @Override
-    public List getAccountType() {
+    public List getAccountType(Integer page, Integer limit) {
         AccountTypeExample ATE = new AccountTypeExample();
         ATE.setOrderByClause("tid asc");
         System.out.print(ATMapper.selectByExample(ATE));
-        return ATMapper.selectByExample(ATE);
+        RowBounds rowBounds = new RowBounds((page - 1) * limit, limit);
+        return ATMapper.selectByExampleWithRowbounds(ATE, rowBounds);
+    }
+
+    @Override
+    public int getAccountTypeCount() {
+        AccountTypeExample ATE = new AccountTypeExample();
+        return (int) ATMapper.countByExample(ATE);
     }
 
     @Override
@@ -35,7 +44,7 @@ public class AccountTypeServiceImpl implements AccountTypeService {
     }
 
     @Override
-    public void updateAccountType(Integer tid,String name, String description) {
+    public void updateAccountType(Integer tid, String name, String description) {
         AccountType accountType = new AccountType();
         accountType.setTid(tid);
         accountType.setName(name);

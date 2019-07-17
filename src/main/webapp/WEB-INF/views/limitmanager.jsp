@@ -86,32 +86,30 @@
         <table class="layui-table" lay-data="{width: 1500, height:330, url:'/demo/table/user/', page:true, id:'idTest'}" lay-filter="demo">
             <thead>
             <tr>
-                <th lay-data="{field:'id', width:200, sort: true, fixed: true,align: 'center'}">ID</th>
-                <th lay-data="{field:'username', width:200,align: 'center'}">成员名</th>
-                <th lay-data="{field:'sex', width:200, sort: true,align: 'center'}">已使用额度</th>
-                <th lay-data="{field:'city', width:200,align: 'center'}">设定额度</th>
-                <th lay-data="{field:'sign', width:160,align: 'center'}">起始日期</th>
-                <th lay-data="{field:'experience', width:200, sort: true,align: 'center'}">结束日期</th>
-
-
-                <th lay-data="{fixed: 'right', width:178, align:'center', toolbar: '#barDemo'}">操作</th>
+                <th lay-data="{field:'uid', width:180, sort: true, fixed: true,align: 'center'}">ID</th>
+                <th lay-data="{field:'name', width:180,align: 'center'}">成员名</th>
+                <th lay-data="{field:'amounts', width:180, sort: true,align: 'center'}">已使用额度</th>
+                <th lay-data="{field:'amount', width:180,align: 'center'}">设定额度</th>
+                <th lay-data="{field:'start_date', width:180,align: 'center'}">起始日期</th>
+                <th lay-data="{field:'end_date', width:180, sort: true,align: 'center'}">结束日期</th>
+                <th lay-data="{fixed: 'right', width:160, align:'center', toolbar: '#barDemo'}">操作</th>
             </tr>
             </thead>
         </table>
 
         <div style="padding: 50px;font-size:40px;">成员存款目标管理
-            <button type="button" class="layui-btn"style="float:right">添加新存款目标</button>
+            <button type="button" class="layui-btn"style="float:right"onclick="window.open('/savegoal/page')">添加新存款目标</button>
         </div>
         <table class="layui-table" lay-data="{width: 1500, height:330, url:'/demo/table/user/', page:true, id:'idTest1'}" lay-filter="demo1">
             <thead>
             <tr>
-                <th lay-data="{field:'id', width:200, sort: true, fixed: true,align: 'center'}">ID</th>
-                <th lay-data="{field:'username', width:200,align: 'center'}">成员名</th>
-                <th lay-data="{field:'sex', width:200, sort: true,align: 'center'}">已完成目标</th>
-                <th lay-data="{field:'city', width:200,align: 'center'}">设定目标</th>
-                <th lay-data="{field:'sign', width:160,align: 'center'}">起始日期</th>
-                <th lay-data="{field:'experience', width:200, sort: true,align: 'center'}">结束日期</th>
-                <th lay-data="{fixed: 'right', width:178, align:'center', toolbar: '#barDemo1'}">操作</th>
+                <th lay-data="{field:'id', width:180, sort: true, fixed: true,align: 'center'}">ID</th>
+                <th lay-data="{field:'name', width:180,align: 'center'}">成员名</th>
+                <th lay-data="{field:'sum', width:180, sort: true,align: 'center'}">已完成目标</th>
+                <th lay-data="{field:'amount', width:180,align: 'center'}">设定目标</th>
+                <th lay-data="{field:'start_date', width:180,align: 'center'}">起始日期</th>
+                <th lay-data="{field:'end_date', width:180, sort: true,align: 'center'}">结束日期</th>
+                <th lay-data="{fixed: 'right', width:160, align:'center', toolbar: '#barDemo1'}">操作</th>
             </tr>
             </thead>
         </table>

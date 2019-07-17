@@ -57,13 +57,13 @@
             </div>
             <div class="layui-col-md2">
                 <div class="layui-input-block" style="float: right;padding-right:20px;">
-                    <button class="layui-btn layui-btn-lg" lay-event="add">添加账目
+                    <button class="layui-btn layui-btn-lg" lay-event="add" id="add">添加账目
                     </button>
                 </div>
             </div>
             <div class="layui-col-md12">
                 <div class="layui-table">
-                    <table class="layui-hide" id="accountList"></table>
+                    <table class="layui-hide" lay-filter="accountList" id="accountList"></table>
                 </div>
             </div>
             <!-- ================================END：在这里编写HTML代码================================ -->
@@ -127,6 +127,11 @@
                     where: getCombination(),
                     cols: [[ //标题栏
                         {
+                            field: 'acid',
+                            title: 'acid',
+                            hide: true
+                        },
+                        {
                             field: 'ietype',
                             title: '收支类型',
                             minWidth: 150,
@@ -177,11 +182,12 @@
                 elem: '#dateRange'
                 , range: '~'
                 //默认得到最近一个月的账目情况
-                , value: util.date.format(new Date() - (24 * 60 * 60 * 1000 * 30), "yyyy-MM-dd")
+                , value: util.date.format(new Date() - util.date.getTimestampByDay(30), "yyyy-MM-dd")
                     + " ~ " +
                     util.date.format(new Date(), "yyyy-MM-dd")
                 , done: function (value) {
-                    var dateRange =$('#dateRange').val(value);
+                    table.render(getTableConfig());
+                    var dateRange = $('#dateRange').val(value);
                     table.render(getTableConfig());
                 }
             });
@@ -206,6 +212,43 @@
              * 展示已知数据
              */
             table.render(getTableConfig());
+            /*
+             增删改查的监听实现
+             */
+              //监听工具条
+            table.on('tool(accountList)', function (obj) { //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
+                var data = obj.data; //获得当前行数据
+                var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
+
+                if (layEvent === 'detail') { //查看
+                    $(window).attr('location', '../accountInfo/queryInfo?acid=' + data.acid);
+                } else if (layEvent === 'del') { //删除
+                    layer.confirm('真的删除行么', function (index) {
+                        //向服务端发送删除指令
+                        obj.del(); //删除对应行（tr）的DOM结构，并更新缓存
+                        layer.close(index);
+                        util.httpRequest.post("/accountInfo/deleteAccount", {"acid": data.acid}, function (data) {
+                            if (data.msg === "success") {
+                                layer.msg("账单删除成功！", {
+                                    title: "提交信息"
+                                });
+                            } else {
+                                layer.msg("删除失败！", {
+                                    title: "提交信息"
+                                });
+                            }
+                        });
+                    });
+                } else if (layEvent === 'edit') { //编辑
+                    //do something
+                    var acid = $("#acid").serialize();
+                    $(window).attr('location', '../accountInfo/modifyInfo?acid=' + data.acid);
+
+                }
+            });
+        });
+        $("#add").click(function () {
+            $(window).attr('location', '../accountInfo/addInfo');
         });
     </script>
     <!-- ================================END:在这里编写页面的js代码================================ -->
