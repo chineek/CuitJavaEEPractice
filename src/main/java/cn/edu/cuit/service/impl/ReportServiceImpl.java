@@ -160,7 +160,7 @@ public class ReportServiceImpl implements ReportService {
         AccountTypeExample accountTypeExample = new AccountTypeExample();
         List<AccountType> accountTypes = accountTypeMapper.selectByExample(accountTypeExample);
         // 首先设置基础列名
-        List<String> dataNamesCollections = Arrays.asList("收入", "支出", "盈利", "亏损");
+        List<String> dataNamesCollections = Arrays.asList("收入", "支出", "顺差", "逆差");
         List<String> dataNamesList = new ArrayList<String>();
         dataNamesList.addAll(dataNamesCollections);
         accountYearReport.setDataNames(dataNamesList);
@@ -261,7 +261,7 @@ public class ReportServiceImpl implements ReportService {
         seriesData.add(accountYearSeries);
         // 封装亏损列表
         accountYearSeries = new AccountYearSeries();
-        accountYearSeries.setName("亏损");
+        accountYearSeries.setName("逆差");
         accountYearSeries.setStack("盈亏");
         accountYearSeries.setBarWidth(-1);
         accountYearSeries.setType("bar");
@@ -277,7 +277,7 @@ public class ReportServiceImpl implements ReportService {
         seriesData.add(accountYearSeries);
         // 封装盈利列表
         accountYearSeries = new AccountYearSeries();
-        accountYearSeries.setName("盈利");
+        accountYearSeries.setName("顺差");
         accountYearSeries.setStack("盈亏");
         accountYearSeries.setBarWidth(-1);
         accountYearSeries.setType("bar");
