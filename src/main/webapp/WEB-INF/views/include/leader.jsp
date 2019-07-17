@@ -84,7 +84,9 @@
                 <a href="javascript:;">财务管理</a>
                 <dl class="layui-nav-child">
                     <dd><a href="">额度查询</a></dd>
-                    <dd><a href="${rootPath}limit/lineoflimit">添加额度限制</a></dd>
+                    <c:if test="${auid==1}">
+                    <dd><a href="${rootPath}limit/page">添加额度限制</a></dd>
+                    </c:if>
                     <dd><a href="${rootPath}savegoal/page">存款目标管理</a></dd>
                 </dl>
             </li>

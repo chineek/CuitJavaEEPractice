@@ -2,8 +2,16 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page import="cn.edu.cuit.entity.User" %>
 <%
     pageContext.setAttribute("rootPath", "/");
+    Object userObj = request.getSession().getAttribute("user");
+    User user = new User();
+    if (userObj != null)
+        user = (User) userObj;
+    pageContext.setAttribute("isLogin", user);
+    pageContext.setAttribute("auid", user.getAuid());
+    pageContext.setAttribute("uid", user.getUid());
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -30,7 +38,7 @@
                             <div class="layui-form-item">
                                 <label class="layui-form-label">成员选择</label>
                                 <div class="layui-input-block">
-                                    <select name="interest" lay-filter="member">
+                                    <select name="members" id="LAYMembersSelect" lay-filter="member">
 
                                         <option value="0" selected="">自己</option>
                                         <option value="1">儿子</option>
@@ -38,20 +46,6 @@
                                     </select>
                                 </div>
                             </div>
-
-                            <!--<div class="layui-form-item">
-                                <label class="layui-form-label">单行输入框</label>
-                                <div class="layui-input-block">
-                                    <input name="title" class="layui-input" type="text" placeholder="请输入标题" autocomplete="off" lay-verify="title">
-                                </div>
-                            </div>
-                            <div class="layui-form-item">
-                                <label class="layui-form-label">验证必填项</label>
-                                <div class="layui-input-block">
-                                    <input name="username" class="layui-input" type="text" placeholder="请输入" autocomplete="off" lay-verify="required" lay-reqtext="用户名是必填项，岂能为空？">
-                                </div>
-                            </div>
-                            -->
 
                             <div class="layui-form-item">
                                 <label class="layui-form-label">额度设定</label>
@@ -66,7 +60,7 @@
                                 <div class="layui-inline" style="width: 60%">
                                     <label class="layui-form-label">起始时间</label>
                                     <div class="layui-input-block">
-                                        <input name="date" class="layui-input" id="date" type="text" autocomplete="off"
+                                        <input name="startDate" class="layui-input" id="startDate" type="text" autocomplete="off"
                                                lay-verify="time1">
                                     </div>
                                 </div>
@@ -75,7 +69,7 @@
                                 <div class="layui-inline" style="width: 60%">
                                     <label class="layui-form-label">结束时间</label>
                                     <div class="layui-input-block">
-                                        <input name="date1" class="layui-input" id="date1" type="text"
+                                        <input name="endDate" class="layui-input" id="endDate" type="text"
                                                autocomplete="off" lay-verify="time2">
                                     </div>
                                 </div>
@@ -106,41 +100,6 @@
 <!-- END：代码库文件 -->
 <!-- ================================在这里编写页面的js代码================================ -->
 <script>
-    // 这里我编写了一个简单的操作工具库，接下来是使用示例。
-    // 下面内容是为了说明可以做什么，正式页面删掉就行。
-    /**----------------------------------------------------------------------------------
-     * 1.快速发送请求到服务器
-     *    util.httpRequest对象
-     ------------------------------------------------------------------------------------*/
-    // 发送一条get请求到"请求地址",返回data对象,并输出
-    util.httpRequest.get("getUserByNameDemo", {"name": "田"}, function (usersList) {
-        console.log(usersList);
-    });
-    // 发送一条post请求到"请求地址",返回data对象,并输出
-    util.httpRequest.post("postAuthorityDemo", {"auid": 1}, function (authority) {
-        console.log(authority);
-    });
-    /**----------------------------------------------------------------------------------
-     * 2.在浏览器中存储一些数据
-     *    util.data对象
-     ------------------------------------------------------------------------------------*/
-    // 存储一个对象，"内容"可以不是字符串，而是一个对象
-    util.data.set("存储名称", "内容");
-    // 获取刚刚存储的数据对象
-    var dataObject = util.data.get("存储名称");
-    // 打印刚刚存储的对象
-    console.log(dataObject);
-    // 删除存储的内容
-    util.data.remove("存储名称");
-    /**----------------------------------------------------------------------------------
-     * 3.获取浏览器URL参数
-     *    util.param对象
-     ------------------------------------------------------------------------------------*/
-    // 可以获取如"http://www.baidu.com/index?xxx=1"中xxx的值
-    // 具体使用方法如下
-    console.log(util.param.xxx);
-</script>
-<script>
     layui.use(['form', 'layedit', 'laydate'], function () {
         var form = layui.form
             , layer = layui.layer
@@ -149,14 +108,12 @@
 
         //日期
         laydate.render({
-            elem: '#date'
+            elem: '#startDate'
         });
         laydate.render({
-            elem: '#date1'
+            elem: '#endDate'
         });
 
-        //创建一个编辑器
-        var editIndex = layedit.build('LAY_demo_editor');
 
         //自定义验证规则
         form.verify({
@@ -164,13 +121,6 @@
                 if (value.length < 5) {
                     return '标题至少得5个字符啊';
                 }
-            }
-            , pass: [
-                /^[\S]{6,12}$/
-                , '密码必须6到12位，且不能出现空格'
-            ]
-            , content: function (value) {
-                layedit.sync(editIndex);
             }
             , limit: function (value) {
                 if (value == "") {
@@ -180,14 +130,14 @@
                 }
             }
             , time1: function (value) {
-                var date =new Date ($("#date").val());
-                var date1 = new Date($("#date1").val());
+                var startDate =new Date ($("#startDate").val());
+                var endDate = new Date($("#endDate").val());
 
-                console.log(date);
-                console.log(date1);
+                console.log(startDate);
+                console.log(endDate);
                 if(value==""){
                     return '请选择起始日期';
-                }else if(date>date1){
+                }else if(startDate>endDate){
                     return '起始日期不能大于结束日期！';
                 }
             }
@@ -201,11 +151,58 @@
 
         //监听提交
         form.on('submit(add)', function (data) {
+            /*封装对象*/
+            var limit={
+                "uid":parseInt(data.field.members),
+                "amount":parseInt(data.field.limit),
+                "startDate":new Date(data.field.startDate),
+                "endDate":new Date(data.field.endDate)
+            };
+            util.httpRequest.post("setlimit",limit,function (msg) {
+                if (msg.code === 200) {
+                    layer.alert(msg.info, {
+                        title: "提交结果"
+                    },function() {
+                        window.location.href = "index";
+                    })
+                } else {
+                    layer.msg(msg.info, {
+                        offset: '100px'
+                        , icon: 2
+                        , time: 1000
+                    });
+                }
+
+            })
+
             layer.alert(JSON.stringify(data.field), {
                 title: '最终的提交信息'
             })
             return false;
         });
+
+        // 初始化Select
+        var initSelect = (function () {
+            var uid =${uid};
+            util.httpRequest.post("getmembers", {
+                "uid": uid
+            }, function getMembers(result) {
+
+                var members = $("#LAYMembersSelect");
+                $(members).empty();
+                var memberList = result;
+                var appendHtml = '';
+                for (var i = 0; i < memberList.length; i++) {
+                    appendHtml = $('<option value="' + memberList[i].uid + '">' + memberList[i].name + '</option>');
+                    if (i === 0) {
+                        $(appendHtml).attr("selected", "");
+                    }
+                    $(members).append(appendHtml);
+                }
+                form.render('select');
+            });
+            return "initSuccess";
+        })();
 
     });
 </script>
