@@ -51,36 +51,77 @@ public class IndividualManagerServiceImpl implements IndividualManagerService {
         if(count!=0){
         Deposit deposit=depositMapper.selectByExample(de).get(0);//当前进行的存款目标
 
-            adv.setUid(uid);
-            adv.setStartDate(deposit.getStartDate());
-            adv.setEndDate(deposit.getEndDate());
-            adv.setGoal(deposit.getAmount());
-            adv.setRemarks(deposit.getRemarks());
-            seCriteria.andUidEqualTo(uid);
-            seCriteria.andEndDateGreaterThan(new Date());
-            Spending spending=spendingMapper.selectByExample(se).get(0);//当前额度
+            if(deposit.getEndDate().before(new Date())){//判断目标是否过期
+                adv.setUid(uid);
+                adv.setStartDate(deposit.getStartDate());
+                adv.setEndDate(deposit.getEndDate());
+                adv.setGoal(deposit.getAmount());
+                adv.setRemarks(deposit.getRemarks());
+                seCriteria.andUidEqualTo(uid);
+                seCriteria.andEndDateGreaterThan(new Date());
+                Spending spending = spendingMapper.selectByExample(se).get(0);//当前额度
 
-            aeCriteria.andUidEqualTo(uid);
-            aeCriteria.andIetypeEqualTo(0);
-            aeCriteria.andDateBetween(deposit.getStartDate(),deposit.getEndDate());
+                aeCriteria.andUidEqualTo(uid);
+                aeCriteria.andIetypeEqualTo(0);
+                aeCriteria.andDateBetween(deposit.getStartDate(), deposit.getEndDate());
 
-            outaeCriteria.andUidEqualTo(uid);
-            outaeCriteria.andIetypeEqualTo(1);
-            outaeCriteria.andDateBetween(spending.getStartDate(),spending.getEndDate());
+                outaeCriteria.andUidEqualTo(uid);
+                outaeCriteria.andIetypeEqualTo(1);
+                outaeCriteria.andDateBetween(spending.getStartDate(), spending.getEndDate());
 
-            List<Account> accounts=accountMapper.selectByExample(ae);//当前目标时间内的账目
-            List<Account> outaccounts=accountMapper.selectByExample(outae);//当前额度时间内的账目
-            Integer sum=0;
-            Integer out=0;
-            for(int i=0;i<accounts.size();i++){
-                sum+=accounts.get(i).getAmount().intValue();
+                List<Account> accounts = accountMapper.selectByExample(ae);//当前目标时间内的账目
+                List<Account> outaccounts = accountMapper.selectByExample(outae);//当前额度时间内的账目
+                Integer sum = 0;
+                Integer out = 0;
+                for (int i = 0; i < accounts.size(); i++) {
+                    sum += accounts.get(i).getAmount().intValue();
+                }
+                for (int i = 0; i < outaccounts.size(); i++) {
+                    out += outaccounts.get(i).getAmount().intValue();
+                }
+                Integer rs = sum + spending.getAmount().intValue() - out;
+
+                if(rs<deposit.getAmount()){
+                    deposit.setIsComplete(2);
+                    depositMapper.updateByPrimaryKeySelective(deposit);//更新目标进行状态
+                    return new AccountAndDepositVo();
+                }else {
+                    deposit.setIsComplete(1);
+                    depositMapper.updateByPrimaryKeySelective(deposit);//更新目标进行状态
+                    return new AccountAndDepositVo();
+                }
+            }else {
+                adv.setUid(uid);
+                adv.setStartDate(deposit.getStartDate());
+                adv.setEndDate(deposit.getEndDate());
+                adv.setGoal(deposit.getAmount());
+                adv.setRemarks(deposit.getRemarks());
+                seCriteria.andUidEqualTo(uid);
+                seCriteria.andEndDateGreaterThan(new Date());
+                Spending spending = spendingMapper.selectByExample(se).get(0);//当前额度
+
+                aeCriteria.andUidEqualTo(uid);
+                aeCriteria.andIetypeEqualTo(0);
+                aeCriteria.andDateBetween(deposit.getStartDate(), deposit.getEndDate());
+
+                outaeCriteria.andUidEqualTo(uid);
+                outaeCriteria.andIetypeEqualTo(1);
+                outaeCriteria.andDateBetween(spending.getStartDate(), spending.getEndDate());
+
+                List<Account> accounts = accountMapper.selectByExample(ae);//当前目标时间内的账目
+                List<Account> outaccounts = accountMapper.selectByExample(outae);//当前额度时间内的账目
+                Integer sum = 0;
+                Integer out = 0;
+                for (int i = 0; i < accounts.size(); i++) {
+                    sum += accounts.get(i).getAmount().intValue();
+                }
+                for (int i = 0; i < outaccounts.size(); i++) {
+                    out += outaccounts.get(i).getAmount().intValue();
+                }
+                Integer rs = sum + spending.getAmount().intValue() - out;
+                adv.setComplete(rs);
+                return adv;
             }
-            for(int i=0;i<outaccounts.size();i++){
-                out+=outaccounts.get(i).getAmount().intValue();
-            }
-            Integer rs=sum+spending.getAmount().intValue()-out;
-            adv.setComplete(rs);
-            return adv;
 
         }else {
             return adv;
@@ -122,7 +163,7 @@ public class IndividualManagerServiceImpl implements IndividualManagerService {
         deCriteria.andIsCompleteEqualTo(0);
         Deposit deposit=depositMapper.selectByExample(de).get(0);//当前进行的存款目标
         deposit.setIsComplete(2);
-        int rs=depositMapper.insert(deposit);
+        int rs=depositMapper.updateByPrimaryKeySelective(deposit);
         return rs>0;
     }
     //提前完成目标
@@ -137,7 +178,7 @@ public class IndividualManagerServiceImpl implements IndividualManagerService {
         deCriteria.andIsCompleteEqualTo(0);
         Deposit deposit=depositMapper.selectByExample(de).get(0);//当前进行的存款目标
         deposit.setIsComplete(1);
-        int rs=depositMapper.insert(deposit);
+        int rs=depositMapper.updateByPrimaryKeySelective(deposit);
         return rs>0;
     }
 }

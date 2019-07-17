@@ -34,7 +34,7 @@ public class SaveGoalController {
         return "showgoal";
 
     }
-    @RequestMapping(value = {"/savegoal"})
+    @RequestMapping(value = {"/addGoal"})
     public String SaveGoal() {
         return "savegoal";
     }
@@ -92,6 +92,16 @@ public class SaveGoalController {
         SaveGoalStatus sgs=new SaveGoalStatus();
         individualManagerService.cancelGoal(user.getUid());
         sgs.setInfo("取消目标成功");
+        sgs.setCode(200);
+        return sgs;
+    }
+    //提前完成存款目标
+    @RequestMapping(value = {"/finishGoal"})
+    @ResponseBody
+    public SaveGoalStatus finishGoal(HttpSession session,@RequestBody User user){
+        SaveGoalStatus sgs=new SaveGoalStatus();
+        individualManagerService.finishGoal(user.getUid());
+        sgs.setInfo("恭喜提前完成目标");
         sgs.setCode(200);
         return sgs;
     }

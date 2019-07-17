@@ -29,7 +29,7 @@
         <div style="padding: 20px 40px">
 
         <div style="padding: 50px;font-size:40px;" id="save">个人存款
-            <button type="button" class="layui-btn"style="float:right" onclick=window.location.href="/savegoal/savegoal">添加新存款目标</button>
+            <button type="button" class="layui-btn"style="float:right" onclick=window.location.href="/savegoal/addGoal">添加新存款目标</button>
         </div>
             <div id="currentState">
         <div class="layui-form-item" id="currentGoal">
@@ -177,7 +177,7 @@
             layer.open({
                 title: '提示'
                 ,content: '确定取消目标嘛？'
-                ,yes:function () {util.httpRequest.post("/savegoal/savegoal", {
+                ,yes:function () {util.httpRequest.post("/savegoal/cancelGoal", {
                     "uid":uid
                 }, function (msg) {
                     if (msg.code === 200) {
@@ -198,9 +198,38 @@
                 }
             });
         }
+        function finish() {
+            layer.open({
+                title: '提示'
+                ,content: '确定完成目标嘛？'
+                ,yes:function () {util.httpRequest.post("/savegoal/finishGoal", {
+                    "uid":uid
+                }, function (msg) {
+                    if (msg.code === 200) {
+                        layer.alert(msg.info, {
+                            title: "提交结果"
+                        }, function () {
+                            window.location.href = "/savegoal/page";
+                        })
+                    } else {
+                        layer.msg(msg.info, {
+                            offset: '50%'
+                            , icon: 2
+                            , time: 3000
+                        });
+                    }
+                });
+
+                }
+            });
+        }
         $(state).on("click","#cancel",function () {
             cancel();
         });
+       $(state).on("click","#finish",function () {
+           finish();
+
+       })
     });
 </script>
 
