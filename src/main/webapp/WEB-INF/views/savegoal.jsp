@@ -31,7 +31,7 @@
             <div class="layui-row layui-col-space15">
                 <div class="layui-col-md6">
                     <div class="layui-card" style="padding-top: 1%;padding-right: 3%;padding-bottom: 1%">
-                        <fieldset class="layui-elem-field layui-field-title" style="margin-top: 1%;padding-bottom: 1%">
+                        <fieldset class="layui-elem-field layui-field-title" style="margin-top: 2%;padding-bottom: 1%">
                             <legend>设定存款目标</legend>
                         </fieldset>
                         <form class="layui-form" action="">
@@ -186,7 +186,7 @@
                     layer.alert(msg.info, {
                         title: "提交结果"
                     }, function () {
-                        window.location.href = "index";
+                        window.location.href = "/savegoal/page";
                     })
                 } else {
                     layer.msg(msg.info, {

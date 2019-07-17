@@ -28,8 +28,8 @@
         <!-- ===================================在这里编写HTML代码================================== -->
         <div style="padding: 20px 40px">
 
-        <div style="padding: 50px;font-size:40px;">个人存款
-            <button type="button" class="layui-btn"style="float:right">添加新存款目标</button>
+        <div style="padding: 50px;font-size:40px;" id="save">个人存款
+            <button type="button" class="layui-btn"style="float:right" onclick=window.location.href="/savegoal/savegoal">添加新存款目标</button>
         </div>
             <div id="currentState">
         <div class="layui-form-item" id="currentGoal">
@@ -72,9 +72,10 @@
 <!-- ================================在这里编写页面的js代码================================ -->
 <script>
 
-    layui.use(['element','table'], function(){
+    layui.use(['element','table','layer'], function(){
         var table = layui.table;
         var element=layui.element;
+        var layer=layui.layer;
         var uid=${uid};
 
         var initSelect = (function () {
@@ -107,10 +108,10 @@
                         '</div>'+
                         '<div>';
                         if(currentState.complete>=currentState.goal) {
-                            appendHtml += '  <button type="button" class="layui-btn layui-btn-normal" onclick="">提前完成</button>\n' +
-                                '  <button type="button" class="layui-btn layui-btn-danger">取消目标</button>\n';
+                            appendHtml += '  <button type="button" id="finish" class="layui-btn layui-btn-normal" onclick="">提前完成</button>\n' +
+                                '  <button type="button" id="cancel" class="layui-btn layui-btn-danger" data-method="concel">取消目标</button>\n';
                         }else {
-                            appendHtml += '<button type="button" class="layui-btn layui-btn-danger">取消目标</button>\n';
+                            appendHtml += '<button type="button" id="cancel" class="layui-btn layui-btn-danger">取消目标</button>\n';
                         }
                     appendHtml +='  </div>';
                     $(state).append(appendHtml);
@@ -171,8 +172,20 @@
             , first: true//显示首页
             , last: true //显示尾页
         });
+        /**
+         * 监听事件
+         */
+        //监听鼠标点击
+       function cancel() {
+            layer.open({
+                title: '在线调试'
+                ,content: '可以填写任意的layer代码'
+            });
+        }
+
     });
 </script>
+
 <!-- ================================END:在这里编写页面的js代码================================ -->
 </body>
 </html>
