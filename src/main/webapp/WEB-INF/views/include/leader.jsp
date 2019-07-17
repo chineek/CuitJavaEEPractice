@@ -77,7 +77,7 @@
                 <a class="" href="javascript:;">收支管理</a>
                 <dl class="layui-nav-child">
                     <dd><a href="${rootPath}account/list">查看账单</a></dd>
-                    <dd><a href="">添加账目</a></dd>
+                    <dd><a href="${rootPath}accountInfo/addInfo">添加账目</a></dd>
                 </dl>
             </li>
             <li class="layui-nav-item">
