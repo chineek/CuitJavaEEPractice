@@ -97,8 +97,8 @@
                                         <input type="radio" name="auid" value="2" title="普通成员">
                                         <%}%>
                                         <%if(auid == 2){%>
-                                        <input type="radio" name="auid" value="1" title="家长">
-                                        <input type="radio" name="auid" value="2" title="普通成员" checked>
+                                        <input type="radio" name="auid" value="1" title="家长" disabled>
+                                        <input type="radio" name="auid" value="2" title="普通成员" checked disabled>
                                         <%}%>
                                     </div>
                                 </div>
