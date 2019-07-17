@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import static org.junit.Assert.*;
 
 public class AccountTypeServiceImplTest {
     private ApplicationContext applicationContext;
@@ -26,7 +25,6 @@ public class AccountTypeServiceImplTest {
 
     @Test
     public void getAccountType() {
-        System.out.print(accountTypeService.getAccountType().size());
     }
 
     @Test
