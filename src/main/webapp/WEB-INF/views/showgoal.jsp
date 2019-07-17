@@ -175,8 +175,27 @@
         //监听鼠标点击
        function cancel() {
             layer.open({
-                title: '在线调试'
-                ,content: '可以填写任意的layer代码'
+                title: '提示'
+                ,content: '确定取消目标嘛？'
+                ,yes:function () {util.httpRequest.post("/savegoal/savegoal", {
+                    "uid":uid
+                }, function (msg) {
+                    if (msg.code === 200) {
+                        layer.alert(msg.info, {
+                            title: "提交结果"
+                        }, function () {
+                            window.location.href = "/savegoal/page";
+                        })
+                    } else {
+                        layer.msg(msg.info, {
+                            offset: '50%'
+                            , icon: 2
+                            , time: 3000
+                        });
+                    }
+                });
+                    
+                }
             });
         }
         $(state).on("click","#cancel",function () {

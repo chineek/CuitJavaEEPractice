@@ -86,7 +86,7 @@ public class SaveGoalController {
     }
 
     //取消存款目标
-    @RequestMapping(value = {"/concelGoal"})
+    @RequestMapping(value = {"/cancelGoal"})
     @ResponseBody
     public SaveGoalStatus ConcelGoal(HttpSession session,@RequestBody User user){
         SaveGoalStatus sgs=new SaveGoalStatus();
