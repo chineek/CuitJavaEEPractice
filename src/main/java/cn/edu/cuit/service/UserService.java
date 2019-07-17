@@ -19,4 +19,5 @@ public interface UserService {
     List<User> list(int uid);
     boolean isExists(String name);
     User get(String name,String password);
+    List<User> list1(int fid);
 }

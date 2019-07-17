@@ -43,10 +43,12 @@
                                     <label class="layui-form-label">性别</label>
                                     <div class="layui-input-block">
                                         <%if(sex == 0){%>
-                                        <input type="text" name="sex" required  lay-verify="required" value="男" autocomplete="off" class="layui-input">
+                                        <input type="radio" name="sex" value="0" title="男" checked>
+                                        <input type="radio" name="sex" value="1" title="女">
                                         <%}%>
                                         <%if(sex == 1){%>
-                                        <input type="text" name="sex" required  lay-verify="required" value="女" autocomplete="off" class="layui-input">
+                                        <input type="radio" name="sex" value="1" title="女" checked>
+                                        <input type="radio" name="sex" value="0" title="男">
                                         <%}%>
                                     </div>
                                 </div>
@@ -147,6 +149,12 @@
         //监听提交
         form.on('submit(userEditSubmit)', function(data){
             layer.msg(JSON.stringify(data.field));
+            var auid = data.field.auid;
+            if(auid == "家长") {
+                var a = 1;
+            }else {
+                var a = 2;
+            }
 
             var user = {
                 "uid":${userInfo.uid},
@@ -158,7 +166,7 @@
                 "phone": data.field.phone,
                 "motto": data.field.motto,
                 "role": data.field.role,
-                "auid": data.field.auid,
+                "auid": a,
                 "fid":data.field.fid
             };
             // 上载信息

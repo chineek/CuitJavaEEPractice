@@ -86,4 +86,12 @@ public class UserServiceImpl implements UserService {
         UserExample ue = new UserExample();
         return (int) userMapper.countByExample(ue);
     }
+
+    @Override
+    public List<User> list1(int fid){
+        UserExample ue1=new UserExample();
+        ue1.createCriteria().andFidEqualTo(fid);
+        ue1.setOrderByClause("fid desc");
+        return userMapper.selectByExample(ue1);
+    }
 }

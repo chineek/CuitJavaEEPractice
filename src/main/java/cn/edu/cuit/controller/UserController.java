@@ -48,9 +48,11 @@ public class UserController {
 
     @RequestMapping(value = {"/getUserList"})
     @ResponseBody
-    public UserListStatus getUserList(@RequestBody UserListCombination userListCombination) {
+    public UserListStatus getUserList(@RequestBody UserListCombination userListCombination,HttpSession session) {
         UserListStatus uls = new UserListStatus();
+        User user =(User) session.getAttribute("user");
         List<User> userList = (List<User>) userService.list(userListCombination);
+        userList=(List<User>) userService.list1(user.getFid());
         uls.setData(userList);
         uls.setCount(userService.getCountByUser());
         return uls;
