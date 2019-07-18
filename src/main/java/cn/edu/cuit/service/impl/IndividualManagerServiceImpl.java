@@ -34,24 +34,24 @@ public class IndividualManagerServiceImpl implements IndividualManagerService {
     //个人当前存款目标情况
     @Override
     public AccountAndDepositVo getIndividualState(int uid) {
-        AccountAndDepositVo adv=new AccountAndDepositVo();
+        AccountAndDepositVo adv = new AccountAndDepositVo();
 
-        AccountExample ae=new AccountExample();//收入查询
-        AccountExample.Criteria aeCriteria=ae.createCriteria();
+        AccountExample ae = new AccountExample();//收入查询
+        AccountExample.Criteria aeCriteria = ae.createCriteria();
 
-        AccountExample outae=new AccountExample();//支出查询
-        AccountExample.Criteria outaeCriteria=outae.createCriteria();
-        SpendingExample se=new SpendingExample();//额度查询
-        SpendingExample.Criteria seCriteria=se.createCriteria();
-        DepositExample de=new DepositExample();//目标查询
-        DepositExample.Criteria deCriteria=de.createCriteria();
+        AccountExample outae = new AccountExample();//支出查询
+        AccountExample.Criteria outaeCriteria = outae.createCriteria();
+        SpendingExample se = new SpendingExample();//额度查询
+        SpendingExample.Criteria seCriteria = se.createCriteria();
+        DepositExample de = new DepositExample();//目标查询
+        DepositExample.Criteria deCriteria = de.createCriteria();
         deCriteria.andUidEqualTo(uid);
         deCriteria.andIsCompleteEqualTo(0);
-        int count=(int)depositMapper.countByExample(de);
-        if(count!=0){
-        Deposit deposit=depositMapper.selectByExample(de).get(0);//当前进行的存款目标
+        int count = (int) depositMapper.countByExample(de);
+        if (count != 0) {
+            Deposit deposit = depositMapper.selectByExample(de).get(0);//当前进行的存款目标
 
-            if(deposit.getEndDate().before(new Date())){//判断目标是否过期
+            if (deposit.getEndDate().before(new Date())) {//判断目标是否过期
                 adv.setUid(uid);
                 adv.setStartDate(deposit.getStartDate());
                 adv.setEndDate(deposit.getEndDate());
@@ -59,7 +59,6 @@ public class IndividualManagerServiceImpl implements IndividualManagerService {
                 adv.setRemarks(deposit.getRemarks());
                 seCriteria.andUidEqualTo(uid);
                 seCriteria.andEndDateGreaterThan(new Date());
-                Spending spending = spendingMapper.selectByExample(se).get(0);//当前额度
 
                 aeCriteria.andUidEqualTo(uid);
                 aeCriteria.andIetypeEqualTo(0);
@@ -67,7 +66,7 @@ public class IndividualManagerServiceImpl implements IndividualManagerService {
 
                 outaeCriteria.andUidEqualTo(uid);
                 outaeCriteria.andIetypeEqualTo(1);
-                outaeCriteria.andDateBetween(spending.getStartDate(), spending.getEndDate());
+                outaeCriteria.andDateBetween(deposit.getStartDate(), deposit.getEndDate());
 
                 List<Account> accounts = accountMapper.selectByExample(ae);//当前目标时间内的账目
                 List<Account> outaccounts = accountMapper.selectByExample(outae);//当前额度时间内的账目
@@ -79,18 +78,18 @@ public class IndividualManagerServiceImpl implements IndividualManagerService {
                 for (int i = 0; i < outaccounts.size(); i++) {
                     out += outaccounts.get(i).getAmount().intValue();
                 }
-                Integer rs = sum + spending.getAmount().intValue() - out;
+                Integer rs = sum - out;
 
-                if(rs<deposit.getAmount()){
+                if (rs < deposit.getAmount()) {
                     deposit.setIsComplete(2);
                     depositMapper.updateByPrimaryKeySelective(deposit);//更新目标进行状态
                     return new AccountAndDepositVo();
-                }else {
+                } else {
                     deposit.setIsComplete(1);
                     depositMapper.updateByPrimaryKeySelective(deposit);//更新目标进行状态
                     return new AccountAndDepositVo();
                 }
-            }else {
+            } else {
                 adv.setUid(uid);
                 adv.setStartDate(deposit.getStartDate());
                 adv.setEndDate(deposit.getEndDate());
@@ -118,67 +117,71 @@ public class IndividualManagerServiceImpl implements IndividualManagerService {
                 for (int i = 0; i < outaccounts.size(); i++) {
                     out += outaccounts.get(i).getAmount().intValue();
                 }
-                Integer rs = sum + spending.getAmount().intValue() - out;
+                Integer rs = sum - out;
                 adv.setComplete(rs);
                 return adv;
             }
 
-        }else {
+        } else {
             return adv;
         }
 
 
     }
 
-   //个人历史存款目标
+    //个人历史存款目标
     @Override
     public List getHistoryGoal(SaveGoalCombination saveGoalCombination) {
-        DepositExample depositExample=new DepositExample();
+        DepositExample depositExample = new DepositExample();
         RowBounds rowBounds = new RowBounds((saveGoalCombination.getPage() - 1) * saveGoalCombination.getLimit(), saveGoalCombination.getLimit());
-        DepositExample.Criteria deCriteria=depositExample.createCriteria();
+        DepositExample.Criteria deCriteria = depositExample.createCriteria();
         deCriteria.andUidEqualTo(saveGoalCombination.getUid());
         deCriteria.andIsCompleteNotEqualTo(0);
-        List<Deposit> depositList=depositMapper.selectByExampleWithRowbounds(depositExample,rowBounds);
+        depositExample.setOrderByClause("did DESC");
+        List<Deposit> depositList = depositMapper.selectByExampleWithRowbounds(depositExample, rowBounds);
         return depositList;
     }
+
     //个人历史存款条数
     @Override
     public int getCountHistoryGoal(SaveGoalCombination saveGoalCombination) {
-        DepositExample depositExample=new DepositExample();
-        DepositExample.Criteria deCriteria=depositExample.createCriteria();
+        DepositExample depositExample = new DepositExample();
+        DepositExample.Criteria deCriteria = depositExample.createCriteria();
         deCriteria.andUidEqualTo(saveGoalCombination.getUid());
         deCriteria.andIsCompleteNotEqualTo(0);
-       return (int)depositMapper.countByExample(depositExample);
+        return (int) depositMapper.countByExample(depositExample);
 
     }
+
     //取消当前目标
     @Override
     public boolean cancelGoal(int uid) {
-        AccountAndDepositVo adv=new AccountAndDepositVo();
-        AccountExample ae=new AccountExample();
-        AccountExample.Criteria aeCriteria=ae.createCriteria();
-        DepositExample de=new DepositExample();
-        DepositExample.Criteria deCriteria=de.createCriteria();
+        AccountAndDepositVo adv = new AccountAndDepositVo();
+        AccountExample ae = new AccountExample();
+        AccountExample.Criteria aeCriteria = ae.createCriteria();
+        DepositExample de = new DepositExample();
+        DepositExample.Criteria deCriteria = de.createCriteria();
         deCriteria.andUidEqualTo(uid);
         deCriteria.andIsCompleteEqualTo(0);
-        Deposit deposit=depositMapper.selectByExample(de).get(0);//当前进行的存款目标
+        Deposit deposit = depositMapper.selectByExample(de).get(0);//当前进行的存款目标
         deposit.setIsComplete(2);
-        int rs=depositMapper.updateByPrimaryKeySelective(deposit);
-        return rs>0;
+        int rs = depositMapper.updateByPrimaryKeySelective(deposit);
+        return rs > 0;
     }
+
     //提前完成目标
     @Override
     public boolean finishGoal(int uid) {
-        AccountAndDepositVo adv=new AccountAndDepositVo();
-        AccountExample ae=new AccountExample();
-        AccountExample.Criteria aeCriteria=ae.createCriteria();
-        DepositExample de=new DepositExample();
-        DepositExample.Criteria deCriteria=de.createCriteria();
+        AccountAndDepositVo adv = new AccountAndDepositVo();
+        AccountExample ae = new AccountExample();
+        AccountExample.Criteria aeCriteria = ae.createCriteria();
+        DepositExample de = new DepositExample();
+        DepositExample.Criteria deCriteria = de.createCriteria();
         deCriteria.andUidEqualTo(uid);
         deCriteria.andIsCompleteEqualTo(0);
-        Deposit deposit=depositMapper.selectByExample(de).get(0);//当前进行的存款目标
+        Deposit deposit = depositMapper.selectByExample(de).get(0);//当前进行的存款目标
         deposit.setIsComplete(1);
-        int rs=depositMapper.updateByPrimaryKeySelective(deposit);
-        return rs>0;
+        int rs = depositMapper.updateByPrimaryKeySelective(deposit);
+        return rs > 0;
     }
 }
