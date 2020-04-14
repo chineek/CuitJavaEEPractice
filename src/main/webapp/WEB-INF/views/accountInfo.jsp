@@ -8,7 +8,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>生财有道 - 您的家庭理财好助手</title>
+    <title>运动场地管理 - 校园活动场地管理系统</title>
     <jsp:include page="include/head.jsp"/>
 </head>
 <body class="layui-layout-body">
@@ -19,7 +19,7 @@
     <div class="layui-body layui-bg-gray">
         <!-- ===================================在这里编写HTML代码================================== -->
     <div class="layui-card" style="margin-left:30px;margin-right:30px;margin-top:30px;">
-         <div class="layui-card-header">账单详情</div>
+         <div class="layui-card-header">场地详情</div>
          <div class="layui-card-body">
              <table class="layui-table" id="accountInfo">
                  <colgroup>
@@ -61,20 +61,20 @@
     })
     function showAccountInfo(result){
         var account = result;
-        var select1 = $("<td></td>").append("账单编号");
+        var select1 = $("<td></td>").append("租赁编号");
         var acid = $("<td></td>").append("NO."+account.acid);
         $("<tr></tr>").append(select1).append(acid).appendTo("#accountInfo tbody");
-        var select2 = $("<td></td>").append("账单金额");
-        var amount = $("<td></td>").append(account.amount+"￥");
+        var select2 = $("<td></td>").append("租赁人数");
+        var amount = $("<td></td>").append(account.amount);
         $("<tr></tr>").append(select2).append(amount).appendTo("#accountInfo tbody");
-        var select3 = $("<td></td>").append("收支类型");
+        var select3 = $("<td></td>").append("租赁状态");
         if(account.ietype == 1){
-            var ietype = $("<td></td>").append("支出");
+            var ietype = $("<td></td>").append("租赁中");
         }else{
-            var ietype = $("<td></td>").append("收入");
+            var ietype = $("<td></td>").append("已结束");
         }
         $("<tr></tr>").append(select3).append(ietype).appendTo("#accountInfo tbody");
-        var select4 = $("<td></td>").append("账单分类");
+        var select4 = $("<td></td>").append("场地位置");
         var typeName = $("<td></td>").append(account.typeName);
         $("<tr></tr>").append(select4).append(typeName).appendTo("#accountInfo tbody");
         var select5 = $("<td></td>").append("是否公开");

@@ -8,7 +8,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>生财有道 - 您的家庭理财好助手</title>
+    <title>运动场地管理 - 校园活动场地管理系统</title>
     <jsp:include page="include/head.jsp"/>
 </head>
 <body class="layui-layout-body">
@@ -19,25 +19,25 @@
     <div class="layui-body layui-bg-gray">
         <!-- ===================================在这里编写HTML代码================================== -->
         <div class="layui-card" style="margin-left:30px;margin-right:30px;margin-top:30px;">
-            <div class="layui-card-header">修改账单信息</div>
+            <div class="layui-card-header">修改租单信息</div>
             <div class="layui-card-body">
                 <form class="layui-form layui-form-pane" id="accountInfo" method="post">
                     <div class="layui-form-item" pane>
-                        <label class="layui-form-label">账目金额</label>
+                        <label class="layui-form-label">人数</label>
                         <div class="layui-input-block">
-                            <input type="text" name="amount" placeholder="￥" autocomplete="off" class="layui-input" value="${account.amount}">
+                            <input type="text" name="amount" placeholder="" autocomplete="off" class="layui-input" value="${account.amount}">
                         </div>
                     </div>
                     <div class="layui-form-item" pane>
-                    <label class="layui-form-label">收支类型</label>
+                    <label class="layui-form-label">场地状态</label>
                         <div class="layui-input-block">
                             <c:if test="${account.ietype == 1}">
-                                <input type="radio" name="ietype" value="0" title="收入">
-                                <input type="radio" name="ietype" value="1" title="支出" checked>
+                                <input type="radio" name="ietype" value="0" title="已结束">
+                                <input type="radio" name="ietype" value="1" title="租赁中" checked>
                             </c:if>
                             <c:if test="${account.ietype == 0}">
-                                <input type="radio" name="ietype" value="0" title="收入" checked>
-                                <input type="radio" name="ietype" value="1" title="支出">
+                                <input type="radio" name="ietype" value="0" title="已结束" checked>
+                                <input type="radio" name="ietype" value="1" title="租赁中">
                             </c:if>
                         </div>
                     </div>
@@ -55,16 +55,16 @@
                         </div>
                     </div>
                     <div class="layui-form-item" pane>
-                        <label class="layui-form-label">账单分类</label>
+                        <label class="layui-form-label">场地位置</label>
                         <div class="layui-input-block">
                             <select name="tid" lay-verify="required" id="select_id">
                             </select>
                         </div>
                     </div>
                     <div class="layui-form-item" pane>
-                        <label class="layui-form-label">账单备注</label>
+                        <label class="layui-form-label">备注</label>
                         <div class="layui-input-block">
-                            <textarea name="remarks" placeholder="请输入账单备注信息" class="layui-textarea">${account.remarks}</textarea>
+                            <textarea name="remarks" placeholder="请输入备注信息" class="layui-textarea">${account.remarks}</textarea>
                         </div>
                     </div>
                     <input type="hidden" name="tid" id="tid" value="${account.tid}">
@@ -130,10 +130,10 @@
             data:$("#accountInfo").serialize(),
             success:function(result){
                 if(result == "success"){
-                    window.alert("账单修改成功！");
+                    window.alert("租单修改成功！");
                     $(window).attr("location","../accountInfo/queryInfo?"+acid);
                 }else{
-                    window.alert("账单修改失败，请稍后重试！");
+                    window.alert("租单修改失败，请稍后重试！");
                 }
             }
         });

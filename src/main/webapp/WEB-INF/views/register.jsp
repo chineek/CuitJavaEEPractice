@@ -8,7 +8,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>生财有道 - 您的家庭理财好助手</title>
+    <title>运动场地管理 - 校园活动场地管理系统</title>
     <jsp:include page="include/head.jsp"/>
     <!-- 登录界面样式 -->
     <link rel="stylesheet" href="${rootPath}css/login.css">
@@ -23,12 +23,12 @@
          style="display: none;padding: 20px 0; ">
         <div class="layadmin-user-login-main" style="width:600px;">
             <div class="layadmin-user-login-box layadmin-user-login-header">
-                <h2>生财有道 - 登记家庭</h2>
+                <h2>运动场地管理 - 注册</h2>
                 <p>您的所有信息我们会为您保密，请放心填写</p>
             </div>
             <div class="layadmin-user-login-box layadmin-user-login-body layui-form">
                 <div class="layui-row layui-col-space10">
-                    <div class="layui-col-md6">
+                    <div class="layui-col-md12">
                         <fieldset class="layui-elem-field">
                             <legend>个人信息</legend>
                             <div class="layui-field-box">
@@ -75,7 +75,14 @@
                                            for="LAY-user-reg-occupation"></label>
                                     <input autocomplete="off" type="text" name="occupation" id="LAY-user-reg-occupation"
                                            lay-verify="required"
-                                           placeholder="职业" class="layui-input">
+                                           placeholder="部门" class="layui-input">
+                                </div>
+                                <div class="layui-form-item">
+                                    <label class="layadmin-user-login-icon layui-icon layui-icon-face-smile"
+                                           for="LAY-user-reg-role"></label>
+                                    <input autocomplete="off" type="text" name="role" id="LAY-user-reg-role"
+                                           lay-verify="required"
+                                           placeholder="岗位" class="layui-input">
                                 </div>
                                 <div class="layui-form-item">
                                     <label class="layadmin-user-login-icon layui-icon layui-icon-cellphone"
@@ -84,67 +91,7 @@
                                            lay-verify="phone"
                                            placeholder="手机号" class="layui-input">
                                 </div>
-                                <div class="layui-form-item">
-                                    <label class="layadmin-user-login-icon layui-icon layui-icon-face-smile"
-                                           for="LAY-user-reg-role"></label>
-                                    <input autocomplete="off" type="text" name="role" id="LAY-user-reg-role"
-                                           lay-verify="required"
-                                           placeholder="家庭角色(爸爸、儿子)" class="layui-input">
-                                </div>
-                            </div>
-                        </fieldset>
-                    </div>
-                    <div class="layui-col-md6">
-                        <fieldset class="layui-elem-field">
-                            <legend>个人信息</legend>
-                            <div class="layui-field-box">
-                                <div class="layui-form-item">
-                                    <label class="layadmin-user-login-icon layui-icon layui-icon-rmb"
-                                           for="LAY-user-reg-salary"></label>
-                                    <input autocomplete="off" type="text" name="salary" id="LAY-user-reg-salary"
-                                           lay-verify="salary"
-                                           placeholder="大致年收入" class="layui-input">
-                                </div>
-                                <div class="layui-form-item">
-                                    <label class="layadmin-user-login-icon layui-icon layui-icon-flag"
-                                           for="LAY-user-reg-motto"></label>
-                                    <input autocomplete="off" type="text" name="motto" id="LAY-user-reg-motto"
-                                           lay-verify="motto"
-                                           placeholder="人生目标" class="layui-input">
-                                </div>
-                            </div>
-                        </fieldset>
-                        <fieldset class="layui-elem-field">
-                            <legend>家庭信息</legend>
-                            <div class="layui-field-box">
-                                <div class="layui-form-item">
-                                    <label class="layadmin-user-login-icon layui-icon layui-icon-home"
-                                           for="LAY-user-reg-fname"></label>
-                                    <input autocomplete="off" type="text" name="fname" id="LAY-user-reg-fname"
-                                           lay-verify="required"
-                                           placeholder="家庭名称" class="layui-input">
-                                </div>
-                                <div class="layui-form-item">
-                                    <label class="layadmin-user-login-icon layui-icon layui-icon-location"
-                                           for="LAY-user-reg-faddress"></label>
-                                    <input autocomplete="off" type="text" name="faddress" id="LAY-user-reg-faddress"
-                                           lay-verify="required"
-                                           placeholder="家庭地址" class="layui-input">
-                                </div>
-                                <div class="layui-form-item">
-                                    <label class="layadmin-user-login-icon layui-icon layui-icon-speaker"
-                                           for="LAY-user-reg-fmotto"></label>
-                                    <input autocomplete="off" type="text" name="fmotto" id="LAY-user-reg-fmotto"
-                                           lay-verify="fmotto"
-                                           placeholder="家庭宣言" class="layui-input">
-                                </div>
-                                <div class="layui-form-item">
-                                    <input type="checkbox" name="isExpose" lay-skin="primary" title="允许他人查看家庭信息"
-                                           checked="">
-                                    <div class="layui-unselect layui-form-checkbox layui-form-checked"
-                                         lay-skin="primary">
-                                        <span>公开</span><i class="layui-icon layui-icon-ok"></i></div>
-                                </div>
+
                             </div>
                         </fieldset>
                     </div>
@@ -158,19 +105,19 @@
                             class="layui-icon layui-icon-ok"></i></div>
                 </div>
                 <div class="layui-form-item">
-                    <button class="layui-btn layui-btn-fluid" lay-submit="" lay-filter="user-reg-submit">开始使用生财有道
+                    <button class="layui-btn layui-btn-fluid" lay-submit="" lay-filter="user-reg-submit">开始管理活动场地
                     </button>
                 </div>
                 <div class="layui-trans layui-form-item layadmin-user-login-other">
-                    <label>社交账号注册</label>
+                    <label>校园账号认证</label>
                     <a href="javascript:;"><i class="layui-icon layui-icon-login-qq"></i></a>
-                    <a href="log" class="layadmin-user-jump-change layadmin-link layui-hide-xs">用已有家庭登入</a>
+                    <a href="log" class="layadmin-user-jump-change layadmin-link layui-hide-xs">用已有名称登入</a>
                 </div>
             </div>
         </div>
 
         <div class="layui-trans layadmin-user-login-footer">
-            <p>© 生财有道开发部 - 成都东软软件股份有限公司</p>
+            <p>© 校园活动场地管理系统 - 成都信息工程大学</p>
         </div>
     </div>
 </div>
@@ -244,25 +191,16 @@
                 "birthday": new Date(data.field.birthday),
                 "sex": parseInt(data.field.sex),
                 "occupation": data.field.occupation,
-                "salary": parseFloat(data.field.salary).toFixed(2),
                 "phone": data.field.phone,
-                "motto": data.field.motto,
                 "role": data.field.role,
                 "avatar": "default",
                 "auid": 1,
                 "isAvaliable": 1,
                 "createDate": new Date()
             };
-            var family = {
-                "name": data.field.fname,
-                "motto": data.field.fmotto,
-                "address": data.field.faddress,
-                "isExpose": data.field.isExpose ? 1 : 0,
-                "avatar": "default"
-            };
             util.httpRequest.post("rDo", {
                 "user": user,
-                "family": family
+                "family": null
             }, function (msg) {
                 if (msg.code === 200) {
                     window.location.href = "log";

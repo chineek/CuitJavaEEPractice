@@ -13,7 +13,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>生财有道 - 您的家庭理财好助手</title>
+    <title>运动场地管理 - 校园活动场地管理系统手</title>
     <jsp:include page="include/head.jsp"/>
     <script src="${rootPath}lib/echarts.js"></script>
     <script src="${rootPath}js/echarts-helper.js"></script>
@@ -42,41 +42,41 @@
                         <h1 style="line-height: 30px;">${user.name}，<span id="greeting"></span>。</h1>
                         <div class="layui-text" style="line-height: 30px;padding-bottom: 15px;">
                             <i class="layui-icon layui-icon-notice" style="color: #FFB800;"></i>
-                            今天是<span id="nowDatetime"></span> 欢迎您使用生财有道家庭理财系统！
+                            今天是<span id="nowDatetime"></span> 欢迎您使用成都信息工程大学 - 校园活动场地管理系统！
                         </div>
                         <!-- END:欢迎信息 -->
                         <!-- 个人情况 -->
                         <div class="layui-row layui-col-space30">
                             <div class="layui-col-md2">
-                                <div style="line-height: 18px;">存款目标</div>
+                                <div style="line-height: 18px;">运动人数</div>
                             </div>
                             <div class="layui-col-md7">
                                 <div class="layui-progress layui-progress-big" lay-showPercent="yes">
-                                    <div class="layui-progress-bar layui-bg-green" lay-percent="9996/12456"></div>
+                                    <div class="layui-progress-bar layui-bg-green" lay-percent="60/84"></div>
                                 </div>
                             </div>
                             <div class="layui-col-space3">
-                                <div style="line-height: 18px;">还有8天</div>
+                                <div style="line-height: 18px;">有20%用户未运动</div>
                             </div>
                         </div>
                         <div class="layui-row layui-col-space30">
                             <div class="layui-col-md2">
-                                <div style="line-height: 18px;">消费额度</div>
+                                <div style="line-height: 18px;">场地使用</div>
                             </div>
                             <div class="layui-col-md7">
                                 <div class="layui-progress layui-progress-big" lay-showPercent="yes">
-                                    <div class="layui-progress-bar layui-bg-orange" lay-percent="1400/5000"></div>
+                                    <div class="layui-progress-bar layui-bg-orange" lay-percent="2/10"></div>
                                 </div>
                             </div>
                             <div class="layui-col-space3">
-                                <div style="line-height: 18px;">剩余3600元</div>
+                                <div style="line-height: 18px;">有8个闲置场地</div>
                             </div>
                         </div>
                         <!-- END:个人情况 -->
                     </div>
                 </div>
                 <div class="layui-card">
-                    <div class="layui-card-header">本月收支情况（收入100.0元，支出3000.0元）</div>
+                    <div class="layui-card-header">本月租赁情况（租赁人数102人，租赁场次35场）</div>
                     <div class="layui-card-body" style="padding: 0 10px 0 20px;">
                         <div class="layui-row">
                             <!-- 本月收支情况 -->
@@ -95,7 +95,7 @@
             </div>
             <div class="layui-col-md6">
                 <div class="layui-card">
-                    <div class="layui-card-header">近月收支情况</div>
+                    <div class="layui-card-header">近月使用情况</div>
                     <div class="layui-card-body" style="padding: 0 10px 5px 20px;">
                         <div id="echartsRecentMonthBar" style="width: 100%;height: 280px;"></div>
                     </div>
@@ -103,7 +103,7 @@
                 <div class="layui-card">
                     <div class="layui-card-header">
                         <div class="layui-row">
-                            <div class="layui-col-md6">近期账单</div>
+                            <div class="layui-col-md6">近期场地使用记录</div>
                             <div class="layui-col-md6" style="text-align: right;padding-right: 20px;">
                                 <a href="${rootPath}account/list" style="color:#01AAED;">
                                     <small>查看更多</small>
@@ -116,16 +116,16 @@
                                lay-data="{page:false}" lay-filter="recentAccount">
                             <thead>
                             <tr>
-                                <th lay-data="{field:'id', width:'12%'}">收支</th>
-                                <th lay-data="{field:'username', width:'20%'}">金额</th>
+                                <th lay-data="{field:'id', width:'20%'}">场地状态</th>
+                                <th lay-data="{field:'username', width:'12%'}">人数</th>
                                 <th lay-data="{field:'sex', width:'30%'}">时间</th>
-                                <th lay-data="{field:'city',width:'38%'}">类型</th>
+                                <th lay-data="{field:'city',width:'38%'}">场地位置</th>
                             </tr>
                             </thead>
                             <tbody>
                             <c:forEach var="account" items="${accountList}">
                                 <tr>
-                                    <td>${account.ietype==0?'收入':'支出'}</td>
+                                    <td>${account.ietype==0?'使用中':'结束'}</td>
                                     <td>
                                         <fmt:formatNumber type="number" maxFractionDigits="2"
                                                           value="${account.amount}"/>

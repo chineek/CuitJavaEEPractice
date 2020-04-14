@@ -15,7 +15,7 @@
 
 <html>
 <head>
-    <title>生财有道 - 您的家庭理财好助手</title>
+    <title>运动场地管理 - 校园活动场地管理系统</title>
     <jsp:include page="include/head.jsp"/>
 </head>
 <body class="layui-layout-body">
@@ -29,24 +29,24 @@
         <div class="layui-row layui-col-space20" >
             <h1 align=center></h1>
             <div class="layui-col-lg8">
-                <h1 align=center>类型管理</h1>
+                <h1 align=center>位置管理</h1>
                 <table class="layui-table" id="ATlist" lay-filter="test"></table></div>
             <div class="layui-col-lg4">
                 <h1 align=center></h1>
                 <div class="layui-card">
-                    <div class="layui-card-header">账单类型添加</div>
+                    <div class="layui-card-header">场地位置添加</div>
                     <div class="layui-card-body">
                         <form class="layui-form" action="">
                         <div class="layui-form-item">
-                            <label class="layui-form-label">账目类型</label>
+                            <label class="layui-form-label">场地位置</label>
                             <div class="layui-input-block">
-                                <input type="text" name="name" lay-verify="name" id= "name" autocomplete="off" placeholder="请输入类型" class="layui-input">
+                                <input type="text" name="name" lay-verify="name" id= "name" autocomplete="off" placeholder="请输入位置" class="layui-input">
                             </div>
                         </div>
                         <div class="layui-form-item layui-form-text">
-                            <label class="layui-form-label">类型描述</label>
+                            <label class="layui-form-label">位置描述</label>
                             <div class="layui-input-block">
-                                <textarea name="description" placeholder="请输入该类型描述" class="layui-textarea"></textarea>
+                                <textarea name="description" placeholder="请输入该位置描述" class="layui-textarea"></textarea>
                             </div>
                         </div>
                         <div class="layui-form-item">

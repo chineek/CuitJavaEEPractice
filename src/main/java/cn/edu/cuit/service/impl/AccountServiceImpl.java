@@ -2,8 +2,10 @@ package cn.edu.cuit.service.impl;
 
 import cn.edu.cuit.VO.AccountCombination;
 import cn.edu.cuit.dao.AccountMapper;
+import cn.edu.cuit.dao.AccountTypeMapper;
 import cn.edu.cuit.entity.Account;
 import cn.edu.cuit.entity.AccountExample;
+import cn.edu.cuit.entity.AccountType;
 import cn.edu.cuit.service.AccountService;
 import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +22,8 @@ import java.util.List;
 public class AccountServiceImpl implements AccountService {
     @Autowired
     AccountMapper accountMapper;
-
+    @Autowired
+    AccountTypeMapper accountTypeMapper;
     /**
      * 封装查询条件的Example
      *
@@ -64,7 +67,13 @@ public class AccountServiceImpl implements AccountService {
                 new RowBounds((accountCombination.getPage() - 1) * accountCombination.getLimit(),
                         accountCombination.getLimit());
         AccountExample ae = getAccountExampleByAccountCombination(accountCombination);
-        return (List<Account>) accountMapper.selectByExampleWithRowbounds(ae, rowBounds);
+        List<Account> accountListRes =  (List<Account>) accountMapper.selectByExampleWithRowbounds(ae, rowBounds);
+        for (Account account : accountListRes) {
+            AccountType at = accountTypeMapper.selectByPrimaryKey(account.getTid());
+            String name = at.getName();
+            account.setRemarks(name);
+        }
+        return accountListRes;
     }
 
     /**

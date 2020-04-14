@@ -30,32 +30,32 @@
 %>
 <!-- 头部和导航区域（请不要修改） -->
 <div class="layui-header">
-    <div class="layui-logo">生财有道</div>
+    <div class="layui-logo">校园活动管理</div>
 
     <ul class="layui-nav layui-layout-left">
-        <li class="layui-nav-item"><a href="${rootPath}index/">个人首页</a></li>
+<%--        <li class="layui-nav-item"><a href="${rootPath}index/">个人首页</a></li>--%>
         <c:if test="${auid==1}">
             <li class="layui-nav-item">
-                <a href="javascript:void(0);">成员管理</a>
+                <a href="javascript:void(0);">用户管理</a>
                 <dl class="layui-nav-child">
-                    <dd><a href="${rootPath}user/add">添加成员</a></dd>
-                    <dd><a href="${rootPath}user/list">查询成员列表</a></dd>
+                    <dd><a href="${rootPath}user/add">添加用户</a></dd>
+                    <dd><a href="${rootPath}user/list">查询用户列表</a></dd>
                 </dl>
             </li>
-            <li class="layui-nav-item">
-                <a href="javascript:void(0);">家庭情况</a>
-                <dl class="layui-nav-child">
-                    <dd><a href="">家庭报表</a></dd>
-                    <dd><a href="">家庭信息</a></dd>
-                </dl>
-            </li>
-            <li class="layui-nav-item">
-                <a href="javascript:void(0);">账单管理</a>
-                <dl class="layui-nav-child">
-                    <dd><a href="${rootPath}accountType/">添加账目类型</a></dd>
-                </dl>
-            </li>
-            <li class="layui-nav-item"><a href="">家庭财务管理</a></li>
+<%--            <li class="layui-nav-item">--%>
+<%--                <a href="javascript:void(0);">家庭情况</a>--%>
+<%--                <dl class="layui-nav-child">--%>
+<%--                    <dd><a href="">家庭报表</a></dd>--%>
+<%--                    <dd><a href="">家庭信息</a></dd>--%>
+<%--                </dl>--%>
+<%--            </li>--%>
+<%--            <li class="layui-nav-item">--%>
+<%--                <a href="javascript:void(0);">账单管理</a>--%>
+<%--                <dl class="layui-nav-child">--%>
+<%--                    <dd><a href="${rootPath}accountType/">添加账目类型</a></dd>--%>
+<%--                </dl>--%>
+<%--            </li>--%>
+<%--            <li class="layui-nav-item"><a href="">家庭财务管理</a></li>--%>
         </c:if>
     </ul>
 
@@ -87,25 +87,25 @@
             <li class="layui-nav-item <%=uri.equals("personalIndex")?"layui-nav-itemed":""%>"><a
                     href="${rootPath}index/">首页</a></li>
             <li class="layui-nav-item <%=uri.equals("accountList")?"layui-nav-itemed":""%> <%=uri.equals("addAccount")?"layui-nav-itemed":""%>">
-                <a class="" href="javascript:;">收支管理</a>
+                <a class="" href="javascript:;">场地管理</a>
                 <dl class="layui-nav-child">
-                    <dd class="<%=uri.equals("accountList")?"layui-nav-itemed":""%>"><a href="${rootPath}account/list">查看账单</a>
+                    <dd class="<%=uri.equals("accountList")?"layui-nav-itemed":""%>"><a href="${rootPath}account/list">场地列表</a>
                     </dd>
                     <dd class="<%=uri.equals("addAccount")?"layui-nav-itemed":""%>"><a
-                            href="${rootPath}accountInfo/addInfo">添加账目</a></dd>
+                            href="${rootPath}accountInfo/addInfo">增加场地</a></dd>
                 </dl>
             </li>
             <li class="layui-nav-item <%=uri.equals("lineoflimit")?"layui-nav-itemed":""%> <%=uri.equals("showgoal")?"layui-nav-itemed":""%>">
-                <a href="javascript:;">财务管理</a>
+                <a href="javascript:;">活动管理</a>
                 <dl class="layui-nav-child">
                     <dd class="<%=uri.equals("lineoflimit")?"layui-nav-itemed":""%>">
-                        <a href="${rootPath}limit/page">额度查询</a>
+                        <a href="${rootPath}limit/page">发布活动</a>
                     </dd>
-                    <dd class="<%=uri.equals("lineoflimit")?"layui-nav-itemed":""%>">
-                        <a href="${rootPath}limit/page">添加额度限制</a>
-                    </dd>
+<%--                    <dd class="<%=uri.equals("lineoflimit")?"layui-nav-itemed":""%>">--%>
+<%--                        <a href="${rootPath}limit/page">发布活动</a>--%>
+<%--                    </dd>--%>
                     <dd class="<%=uri.equals("showgoal")?"layui-nav-itemed":""%>">
-                        <a href="${rootPath}savegoal/page">存款目标管理</a>
+                        <a href="${rootPath}savegoal/page">查看活动</a>
                     </dd>
                 </dl>
             </li>

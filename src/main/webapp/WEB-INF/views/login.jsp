@@ -8,7 +8,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>生财有道 - 您的家庭理财好助手</title>
+    <title>运动场地管理 - 校园活动场地管理系统</title>
     <jsp:include page="include/head.jsp"/>
     <!-- 登录界面样式 -->
     <link rel="stylesheet" href="${rootPath}css/login.css">
@@ -22,8 +22,8 @@
     <div class="layadmin-user-login layadmin-user-display-show" id="LAY-user-login" style="display: none;">
         <div class="layadmin-user-login-main">
             <div class="layadmin-user-login-box layadmin-user-login-header">
-                <h2>生财有道 - 登录</h2>
-                <p>您家庭的理财好助手。</p>
+                <h2>校园活动场地管理 - 登录</h2>
+                <p>青春、健康、运动</p>
             </div>
             <div class="layadmin-user-login-box layadmin-user-login-body layui-form" lay-filter="user-login-form">
                 <div class="layui-form-item">
@@ -51,15 +51,15 @@
                     </button>
                 </div>
                 <div class="layui-trans layui-form-item layadmin-user-login-other">
-                    <label>社交账号登入</label>
+                    <label>校园账号登入</label>
                     <a href="javascript:;"><i class="layui-icon layui-icon-login-qq"></i></a>
-                    <a href="reg" class="layadmin-user-jump-change layadmin-link">注册新家庭</a>
+                    <a href="reg" class="layadmin-user-jump-change layadmin-link">注册账号</a>
                 </div>
             </div>
         </div>
 
         <div class="layui-trans layadmin-user-login-footer">
-            <p>© 生财有道开发部 - 成都东软软件股份有限公司</p>
+            <p>© 校园活动场地管理系统 - 成都信息工程大学</p>
         </div>
     </div>
 </div>
@@ -99,6 +99,7 @@
             // 上载信息
             userInfo.password = sha256_digest(data.field.password);
             util.httpRequest.post("do", userInfo, function (msg) {
+
                 if (msg.code === 200) {
                     window.location.href = "/index/";
                 } else {

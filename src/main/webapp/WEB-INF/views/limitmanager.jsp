@@ -10,7 +10,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title>生财有道 - 您的家庭理财好助手</title>
+    <title>运动场地管理 - 校园活动场地管理系统</title>
     <link rel="stylesheet" href="asset/lib/layui/css/layui.css">
 
 </head>
@@ -18,24 +18,24 @@
 <div class="layui-layout layui-layout-admin">
     <!-- 头部和导航区域（请不要修改） -->
     <div class="layui-header">
-        <div class="layui-logo">生财有道</div>
+        <div class="layui-logo">校园活动场地管理</div>
         <ul class="layui-nav layui-layout-left">
             <li class="layui-nav-item"><a href="">首页</a></li>
             <li class="layui-nav-item">
-                <a href="javascript:void(0);">成员管理</a>
+                <a href="javascript:void(0);">用户管理</a>
                 <dl class="layui-nav-child">
-                    <dd><a href="">添加成员</a></dd>
-                    <dd><a href="">查询成员列表</a></dd>
+                    <dd><a href="">添加用户</a></dd>
+                    <dd><a href="">查询用户列表</a></dd>
                 </dl>
             </li>
-            <li class="layui-nav-item">
-                <a href="javascript:void(0);">家庭情况</a>
-                <dl class="layui-nav-child">
-                    <dd><a href="">家庭报表</a></dd>
-                    <dd><a href="">家庭信息</a></dd>
-                </dl>
-            </li>
-            <li class="layui-nav-item"><a href="">家庭财务管理</a></li>
+<%--            <li class="layui-nav-item">--%>
+<%--                <a href="javascript:void(0);">家庭情况</a>--%>
+<%--                <dl class="layui-nav-child">--%>
+<%--                    <dd><a href="">家庭报表</a></dd>--%>
+<%--                    <dd><a href="">家庭信息</a></dd>--%>
+<%--                </dl>--%>
+<%--            </li>--%>
+<%--            <li class="layui-nav-item"><a href="">家庭财务管理</a></li>--%>
         </ul>
         <ul class="layui-nav layui-layout-right">
             <li class="layui-nav-item"><a href="">登录系统</a></li>
@@ -58,20 +58,20 @@
             <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
             <ul class="layui-nav layui-nav-tree">
                 <li class="layui-nav-item layui-nav-itemed"><a href="">首页</a></li>
-                <li class="layui-nav-item">
-                    <a class="" href="javascript:;">收支管理</a>
-                    <dl class="layui-nav-child">
-                        <dd><a href="">账目列表</a></dd>
-                        <dd><a href="">添加账目</a></dd>
-                    </dl>
-                </li>
-                <li class="layui-nav-item">
-                    <a href="javascript:;">财务管理</a>
-                    <dl class="layui-nav-child">
-                        <dd><a href="">额度查询</a></dd>
-                        <dd><a href="">存款目标管理</a></dd>
-                    </dl>
-                </li>
+<%--                <li class="layui-nav-item">--%>
+<%--                    <a class="" href="javascript:;">收支管理</a>--%>
+<%--                    <dl class="layui-nav-child">--%>
+<%--                        <dd><a href="">账目列表</a></dd>--%>
+<%--                        <dd><a href="">添加账目</a></dd>--%>
+<%--                    </dl>--%>
+<%--                </li>--%>
+<%--                <li class="layui-nav-item">--%>
+<%--                    <a href="javascript:;">财务管理</a>--%>
+<%--                    <dl class="layui-nav-child">--%>
+<%--                        <dd><a href="">额度查询</a></dd>--%>
+<%--                        <dd><a href="">存款目标管理</a></dd>--%>
+<%--                    </dl>--%>
+<%--                </li>--%>
                 <li class="layui-nav-item"><a href="">系统设置</a></li>
             </ul>
         </div>

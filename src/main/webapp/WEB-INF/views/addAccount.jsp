@@ -8,7 +8,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>生财有道 - 您的家庭理财好助手</title>
+    <title>运动场地管理 - 校园活动场地管理系统</title>
     <jsp:include page="include/head.jsp"/>
 </head>
 <body class="layui-layout-body">
@@ -19,21 +19,21 @@
     <div class="layui-body layui-bg-gray">
         <!-- ===================================在这里编写HTML代码================================== -->
         <div class="layui-card" style="margin-left:30px;margin-right:30px;margin-top:30px;">
-            <div class="layui-card-header">添加账单信息</div>
+            <div class="layui-card-header">添加租单</div>
             <div class="layui-card-body">
                 <form class="layui-form layui-form-pane" id="accountInfo" method="post">
                     <div class="layui-form-item" pane>
-                        <label class="layui-form-label">账目金额</label>
+                        <label class="layui-form-label">人数</label>
                         <div class="layui-input-block">
-                            <input type="text" lay-verify="required|number" id="amount" name="amount" placeholder="￥"
+                            <input type="text" lay-verify="required|number" id="amount" name="amount" placeholder=""
                                    autocomplete="off" class="layui-input" value="">
                         </div>
                     </div>
                     <div class="layui-form-item" pane>
-                        <label class="layui-form-label">收支类型</label>
+                        <label class="layui-form-label">场地状态</label>
                         <div class="layui-input-block">
-                            <input type="radio" name="ietype" value="0" title="收入">
-                            <input type="radio" name="ietype" value="1" title="支出" checked>
+                            <input type="radio" name="ietype" value="0" title="已结束">
+                            <input type="radio" name="ietype" value="1" title="使用中" checked>
                         </div>
                     </div>
                     <div class="layui-form-item" pane>
@@ -44,16 +44,16 @@
                         </div>
                     </div>
                     <div class="layui-form-item" pane>
-                        <label class="layui-form-label">账单分类</label>
+                        <label class="layui-form-label">场地位置</label>
                         <div class="layui-input-block">
                             <select lay-verify="required" name="tid" id="select_id">
                             </select>
                         </div>
                     </div>
                     <div class="layui-form-item" pane>
-                        <label class="layui-form-label">账单备注</label>
+                        <label class="layui-form-label">备注</label>
                         <div class="layui-input-block">
-                            <textarea name="remarks" placeholder="请输入账单备注信息" class="layui-textarea" value=""></textarea>
+                            <textarea name="remarks" placeholder="请输入备注信息" class="layui-textarea" value=""></textarea>
                         </div>
                     </div>
                     <input type="hidden" name="uid" value="${uid}" id="uid">
@@ -91,7 +91,7 @@
                         if (result === "success") {
                             $(window).attr("location", "${rootPath}account/list");
                         } else {
-                            layer.msg("账单添加失败，请稍后重试！", {
+                            layer.msg("添加失败，请稍后重试！", {
                                 offset: '50px'
                                 , icon: 2
                                 , time: 1000
@@ -128,12 +128,12 @@
     //表单提交验证
     function check() {
         if ($("#amount").val() === "") {
-            window.alert("请输入账目金额！");
+            window.alert("请输入人数！");
             $("#amount").focus();
             return false;
         }
         if ($("#select_id").val() === "") {
-            window.alert("请选择账目类型！");
+            window.alert("请选择地址！");
             $("#select_id").focus();
             return false;
         }

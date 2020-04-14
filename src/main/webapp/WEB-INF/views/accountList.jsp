@@ -12,7 +12,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>生财有道 - 您的家庭理财好助手</title>
+    <title>运动场地管理 - 校园活动场地管理系统</title>
     <jsp:include page="include/head.jsp"/>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -25,7 +25,7 @@
     <div class="layui-body" style="padding:30px 50px;">
         <!-- ===================================在这里编写HTML代码================================== -->
         <fieldset class="layui-elem-field layui-field-title">
-            <legend>账单详情</legend>
+            <legend>场地使用情况</legend>
         </fieldset>
         <div class="layui-row">
             <div class="layui-col-md10">
@@ -34,8 +34,8 @@
                         <div class="layui-input-inline">
                             <select name="ietype" lay-filter="type">
                                 <option value="2" selected="">全部</option>
-                                <option value="0">收入</option>
-                                <option value="1">支出</option>
+                                <option value="0">使用中</option>
+                                <option value="1">结束</option>
                             </select>
                         </div>
                         <div class="layui-input-inline">
@@ -57,7 +57,7 @@
             </div>
             <div class="layui-col-md2">
                 <div class="layui-input-block" style="float: right;padding-right:20px;">
-                    <button class="layui-btn layui-btn-lg" lay-event="add" id="add">添加账目
+                    <button class="layui-btn layui-btn-lg" lay-event="add" id="add">指派场地
                     </button>
                 </div>
             </div>
@@ -133,21 +133,21 @@
                         },
                         {
                             field: 'ietype',
-                            title: '收支类型',
+                            title: '场地状态',
                             minWidth: 150,
                             templet: function (item) {  //将类型数字转换为对应类型
                                 var typeInt = parseInt(item.ietype);
                                 if (typeInt === 0) {
-                                    return "收入";
+                                    return "结束";
                                 } else if (typeInt === 1) {
-                                    return "支出";
+                                    return "使用中";
                                 }
                             }
                         }
                         , {
-                            field: 'amount', title: '金额', minWidth: 150, sort: true,
+                            field: 'amount', title: '人数', minWidth: 150, sort: true,
                             templet: function (item) {  //将金额设置为两位小数显示
-                                return parseFloat(item.amount).toFixed(2)
+                                return parseInt(item.amount)
                             }
                         }
                         , {
@@ -156,7 +156,7 @@
                                 return util.date.format(item.date, "yyyy-MM-dd hh:mm")
                             }
                         }
-                        , {field: 'remarks', title: '收支备注', minWidth: 150}
+                        , {field: 'remarks', title: '场地位置', minWidth: 150}
                         , {field: 'option', title: '操作', toolbar: '#accountListToolBarItem', minWidth: 200}  //调用按钮
                     ]]
                     , even: true
@@ -229,7 +229,7 @@
                         layer.close(index);
                         util.httpRequest.post("/accountInfo/deleteAccount", {"acid": data.acid}, function (data) {
                             if (data.msg === "success") {
-                                layer.msg("账单删除成功！", {
+                                layer.msg("删除成功！", {
                                     title: "提交信息"
                                 });
                             } else {
